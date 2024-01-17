@@ -22,6 +22,6 @@ By using this beta firmware, you agree to the terms and conditions of the [Beta 
 ### About AGCL-R (AGESA Compatibility Layer - Reduced)
 
 AGCL-R:
-- This code in this repository is based on a production version of the AGESA Platform Initialization (PI) Package for AMD Genoa CPUs.
+- The code in this repository is based on a production version of the AGESA Platform Initialization (PI) Package for AMD Genoa CPUs.
 - This code utilizes opensil-uefi-interface protocols in order to interface with openSIL.
 - Based on externally released (under NDA) AGESA PI code.
