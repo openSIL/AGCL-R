@@ -1,0 +1,1576 @@
+/*****************************************************************************
+*
+ * Copyright (C) 2016-2024 Advanced Micro Devices, Inc. All rights reserved.
+ *
+*******************************************************************************
+/**
+ *
+ * @file ApcbDefaults.h
+ *
+ * @details Platform default parameter declaration in AGESA PSP Customization Block.
+ *
+ **/
+//
+// OEM CUSTOMIZABLE DEFINITIONS. Any changes must be done here...
+//
+
+#ifndef _APCB_DEFAULTS_H_
+#define _APCB_DEFAULTS_H_
+
+#ifndef BLDCFG_FAMILY_ALL
+  #define BLDCFG_FAMILY_ALL                                                    AMD_FAMILY_17_ALL
+#endif
+#ifndef BLDCFG_FAMILY_APCB
+  #define BLDCFG_FAMILY_APCB                                                   AMD_F17_ALL_APCB
+#endif
+
+#ifndef BLDCFG_EXTERNAL_PARAMS_DEF_ENABLED
+  #define BLDCFG_EXTERNAL_PARAMS_DEF_ENABLED                                   TRUE
+#endif
+#ifndef BLDCFG_EXTERNAL_PARAMS_ENABLED
+  #define BLDCFG_EXTERNAL_PARAMS_ENABLED                                       FALSE
+#endif
+
+
+#ifndef APCB_TOKEN_UID_BOTTOMIO_VALUE
+  #define APCB_TOKEN_UID_BOTTOMIO_VALUE                                        0xE0
+#endif
+#ifndef APCB_TOKEN_UID_MEMHOLEREMAPPING_VALUE
+  #define APCB_TOKEN_UID_MEMHOLEREMAPPING_VALUE                                TRUE
+#endif
+#ifndef APCB_TOKEN_UID_LIMITMEMORYTOBELOW1TB_VALUE
+  #define APCB_TOKEN_UID_LIMITMEMORYTOBELOW1TB_VALUE                           TRUE
+#endif
+#ifndef APCB_TOKEN_UID_USERTIMINGMODE_VALUE
+  #define APCB_TOKEN_UID_USERTIMINGMODE_VALUE                                  TIMING_MODE_AUTO
+#endif
+#ifndef APCB_TOKEN_UID_MEMCLOCKVALUE_VALUE
+  #define APCB_TOKEN_UID_MEMCLOCKVALUE_VALUE                                   DDR2400_FREQUENCY
+#endif
+#ifndef APCB_TOKEN_UID_ENABLECHIPSELECTINTLV_VALUE
+  #define APCB_TOKEN_UID_ENABLECHIPSELECTINTLV_VALUE                           FALSE
+#endif
+#ifndef APCB_TOKEN_UID_ENABLECHANNELINTLV_VALUE
+  #define APCB_TOKEN_UID_ENABLECHANNELINTLV_VALUE                              FALSE
+#endif
+#ifndef APCB_TOKEN_UID_ENABLEECCFEATURE_VALUE
+  #define APCB_TOKEN_UID_ENABLEECCFEATURE_VALUE                                FALSE
+#endif
+#ifndef APCB_TOKEN_UID_ENABLEPOWERDOWN_VALUE
+  #define APCB_TOKEN_UID_ENABLEPOWERDOWN_VALUE                                 TRUE
+#endif
+#ifndef APCB_TOKEN_UID_ENABLEPARITY_VALUE
+  #define APCB_TOKEN_UID_ENABLEPARITY_VALUE                                    TRUE
+#endif
+#ifndef APCB_TOKEN_UID_ENABLEBANKSWIZZLE_VALUE
+  #define APCB_TOKEN_UID_ENABLEBANKSWIZZLE_VALUE                               TRUE
+#endif
+#ifndef APCB_TOKEN_UID_ENABLEMEMCLR_VALUE
+  #define APCB_TOKEN_UID_ENABLEMEMCLR_VALUE                                    FALSE
+#endif
+#ifndef APCB_TOKEN_UID_ENABLEMEMPSTATE_VALUE
+  #define APCB_TOKEN_UID_ENABLEMEMPSTATE_VALUE                                 FALSE
+#endif
+#ifndef APCB_TOKEN_UID_MEMRESTORECTL_VALUE
+  #define APCB_TOKEN_UID_MEMRESTORECTL_VALUE                                   FALSE
+#endif
+#ifndef BLDCFG_SAVE_MEMORY_CONTEXT_CONTROL
+  #define BLDCFG_SAVE_MEMORY_CONTEXT_CONTROL                                   TRUE
+#endif
+#ifndef APCB_TOKEN_UID_ISCAPSULEMODE_VALUE
+  #define APCB_TOKEN_UID_ISCAPSULEMODE_VALUE                                   TRUE
+#endif
+#ifndef APCB_TOKEN_UID_AMPENABLE_VALUE
+  #define APCB_TOKEN_UID_AMPENABLE_VALUE                                       TRUE
+#endif
+#ifndef APCB_TOKEN_UID_DRAMDOUBLEREFRESHRATE_VALUE
+  #define APCB_TOKEN_UID_DRAMDOUBLEREFRESHRATE_VALUE                           0
+#endif
+#ifndef APCB_TOKEN_UID_PMUTRAINMODE_VALUE
+  #define APCB_TOKEN_UID_PMUTRAINMODE_VALUE                                    PMU_TRAIN_1D
+#endif
+#ifndef APCB_TOKEN_UID_DISPLAY_PMU_TRAIN_RESULTS_VALUE
+  #define APCB_TOKEN_UID_DISPLAY_PMU_TRAIN_RESULTS_VALUE                       FALSE
+#endif
+#ifndef APCB_TOKEN_UID_ECCREDIRECTION_VALUE
+  #define APCB_TOKEN_UID_ECCREDIRECTION_VALUE                                  FALSE
+#endif
+#ifndef APCB_TOKEN_UID_ECCSYNCFLOOD_VALUE
+  #define APCB_TOKEN_UID_ECCSYNCFLOOD_VALUE                                    0
+#endif
+#ifndef APCB_TOKEN_UID_ECCSYMBOLSIZE_VALUE
+  #define APCB_TOKEN_UID_ECCSYMBOLSIZE_VALUE                                   SYMBOL_SIZE_X16
+#endif
+#ifndef APCB_TOKEN_UID_DQSTRAININGCONTROL_VALUE
+  #define APCB_TOKEN_UID_DQSTRAININGCONTROL_VALUE                              TRUE
+#endif
+#ifndef APCB_TOKEN_UID_UMAABOVE4G_VALUE
+  #define APCB_TOKEN_UID_UMAABOVE4G_VALUE                                      TRUE
+#endif
+#ifndef APCB_TOKEN_UID_UMAALIGNMENT_VALUE
+  #define APCB_TOKEN_UID_UMAALIGNMENT_VALUE                                    UMA_4MB_ALIGNED
+#endif
+#ifndef APCB_TOKEN_UID_MEMORYALLCLOCKSON_VALUE
+  #define APCB_TOKEN_UID_MEMORYALLCLOCKSON_VALUE                               TRUE
+#endif
+#ifndef APCB_TOKEN_UID_MEMORYBUSFREQUENCYLIMIT_VALUE
+  #define APCB_TOKEN_UID_MEMORYBUSFREQUENCYLIMIT_VALUE                         DDR5600_FREQUENCY
+#endif
+#ifndef APCB_TOKEN_UID_POWERDOWNMODE_VALUE
+  #define APCB_TOKEN_UID_POWERDOWNMODE_VALUE                                   POWER_DOWN_BY_CHANNEL
+#endif
+#ifndef APCB_TOKEN_UID_IGNORESPDCHECKSUM_VALUE
+  #define APCB_TOKEN_UID_IGNORESPDCHECKSUM_VALUE                               TRUE
+#endif
+#ifndef APCB_TOKEN_UID_MEMORYMODEUNGANGED_VALUE
+  #define APCB_TOKEN_UID_MEMORYMODEUNGANGED_VALUE                              TRUE
+#endif
+#ifndef APCB_TOKEN_UID_MEMORYQUADRANKCAPABLE_VALUE
+  #define APCB_TOKEN_UID_MEMORYQUADRANKCAPABLE_VALUE                           TRUE
+#endif
+#ifndef APCB_TOKEN_UID_MEMORYRDIMMCAPABLE_VALUE
+  #define APCB_TOKEN_UID_MEMORYRDIMMCAPABLE_VALUE                              TRUE
+#endif
+#ifndef APCB_TOKEN_UID_MEMORYLRDIMMCAPABLE_VALUE
+  #define APCB_TOKEN_UID_MEMORYLRDIMMCAPABLE_VALUE                             TRUE
+#endif
+#ifndef APCB_TOKEN_UID_MEMORYUDIMMCAPABLE_VALUE
+  #define APCB_TOKEN_UID_MEMORYUDIMMCAPABLE_VALUE                              TRUE
+#endif
+#ifndef APCB_TOKEN_UID_MEMORYSODIMMCAPABLE_VALUE
+  #define APCB_TOKEN_UID_MEMORYSODIMMCAPABLE_VALUE                             TRUE
+#endif
+#ifndef APCB_TOKEN_UID_DRAMDOUBLEREFRESHRATEEN_VALUE
+  #define APCB_TOKEN_UID_DRAMDOUBLEREFRESHRATEEN_VALUE                         FALSE
+#endif
+#ifndef APCB_TOKEN_UID_DIMMTYPEDDDR3CAPABLE_VALUE
+  #define APCB_TOKEN_UID_DIMMTYPEDDDR3CAPABLE_VALUE                            FALSE
+#endif
+#ifndef APCB_TOKEN_UID_DIMMTYPELPDDDR3CAPABLE_VALUE
+  #define APCB_TOKEN_UID_DIMMTYPELPDDDR3CAPABLE_VALUE                          FALSE
+#endif
+#ifndef APCB_TOKEN_UID_ENABLEBANKGROUPSWAP_VALUE
+  #define APCB_TOKEN_UID_ENABLEBANKGROUPSWAP_VALUE                             FALSE
+#endif
+#ifndef APCB_TOKEN_UID_ODTSCMDTHROTEN_VALUE
+  #define APCB_TOKEN_UID_ODTSCMDTHROTEN_VALUE                                  TRUE
+#endif
+#ifndef APCB_TOKEN_UID_SWCMDTHROTEN_VALUE
+  #define APCB_TOKEN_UID_SWCMDTHROTEN_VALUE                                    0
+#endif
+#ifndef APCB_TOKEN_UID_ODTSCMDTHROTCYC_VALUE
+  #define APCB_TOKEN_UID_ODTSCMDTHROTCYC_VALUE                                 0x1ff
+#endif
+#ifndef APCB_TOKEN_UID_DIMMSENSORCONF_VALUE
+  #define APCB_TOKEN_UID_DIMMSENSORCONF_VALUE                                  0x408
+#endif
+#ifndef APCB_TOKEN_UID_DIMMSENSORUPPER_VALUE
+  #define APCB_TOKEN_UID_DIMMSENSORUPPER_VALUE                                 85
+#endif
+#ifndef APCB_TOKEN_UID_DIMMSENSORLOWER_VALUE
+  #define APCB_TOKEN_UID_DIMMSENSORLOWER_VALUE                                 10
+#endif
+#ifndef APCB_TOKEN_UID_DIMMSENSORCRITICAL_VALUE
+  #define APCB_TOKEN_UID_DIMMSENSORCRITICAL_VALUE                              95
+#endif
+#ifndef APCB_TOKEN_UID_DIMMSENSORRESOLUTION_VALUE
+  #define APCB_TOKEN_UID_DIMMSENSORRESOLUTION_VALUE                            1
+#endif
+#ifndef APCB_TOKEN_UID_AUTOREFFINEGRANMODE_VALUE
+  #define APCB_TOKEN_UID_AUTOREFFINEGRANMODE_VALUE                             0
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MBIST_EN_DDR_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_EN_DDR_VALUE                                FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MBIST_TESTMODE_DDR_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_TESTMODE_DDR_VALUE                          2
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MBIST_AGGRESSORS_DDR_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_AGGRESSORS_DDR_VALUE                        FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MBIST_HALT_ON_ERROR_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_HALT_ON_ERROR_VALUE                         TRUE
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_CPU_VREF_RANGE_VALUE
+  #define APCB_TOKEN_UID_MEM_CPU_VREF_RANGE_VALUE                              0
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_DRAM_VREF_RANGE_VALUE
+  #define APCB_TOKEN_UID_MEM_DRAM_VREF_RANGE_VALUE                             0
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MBIST_PER_BIT_SECONDARY_DIE_REPORT_DDR_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_PER_BIT_SECONDARY_DIE_REPORT_DDR_VALUE          0xFF
+#endif
+
+//Data Eye APCB customization options.
+#ifndef APCB_TOKEN_UID_MEM_MBIST_AGGRESSORS_CHNL_DDR_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_AGGRESSORS_CHNL_DDR_VALUE                   0
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MBIST_PATTERN_LENGTH_DDR_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_PATTERN_LENGTH_DDR_VALUE                    8
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MBIST_PATTERN_SELECT_DDR_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_PATTERN_SELECT_DDR_VALUE                    0xFF
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MBIST_AGGR_STATIC_LANE_CTRL_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_AGGR_STATIC_LANE_CTRL_VALUE                 0
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MBIST_AGGR_STATIC_LANE_SEL_ECC_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_AGGR_STATIC_LANE_SEL_ECC_VALUE              0
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MBIST_AGGR_STATIC_LANE_SEL_L32_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_AGGR_STATIC_LANE_SEL_L32_VALUE              0
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MBIST_TGT_STATIC_LANE_SEL_U32_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_TGT_STATIC_LANE_SEL_U32_VALUE               0
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MBIST_TGT_STATIC_LANE_SEL_L32_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_TGT_STATIC_LANE_SEL_L32_VALUE               0
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MBIST_AGGR_STATIC_LANE_SEL_ECC_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_AGGR_STATIC_LANE_SEL_ECC_VALUE              0
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MBIST_AGGR_STATIC_LANE_VAL_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_AGGR_STATIC_LANE_VAL_VALUE                  0
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MBIST_TGT_STATIC_LANE_CTRL_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_TGT_STATIC_LANE_CTRL_VALUE                  0
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MBIST_TGT_STATIC_LANE_SEL_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_TGT_STATIC_LANE_SEL_VALUE                   0
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MBIST_TGT_STATIC_LANE_SEL_ECC_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_TGT_STATIC_LANE_SEL_ECC_VALUE               0
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MBIST_TGT_STATIC_LANE_VAL_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_TGT_STATIC_LANE_VAL_VALUE                   0
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MBIST_DATA_EYE_TYPE_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_DATA_EYE_TYPE_VALUE                         1
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MBIST_WORST_CASE_GRAN_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_WORST_CASE_GRAN_VALUE                       0
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MBIST_READ_DATA_EYE_VOLTAGE_STEP_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_READ_DATA_EYE_VOLTAGE_STEP_VALUE            1
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MBIST_READ_DATA_EYE_TIMING_STEP_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_READ_DATA_EYE_TIMING_STEP_VALUE             1
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MBIST_WRITE_DATA_EYE_VOLTAGE_STEP_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_WRITE_DATA_EYE_VOLTAGE_STEP_VALUE           1
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MBIST_WRITE_DATA_EYE_TIMING_STEP_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_WRITE_DATA_EYE_TIMING_STEP_VALUE            1
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MBIST_DATA_EYE_EXECUTION_REPEAT_COUNT_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_DATA_EYE_EXECUTION_REPEAT_COUNT_VALUE       1
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_HEALING_BIST_ENABLE_BITMASK_DDR_VALUE
+  #define APCB_TOKEN_UID_MEM_HEALING_BIST_ENABLE_BITMASK_DDR_VALUE             0
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_PMU_BIST_ALGORITHM_BITMASK_DDR_VALUE
+  #define APCB_TOKEN_UID_MEM_PMU_BIST_ALGORITHM_BITMASK_DDR_VALUE              0x01FF
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_HEALING_BIST_REPAIR_TYPE_DDR_VALUE
+  #define APCB_TOKEN_UID_MEM_HEALING_BIST_REPAIR_TYPE_DDR_VALUE                0
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_HEALING_BIST_MAX_BANK_FAILS_DDR_VALUE
+  #define APCB_TOKEN_UID_MEM_HEALING_BIST_MAX_BANK_FAILS_DDR_VALUE             3
+#endif
+
+#ifndef APCB_TOKEN_UID_BOOT_TIME_POST_PACKAGE_REPAIR_ENABLE_VALUE
+  #define APCB_TOKEN_UID_BOOT_TIME_POST_PACKAGE_REPAIR_ENABLE_VALUE            FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_TSME_ENABLE_DDR_VALUE
+  #define APCB_TOKEN_UID_MEM_TSME_ENABLE_DDR_VALUE                             FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_SME_MK_ENABLE_VALUE
+  #define APCB_TOKEN_UID_SME_MK_ENABLE_VALUE                                   FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_DATA_POISON_VALUE
+  #define APCB_TOKEN_UID_MEM_DATA_POISON_VALUE                                 TRUE
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_TEMP_CONTROLLED_REFRESH_EN_VALUE
+  #define APCB_TOKEN_UID_MEM_TEMP_CONTROLLED_REFRESH_EN_VALUE                  FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_TEMP_CONTROLLED_EXTENDED_REFRESH_EN_VALUE
+  #define APCB_TOKEN_UID_MEM_TEMP_CONTROLLED_EXTENDED_REFRESH_EN_VALUE         FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_DATA_SCRAMBLE_VALUE
+  #define APCB_TOKEN_UID_MEM_DATA_SCRAMBLE_VALUE                               TRUE
+#endif
+
+#ifndef APCB_TOKEN_UID_ENABLEBANKGROUPSWAPALT_VALUE
+  #define APCB_TOKEN_UID_ENABLEBANKGROUPSWAPALT_VALUE                          TRUE
+#endif
+#ifndef APCB_TOKEN_UID_MEM_PS_ERROR_HANDLING_VALUE
+  #define APCB_TOKEN_UID_MEM_PS_ERROR_HANDLING_VALUE                           0
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_REMAP_AT_1TB_VALUE
+  #define APCB_TOKEN_UID_DF_REMAP_AT_1TB_VALUE                                 0xFF
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_TXEQ_MODE_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_TXEQ_MODE_VALUE                               DF_XGMI_TXEQ_MODE_AUTO
+#endif
+
+#ifndef APCB_TOKEN_UID_DDRROUTEBALANCEDTEE_VALUE
+  #define APCB_TOKEN_UID_DDRROUTEBALANCEDTEE_VALUE                             FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_FORCE_DATA_MASK_DISABLE_DDR4_VALUE
+  #define APCB_TOKEN_UID_MEM_FORCE_DATA_MASK_DISABLE_DDR4_VALUE                FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_ROLLWINDOWDEPTH_VALUE
+  #define APCB_TOKEN_UID_ROLLWINDOWDEPTH_VALUE                                 0x1FF
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_OVERCLOCK_FAIL_CNT_VALUE
+  #define APCB_TOKEN_UID_MEM_OVERCLOCK_FAIL_CNT_VALUE                          0
+#endif
+
+#ifndef APCB_TOKEN_UID_DXIO_VGA_API_ENABLE_VALUE
+  #define APCB_TOKEN_UID_DXIO_VGA_API_ENABLE_VALUE                              FALSE      //default
+#endif
+
+#ifndef APCB_TOKEN_UID_DXIO_PHY_PARAM_VGA_VALUE
+  #define APCB_TOKEN_UID_DXIO_PHY_PARAM_VGA_VALUE                               0xFFFFFFFF //defalut, indicating SKIP adjustment
+#endif
+
+#ifndef APCB_TOKEN_UID_DXIO_PHY_PARAM_POLE_VALUE
+  #define APCB_TOKEN_UID_DXIO_PHY_PARAM_POLE_VALUE                              0xFFFFFFFF //defalut, indicating SKIP adjustment
+#endif
+
+#ifndef APCB_TOKEN_UID_DXIO_PHY_PARAM_DC_VALUE
+  #define APCB_TOKEN_UID_DXIO_PHY_PARAM_DC_VALUE                                0xFFFFFFFF //defalut, indicating SKIP adjustment
+#endif
+
+#ifndef APCB_TOKEN_UID_DXIO_PHY_PARAM_IQOFC_VALUE
+  #define APCB_TOKEN_UID_DXIO_PHY_PARAM_IQOFC_VALUE                             0x7FFFFFFF //defalut, indicating SKIP adjustment
+#endif
+
+#ifndef APCB_TOKEN_UID_OPN_PLT_COMPAT_FUSING_VALUE
+  #define APCB_TOKEN_UID_OPN_PLT_COMPAT_FUSING_VALUE                            0x00000001
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_PRESET_CONTROL_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_PRESET_CONTROL_VALUE                           1
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_PRESET_P11_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_PRESET_P11_VALUE                               0x3000
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_PRESET_P12_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_PRESET_P12_VALUE                               0x3000
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_PRESET_P13_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_PRESET_P13_VALUE                               0x3000
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_PRESET_P14_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_PRESET_P14_VALUE                               0x3000
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_PRESET_P15_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_PRESET_P15_VALUE                               0x3000
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_TXEQ_S0_L0_P01_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_TXEQ_S0_L0_P01_VALUE                           0x007A007A
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_TXEQ_S0_L0_P23_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_TXEQ_S0_L0_P23_VALUE                           0x007A007A
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_TXEQ_S0_L1_P01_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_TXEQ_S0_L1_P01_VALUE                           0x007A007A
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_TXEQ_S0_L1_P23_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_TXEQ_S0_L1_P23_VALUE                           0x007A007A
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_TXEQ_S0_L2_P01_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_TXEQ_S0_L2_P01_VALUE                           0x007A007A
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_TXEQ_S0_L2_P23_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_TXEQ_S0_L2_P23_VALUE                           0x007A007A
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_TXEQ_S0_L3_P01_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_TXEQ_S0_L3_P01_VALUE                           0x007A007A
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_TXEQ_S0_L3_P23_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_TXEQ_S0_L3_P23_VALUE                           0x007A007A
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_TXEQ_S1_L0_P01_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_TXEQ_S1_L0_P01_VALUE                           0x007A007A
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_TXEQ_S1_L0_P23_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_TXEQ_S1_L0_P23_VALUE                           0x007A007A
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_TXEQ_S1_L1_P01_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_TXEQ_S1_L1_P01_VALUE                           0x007A007A
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_TXEQ_S1_L1_P23_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_TXEQ_S1_L1_P23_VALUE                           0x007A007A
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_TXEQ_S1_L2_P01_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_TXEQ_S1_L2_P01_VALUE                           0x007A007A
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_TXEQ_S1_L2_P23_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_TXEQ_S1_L2_P23_VALUE                           0x007A007A
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_TXEQ_S1_L3_P01_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_TXEQ_S1_L3_P01_VALUE                           0x007A007A
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_TXEQ_S1_L3_P23_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_TXEQ_S1_L3_P23_VALUE                           0x007A007A
+#endif
+
+#ifndef APCB_TOKEN_UID_GNB_ADDI_FEAT_CFG_VALUE
+  #define APCB_TOKEN_UID_GNB_ADDI_FEAT_CFG_VALUE                                TRUE
+#endif
+
+#ifndef APCB_TOKEN_UID_GNB_ADDI_FEAT_DSM_VALUE
+  #define APCB_TOKEN_UID_GNB_ADDI_FEAT_DSM_VALUE                                FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_GNB_ADDI_FEAT_DSM_DETECTOR_VALUE
+  #define APCB_TOKEN_UID_GNB_ADDI_FEAT_DSM_DETECTOR_VALUE                       FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_GNB_ADDI_FEAT_L3_PERF_BIAS_VALUE
+  #define APCB_TOKEN_UID_GNB_ADDI_FEAT_L3_PERF_BIAS_VALUE                       TRUE
+#endif
+
+#ifndef BLDCFG_NUM_DIMMS_SUPPORTED
+  #define BLDCFG_NUM_DIMMS_SUPPORTED  NUMBER_OF_DIMMS_SUPPORTED(ANY_SOCKET, ANY_CHANNEL, 2), // NumberDimmSupported
+#endif
+
+#ifndef BLDCFG_NUM_CHNL_SUPPORTED
+  #define BLDCFG_NUM_CHNL_SUPPORTED   NUMBER_OF_CHANNELS_SUPPORTED(ANY_SOCKET, 2),           // NumberChannelsSupported
+#endif
+
+//
+// Please Review the below SMBUS Address, based off your schematics and comment out lines which doesnt belongs
+// to the project for which this fie is being customized
+//
+#ifndef APCB_TOKEN_UID_CCX_MIN_SEV_ASID_VALUE
+  #define APCB_TOKEN_UID_CCX_MIN_SEV_ASID_VALUE                                1
+#endif
+
+#ifndef APCB_TOKEN_UID_PSP_ENABLE_DEBUG_MODE_VALUE
+  #define APCB_TOKEN_UID_PSP_ENABLE_DEBUG_MODE_VALUE                           0
+#endif
+
+#ifndef APCB_TOKEN_UID_PSP_TP_PORT_VALUE
+  #define APCB_TOKEN_UID_PSP_TP_PORT_VALUE                                     TRUE
+#endif
+
+#ifndef APCB_TOKEN_UID_PSP_ERROR_DISPLAY_VALUE
+  #define APCB_TOKEN_UID_PSP_ERROR_DISPLAY_VALUE                               TRUE
+#endif
+
+#ifndef APCB_TOKEN_UID_PSP_EVENT_LOG_DISPLAY_VALUE
+  #define APCB_TOKEN_UID_PSP_EVENT_LOG_DISPLAY_VALUE                           TRUE
+#endif
+
+#ifndef APCB_TOKEN_UID_PSP_STOP_ON_ERROR_VALUE
+  #define APCB_TOKEN_UID_PSP_STOP_ON_ERROR_VALUE                               FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_PSP_PSB_AUTO_FUSE_VALUE
+  #define APCB_TOKEN_UID_PSP_PSB_AUTO_FUSE_VALUE                               TRUE
+#endif
+
+#ifndef APCB_TOKEN_UID_PSP_SYSHUB_WDT_INTERVAL_VALUE
+  #define APCB_TOKEN_UID_PSP_SYSHUB_WDT_INTERVAL_VALUE                         2600
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_GMI_ENCRYPT_VALUE
+  #define APCB_TOKEN_UID_DF_GMI_ENCRYPT_VALUE                                  3
+#endif
+#ifndef APCB_TOKEN_UID_DF_XGMI_ENCRYPT_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_ENCRYPT_VALUE                                 3
+#endif
+#ifndef APCB_TOKEN_UID_DF_SAVE_RESTORE_MEM_ENCRYPT_VALUE
+  #define APCB_TOKEN_UID_DF_SAVE_RESTORE_MEM_ENCRYPT_VALUE                     3
+#endif
+#ifndef APCB_TOKEN_UID_DF_SYS_STORAGE_AT_TOP_OF_MEM_VALUE
+  #define APCB_TOKEN_UID_DF_SYS_STORAGE_AT_TOP_OF_MEM_VALUE                    DF_SYS_STORAGE_AT_TOP_OF_MEM_AUTO
+#endif
+#ifndef APCB_TOKEN_UID_DF_PROBE_FILTER_VALUE
+  #define APCB_TOKEN_UID_DF_PROBE_FILTER_VALUE                                 3
+#endif
+#ifndef APCB_TOKEN_UID_DF_BOTTOMIO_VALUE
+  #define APCB_TOKEN_UID_DF_BOTTOMIO_VALUE                                     0xE0
+#endif
+#ifndef APCB_TOKEN_UID_DF_MEM_INTERLEAVING_VALUE
+  #define APCB_TOKEN_UID_DF_MEM_INTERLEAVING_VALUE                             7
+#endif
+#ifndef APCB_TOKEN_UID_DF_MEM_INTERLEAVING_SIZE_VALUE
+  #define APCB_TOKEN_UID_DF_MEM_INTERLEAVING_SIZE_VALUE                        7
+#endif
+#ifndef APCB_TOKEN_UID_DF_CXL_MEM_INTERLEAVING_VALUE
+  #define APCB_TOKEN_UID_DF_CXL_MEM_INTERLEAVING_VALUE                         BOOLEAN_ENABLE_1_DISABLE_0_AUTO_FF_VALIDVAL_AUTO
+#endif
+#ifndef APCB_TOKEN_UID_DF_CXL_SUBLINK_INTERLEAVING_VALUE
+  #define APCB_TOKEN_UID_DF_CXL_SUBLINK_INTERLEAVING_VALUE                     BOOLEAN_ENABLE_1_DISABLE_0_AUTO_FF_VALIDVAL_AUTO
+#endif
+#ifndef APCB_TOKEN_UID_DF_CHAN_INTLV_HASH_VALUE
+  #define APCB_TOKEN_UID_DF_CHAN_INTLV_HASH_VALUE                              3
+#endif
+#ifndef APCB_TOKEN_UID_DF_PCI_MMIO_SIZE_VALUE
+  #define APCB_TOKEN_UID_DF_PCI_MMIO_SIZE_VALUE                                0x10000000
+#endif
+#ifndef APCB_TOKEN_UID_DF_CAKE_CRC_THRESH_PERF_BOUNDS_VALUE
+  #define APCB_TOKEN_UID_DF_CAKE_CRC_THRESH_PERF_BOUNDS_VALUE                  100  // 0.001%
+#endif
+#ifndef APCB_TOKEN_UID_DF_MEM_CLEAR_VALUE
+  #define APCB_TOKEN_UID_DF_MEM_CLEAR_VALUE                                    3
+#endif
+#ifndef APCB_TOKEN_UID_DF3_XGMI2_LINK_CFG_VALUE
+  #define APCB_TOKEN_UID_DF3_XGMI2_LINK_CFG_VALUE                              3
+#endif
+#ifndef APCB_TOKEN_UID_DF_DRAM_NPS
+  #define APCB_TOKEN_UID_DF_DRAM_NPS                                           7
+#endif
+#ifndef BLDCFG_DF_INVERT_DRAM_MAP_VALUE
+  #define BLDCFG_DF_INVERT_DRAM_MAP_VALUE                                      3
+#endif
+#ifndef APCB_TOKEN_UID_DF_4LINK_MAX_XGMI_SPEED_VALUE
+  #define APCB_TOKEN_UID_DF_4LINK_MAX_XGMI_SPEED_VALUE                         DF_XGMI_LINK_SPEED_AUTO
+#endif
+#ifndef APCB_TOKEN_UID_DF_3LINK_MAX_XGMI_SPEED_VALUE
+  #define APCB_TOKEN_UID_DF_3LINK_MAX_XGMI_SPEED_VALUE                         DF_XGMI_LINK_SPEED_AUTO
+#endif
+#ifndef APCB_TOKEN_UID_DF_2LINK_MAX_XGMI_SPEED_VALUE
+  #define APCB_TOKEN_UID_DF_2LINK_MAX_XGMI_SPEED_VALUE                         DF_XGMI_LINK_SPEED_AUTO
+#endif
+#ifndef APCB_TOKEN_UID_DF_CCD_BW_THROTTLE_LV_VALUE
+  #define APCB_TOKEN_UID_DF_CCD_BW_THROTTLE_LV_VALUE                           DF_CCD_BW_THROTTLE_LV_AUTO
+#endif
+#ifndef APCB_TOKEN_UID_DF_PF_ORGANIZATION_VALUE
+  #define APCB_TOKEN_UID_DF_PF_ORGANIZATION_VALUE                              DF_PF_ORGANIZATION_DEDICATED
+#endif
+
+//
+// GNB Specific Definitions
+//
+#ifndef BLDCFG_EARLY_PCIE_TRAINING
+  #define BLDCFG_EARLY_PCIE_TRAINING                                           FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_BMC_SOCKET_NUMBER_VALUE
+  #define APCB_TOKEN_UID_BMC_SOCKET_NUMBER_VALUE                               0x0F
+#endif
+#ifndef APCB_TOKEN_UID_BMC_START_LANE_VALUE
+  #define APCB_TOKEN_UID_BMC_START_LANE_VALUE                                  0x80
+#endif
+#ifndef APCB_TOKEN_UID_BMC_END_LANE_VALUE
+  #define APCB_TOKEN_UID_BMC_END_LANE_VALUE                                    0x80
+#endif
+
+#ifndef APCB_TOKEN_UID_BMC_DEVICE_VALUE
+  #define APCB_TOKEN_UID_BMC_DEVICE_VALUE                                      0
+#endif
+
+#ifndef APCB_TOKEN_UID_BMC_FUNCTION_VALUE
+  #define APCB_TOKEN_UID_BMC_FUNCTION_VALUE                                    0
+#endif
+
+#ifndef APCB_TOKEN_UID_BMC_LINK_SPEED_VALUE
+  #define APCB_TOKEN_UID_BMC_LINK_SPEED_VALUE                                  0
+#endif
+
+#ifndef APCB_TOKEN_UID_BMC_RCB_WRONG_ATTR_DIS_VALUE
+  #define APCB_TOKEN_UID_BMC_RCB_WRONG_ATTR_DIS_VALUE                          0xFF
+#endif
+
+#ifndef APCB_TOKEN_UID_BMC_GEN2_TX_DEEMPHASIS_VALUE
+  #define APCB_TOKEN_UID_BMC_GEN2_TX_DEEMPHASIS_VALUE                          0xFF
+#endif
+
+#ifndef APCB_TOKEN_UID_BMC_LEGACY_IO_ENABLE_VALUE
+  #define APCB_TOKEN_UID_BMC_LEGACY_IO_ENABLE_VALUE                            FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_BMC_LEGACY_IO_PORT_VALUE
+  #define APCB_TOKEN_UID_BMC_LEGACY_IO_PORT_VALUE                              0
+#endif
+
+#ifndef APCB_TOKEN_UID_BMC_LEGACY_IO_PORT_SIZE_VALUE
+  #define APCB_TOKEN_UID_BMC_LEGACY_IO_PORT_SIZE_VALUE                         0
+#endif
+
+#ifndef APCB_TOKEN_UID_BMC_LEGACY_IO_BAR_REPLACE_VALUE
+  #define APCB_TOKEN_UID_BMC_LEGACY_IO_BAR_REPLACE_VALUE                       0
+#endif
+
+#ifndef APCB_TOKEN_UID_BMC_INIT_BEFORE_DRAM_VALUE
+  #define APCB_TOKEN_UID_BMC_INIT_BEFORE_DRAM_VALUE                            FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_ENABLE_VGA_PROGRAM_VALUE
+  #define APCB_TOKEN_UID_ENABLE_VGA_PROGRAM_VALUE                              FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_PCIE_RESET_CONTROL_VALUE
+  #define APCB_TOKEN_UID_PCIE_RESET_CONTROL_VALUE                              TRUE
+#endif
+
+// Pcie reset pin select 0:disable 1:GPIO26 2:GPIO266 3:GPIO267 4:GPIO27
+#ifndef APCB_TOKEN_UID_PCIE_RESET_PIN_SELECT_VALUE
+  #define APCB_TOKEN_UID_PCIE_RESET_PIN_SELECT_VALUE                           2
+#endif
+
+#ifndef APCB_TOKEN_UID_CONFIGURE_SECOND_PCIE_LINK_VALUE
+  #define APCB_TOKEN_UID_CONFIGURE_SECOND_PCIE_LINK_VALUE                     FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_SECOND_PCIE_LINK_SPEED_VALUE
+  #define APCB_TOKEN_UID_SECOND_PCIE_LINK_SPEED_VALUE                          0
+#endif
+
+// Select second PCIe Link Maximum Payload Size
+#ifndef APCB_TOKEN_UID_SECOND_PCIE_LINK_MAX_PAYLOAD_VALUE
+  #define APCB_TOKEN_UID_SECOND_PCIE_LINK_MAX_PAYLOAD_VALUE                    0xFF
+#endif
+
+#ifndef APCB_TOKEN_UID_PCIE_RESET_GPIO_PIN_SELECT_VALUE
+  #define APCB_TOKEN_UID_PCIE_RESET_GPIO_PIN_SELECT_VALUE                      0xFFFFFFFF
+#endif
+
+#ifndef APCB_TOKEN_UID_SECOND_PCIE_LINK_DEVICE_VALUE
+  #define APCB_TOKEN_UID_SECOND_PCIE_LINK_DEVICE_VALUE                          0
+#endif
+
+#ifndef APCB_TOKEN_UID_SECOND_PCIE_LINK_FUNCTION_VALUE
+  #define APCB_TOKEN_UID_SECOND_PCIE_LINK_FUNCTION_VALUE                        0
+#endif
+
+#ifndef APCB_TOKEN_UID_SECOND_PCIE_LINK_PORT_PRESENT_VALUE
+  #define APCB_TOKEN_UID_SECOND_PCIE_LINK_PORT_PRESENT_VALUE                    0
+#endif
+
+#ifndef APCB_TOKEN_UID_THIRD_PCIE_LINK_START_LANE_VALUE
+  #define APCB_TOKEN_UID_THIRD_PCIE_LINK_START_LANE_VALUE                       0xFF
+#endif
+
+#ifndef APCB_TOKEN_UID_THIRD_PCIE_LINK_END_LANE_VALUE
+  #define APCB_TOKEN_UID_THIRD_PCIE_LINK_END_LANE_VALUE                         0xFF
+#endif
+
+#ifndef APCB_TOKEN_UID_THIRD_PCIE_LINK_SPEED_VALUE
+  #define APCB_TOKEN_UID_THIRD_PCIE_LINK_SPEED_VALUE                            0
+#endif
+
+#ifndef APCB_TOKEN_UID_THIRD_PCIE_LINK_DEVICE_VALUE
+  #define APCB_TOKEN_UID_THIRD_PCIE_LINK_DEVICE_VALUE                           0
+#endif
+
+#ifndef APCB_TOKEN_UID_THIRD_PCIE_LINK_FUNCTION_VALUE
+  #define APCB_TOKEN_UID_THIRD_PCIE_LINK_FUNCTION_VALUE                         0
+#endif
+
+#ifndef APCB_TOKEN_UID_THIRD_PCIE_LINK_PORT_PRESENT_VALUE
+  #define APCB_TOKEN_UID_THIRD_PCIE_LINK_PORT_PRESENT_VALUE                     0
+#endif
+
+#ifndef APCB_TOKEN_UID_FOURTH_PCIE_LINK_START_LANE_VALUE
+  #define APCB_TOKEN_UID_FOURTH_PCIE_LINK_START_LANE_VALUE                      0xFF
+#endif
+
+#ifndef APCB_TOKEN_UID_FOURTH_PCIE_LINK_END_LANE_VALUE
+  #define APCB_TOKEN_UID_FOURTH_PCIE_LINK_END_LANE_VALUE                        0xFF
+#endif
+
+#ifndef APCB_TOKEN_UID_FOURTH_PCIE_LINK_SPEED_VALUE
+  #define APCB_TOKEN_UID_FOURTH_PCIE_LINK_SPEED_VALUE                           0
+#endif
+
+#ifndef APCB_TOKEN_UID_FOURTH_PCIE_LINK_DEVICE_VALUE
+  #define APCB_TOKEN_UID_FOURTH_PCIE_LINK_DEVICE_VALUE                          0
+#endif
+
+#ifndef APCB_TOKEN_UID_FOURTH_PCIE_LINK_FUNCTION_VALUE
+  #define APCB_TOKEN_UID_FOURTH_PCIE_LINK_FUNCTION_VALUE                        0
+#endif
+
+#ifndef APCB_TOKEN_UID_FOURTH_PCIE_LINK_PORT_PRESENT_VALUE
+  #define APCB_TOKEN_UID_FOURTH_PCIE_LINK_PORT_PRESENT_VALUE                    0
+#endif
+
+/**
+ * @details Select APML SB-TSI to 0(I3C mode) or 1(I2C mode).
+ * In I3C mode, the secondary controller can support both I3C and I2C(Adaptive mode).
+ */
+#ifndef APCB_TOKEN_UID_APML_SBTSI_SECONDARY_MODE_VALUE
+  #define APCB_TOKEN_UID_APML_SBTSI_SECONDARY_MODE_VALUE                           0
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_INIT_PRESET_DEFAULT_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_INIT_PRESET_DEFAULT_VALUE                     0x44444444
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_INIT_PRESET_S0_L0_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_INIT_PRESET_S0_L0_VALUE                       0x4444
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_INIT_PRESET_S0_L1_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_INIT_PRESET_S0_L1_VALUE                       0x4444
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_INIT_PRESET_S0_L2_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_INIT_PRESET_S0_L2_VALUE                       0x4444
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_INIT_PRESET_S0_L3_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_INIT_PRESET_S0_L3_VALUE                       0x4444
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_INIT_PRESET_S1_L0_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_INIT_PRESET_S1_L0_VALUE                       0x4444
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_INIT_PRESET_S1_L1_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_INIT_PRESET_S1_L1_VALUE                       0x4444
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_INIT_PRESET_S1_L2_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_INIT_PRESET_S1_L2_VALUE                       0x4444
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_XGMI_INIT_PRESET_S1_L3_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_INIT_PRESET_S1_L3_VALUE                       0x4444
+#endif
+
+//
+// UART Enable Disable through SOC UART/ eSPI-SUPER IO
+// 0 - Disable ConsoleOut Function for ABL, 1 - Enable ConsoleOut Function for ABL,  2 - AUTO Keep defualt behavior
+//
+#ifndef APCB_TOKEN_UID_FCH_CONSOLE_OUT_ENABLE_VALUE
+  #define APCB_TOKEN_UID_FCH_CONSOLE_OUT_ENABLE_VALUE                          0
+#endif
+
+#ifndef APCB_TOKEN_UID_FCH_CONSOLE_OUT_SERIAL_PORT_VALUE
+  #define APCB_TOKEN_UID_FCH_CONSOLE_OUT_SERIAL_PORT_VALUE                     1
+#endif
+
+#ifndef APCB_TOKEN_UID_FCH_CONSOLE_OUT_SERIAL_PORT_IO_VALUE
+  #define APCB_TOKEN_UID_FCH_CONSOLE_OUT_SERIAL_PORT_IO_VALUE                     0
+#endif
+
+//
+// The following field is applicable only if APCB_TOKEN_UID_FCH_CONSOLE_OUT_SERIAL_PORT_VALUE
+// is set to 0 for eSPI SuperIO.
+// 1 - Aspeed, 2 - Pilot4
+//
+#ifndef APCB_TOKEN_UID_FCH_CONSOLE_OUT_SUPER_IO_TYPE_VALUE
+  #define APCB_TOKEN_UID_FCH_CONSOLE_OUT_SUPER_IO_TYPE_VALUE                   FCH_CONSOLE_OUT_SUPER_IO_TYPE_DEFAULT
+#endif
+
+#ifndef APCB_TOKEN_UID_ABL_SERIAL_BAUD_RATE_VALUE
+  #define APCB_TOKEN_UID_ABL_SERIAL_BAUD_RATE_VALUE                            BAUD_RATE_115200
+#endif
+
+#ifndef APCB_TOKEN_UID_FCH_CONSOLE_OUT_BASIC_ENABLE_VALUE
+  #define APCB_TOKEN_UID_FCH_CONSOLE_OUT_BASIC_ENABLE_VALUE                    0
+#endif
+
+#ifndef APCB_TOKEN_UID_FCH_SMBUS_SPEED_VALUE
+  #define APCB_TOKEN_UID_FCH_SMBUS_SPEED_VALUE                                 0x2a    // Frequency = 66 MHz/(SMBusTiming * 4). Default 0x2a --> 392 khz
+#endif
+
+#ifndef APCB_TOKEN_UID_FCH_I3C_TRANSFER_SPEED_VALUE
+  #define APCB_TOKEN_UID_FCH_I3C_TRANSFER_SPEED_VALUE                               2
+#endif
+
+#ifndef APCB_TOKEN_UID_ESPI_ABL_INIT_ENABLE_VALUE
+  #define APCB_TOKEN_UID_ESPI_ABL_INIT_ENABLE_VALUE                            TRUE
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_TRAINING_HDTCTRL_VALUE
+  #define APCB_TOKEN_UID_MEM_TRAINING_HDTCTRL_VALUE                            ASSERTION_MESSAGES
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_POPULATION_MSG_CTRL_VALUE
+  #define APCB_TOKEN_UID_MEM_POPULATION_MSG_CTRL_VALUE                         0
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_PSTATE_MODE_SELECT_VALUE
+  #define APCB_TOKEN_UID_DF_PSTATE_MODE_SELECT_VALUE                           0xff
+#endif
+
+#ifndef APCB_TOKEN_UID_DF_SDCI_VALUE
+  #define APCB_TOKEN_UID_DF_SDCI_VALUE                                         FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_GROUP_D_PLATFORM_VALUE
+  #define APCB_TOKEN_UID_GROUP_D_PLATFORM_VALUE                                FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_OC_VDDIO_CONTROL_VALUE
+  #define APCB_TOKEN_UID_MEM_OC_VDDIO_CONTROL_VALUE                            FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_RCD_PARITY_VALUE
+  #define APCB_TOKEN_UID_MEM_RCD_PARITY_VALUE                                  TRUE
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MAX_RCD_PARITY_ERROR_REPLAY_VALUE
+  #define APCB_TOKEN_UID_MEM_MAX_RCD_PARITY_ERROR_REPLAY_VALUE                 8
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_WR_CRC_EN_DDR_VALUE
+  #define APCB_TOKEN_UID_MEM_WR_CRC_EN_DDR_VALUE                               FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MAX_WRITE_CRC_ERROR_REPLAY_VALUE
+  #define APCB_TOKEN_UID_MEM_MAX_WRITE_CRC_ERROR_REPLAY_VALUE                  8
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_RD_CRC_EN_DDR_VALUE
+  #define APCB_TOKEN_UID_MEM_RD_CRC_EN_DDR_VALUE                               FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MAX_READ_CRC_ERROR_REPLAY_VALUE
+  #define APCB_TOKEN_UID_MEM_MAX_READ_CRC_ERROR_REPLAY_VALUE                   8
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_UECC_RETRY_EN_DDR_VALUE
+  #define APCB_TOKEN_UID_MEM_UECC_RETRY_EN_DDR_VALUE                           0
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_MAX_UECC_ERROR_REPLAY_VALUE
+  #define APCB_TOKEN_UID_MEM_MAX_UECC_ERROR_REPLAY_VALUE                       8
+#endif
+
+#ifndef APCB_TOKEN_UID_DISREFCMDTHROTCNT_VALUE
+  #define APCB_TOKEN_UID_DISREFCMDTHROTCNT_VALUE                               FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_ODTSEN_VALUE
+  #define APCB_TOKEN_UID_ODTSEN_VALUE                                          TRUE
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_SPD_READ_OPTIMIZATION_DDR4_VALUE
+  #define APCB_TOKEN_UID_MEM_SPD_READ_OPTIMIZATION_DDR4_VALUE                  TRUE
+#endif
+
+#ifndef APCB_TOKEN_UID_DISABLE_NVDIMM_N_FEATURE_VALUE
+  #define APCB_TOKEN_UID_DISABLE_NVDIMM_N_FEATURE_VALUE                        FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_SUBURGREFLOWERBOUND_VALUE
+  #define APCB_TOKEN_UID_MEM_SUBURGREFLOWERBOUND_VALUE                         1
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_URGREFLIMIT_VALUE
+  #define APCB_TOKEN_UID_MEM_URGREFLIMIT_VALUE                                 4
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_SELF_REFRESH_EXIT_STAGGERING_VALUE
+  #define APCB_TOKEN_UID_MEM_SELF_REFRESH_EXIT_STAGGERING_VALUE                0
+#endif
+
+#ifndef APCB_TOKEN_UID_FCH_GPP_CLK_MAP_VALUE
+  #define APCB_TOKEN_UID_FCH_GPP_CLK_MAP_VALUE                                 GPP_ALL_CLK_AUTO
+#endif
+
+#ifndef APCB_TOKEN_UID_ACTION_ON_BIST_FAILURE_VALUE
+  #define APCB_TOKEN_UID_ACTION_ON_BIST_FAILURE_VALUE                          0
+#endif
+
+#ifndef APCB_TOKEN_UID_PSP_MEASURE_CONFIG_VALUE
+  #define APCB_TOKEN_UID_PSP_MEASURE_CONFIG_VALUE                              0
+#endif
+
+#ifndef APCB_TOKEN_UID_FCH_ROM3_BASE_HIGH_VALUE
+  #define APCB_TOKEN_UID_FCH_ROM3_BASE_HIGH_VALUE                              0
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_SELF_HEAL_BIST_TIMEOUT_VALUE
+  #define APCB_TOKEN_UID_MEM_SELF_HEAL_BIST_TIMEOUT_VALUE                      10000
+#endif
+
+#ifndef APCB_TOKEN_UID_WORKLOAD_PROFILE_VALUE
+  #define APCB_TOKEN_UID_WORKLOAD_PROFILE_VALUE                                WORKLOAD_PROFILE_DISABLED
+#endif
+
+#ifndef APCB_TOKEN_UID_CONFIG_XGMI_CRC_SCALE_VALUE
+  #define APCB_TOKEN_UID_CONFIG_XGMI_CRC_SCALE_VALUE                           7
+#endif
+
+#ifndef APCB_TOKEN_UID_CONFIG_XGMI_CRC_THRESHOLD_VALUE
+  #define APCB_TOKEN_UID_CONFIG_XGMI_CRC_THRESHOLD_VALUE                       0x19
+#endif
+
+#ifndef APCB_TOKEN_UID_PERFORMANCE_TRACING_VALUE
+  #define APCB_TOKEN_UID_PERFORMANCE_TRACING_VALUE                             FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_RESERVED_DRAM_MODULE_DRTM_VALUE
+  #define APCB_TOKEN_UID_RESERVED_DRAM_MODULE_DRTM_VALUE                       0
+#endif
+
+#ifndef APCB_TOKEN_UID_PSP_SEV_DISABLE_VALUE
+  #define APCB_TOKEN_UID_PSP_SEV_DISABLE_VALUE                                 FALSE
+#endif
+
+#ifndef APCB_TOKEN_UID_PCIE_COMPLIANCE_BOARD_MODE_VALUE
+  #define APCB_TOKEN_UID_PCIE_COMPLIANCE_BOARD_MODE_VALUE                      0
+#endif
+
+/// @brief Select working mode of a FCH I2C/I3C/Smbus controller
+/// @details Specify FCH I2C/I3C/Smbus controller 0 to I3C, I2C or Smbus mode
+/// @li I3C_ENABLE, I2C_ENABLE, SMBUS_ENABLE
+#ifndef APCB_TOKEN_UID_I2C_I3C_SMBUS_0_VALUE
+  #define APCB_TOKEN_UID_I2C_I3C_SMBUS_0_VALUE                                 I2C_ENABLE
+#endif
+
+/// @brief Select working mode of a FCH I2C/I3C/Smbus controller
+/// @details Specify FCH I2C/I3C/Smbus controller 1 to I3C, I2C or Smbus mode
+/// @li I3C_ENABLE, I2C_ENABLE, SMBUS_ENABLE
+#ifndef APCB_TOKEN_UID_I2C_I3C_SMBUS_1_VALUE
+  #define APCB_TOKEN_UID_I2C_I3C_SMBUS_1_VALUE                                 I2C_ENABLE
+#endif
+
+/// @brief Select working mode of a FCH I2C/I3C/Smbus controller
+/// @details Specify FCH I2C/I3C/Smbus controller 2to I3C, I2C or Smbus mode
+/// @li I3C_ENABLE, I2C_ENABLE, SMBUS_ENABLE
+#ifndef APCB_TOKEN_UID_I2C_I3C_SMBUS_2_VALUE
+  #define APCB_TOKEN_UID_I2C_I3C_SMBUS_2_VALUE                                 I2C_ENABLE
+#endif
+
+/// @brief Select working mode of a FCH I2C/I3C/Smbus controller
+/// @details Specify FCH I2C/I3C/Smbus controller 3 to I3C, I2C or Smbus mode
+/// @li I3C_ENABLE, I2C_ENABLE, SMBUS_ENABLE
+#ifndef APCB_TOKEN_UID_I2C_I3C_SMBUS_3_VALUE
+  #define APCB_TOKEN_UID_I2C_I3C_SMBUS_3_VALUE                                 I2C_ENABLE
+#endif
+
+/// @brief Select working mode of a FCH I2C/I3C/Smbus controller
+/// @details Specify FCH I2C/I3C/Smbus controller 4 to I3C, I2C or Smbus mode
+/// @li I3C_ENABLE, I2C_ENABLE, SMBUS_ENABLE
+#ifndef APCB_TOKEN_UID_I2C_I3C_SMBUS_4_VALUE
+  #define APCB_TOKEN_UID_I2C_I3C_SMBUS_4_VALUE                                 I2C_ENABLE
+#endif
+
+/// @brief Select working mode of a FCH I2C/I3C/Smbus controller
+/// @details Specify FCH I2C/I3C/Smbus controller 5 to I3C, I2C or Smbus mode
+/// @li I3C_ENABLE, I2C_ENABLE, SMBUS_ENABLE
+#ifndef APCB_TOKEN_UID_I2C_I3C_SMBUS_5_VALUE
+  #define APCB_TOKEN_UID_I2C_I3C_SMBUS_5_VALUE                                 I2C_ENABLE
+#endif
+
+/// @brief FCH I3C Controller I2C backward compatibility
+/// @li I3C_MODE, I2C_MODE
+#ifndef APCB_TOKEN_UID_I2CI3C_CONTROLLER0_VALUE
+  #define APCB_TOKEN_UID_I2CI3C_CONTROLLER0_VALUE                              I3C_MODE
+#endif
+
+/// @brief FCH I3C Controller I2C backward compatibility
+/// @li I3C_MODE, I2C_MODE
+#ifndef APCB_TOKEN_UID_I2CI3C_CONTROLLER1_VALUE
+  #define APCB_TOKEN_UID_I2CI3C_CONTROLLER1_VALUE                              I3C_MODE
+#endif
+
+/// @brief FCH I3C Controller I2C backward compatibility
+/// @li I3C_MODE, I2C_MODE
+#ifndef APCB_TOKEN_UID_I2CI3C_CONTROLLER2_VALUE
+  #define APCB_TOKEN_UID_I2CI3C_CONTROLLER2_VALUE                              I3C_MODE
+#endif
+
+/// @brief FCH I3C Controller I2C backward compatibility
+/// @li I3C_MODE, I2C_MODE
+#ifndef APCB_TOKEN_UID_I2CI3C_CONTROLLER3_VALUE
+  #define APCB_TOKEN_UID_I2CI3C_CONTROLLER3_VALUE                              I3C_MODE
+#endif
+
+/// @brief FCH I3C Controller I2C backward compatibility
+/// @li I3C_MODE, I2C_MODE
+#ifndef APCB_TOKEN_UID_I2CI3C_CONTROLLER4_VALUE
+  #define APCB_TOKEN_UID_I2CI3C_CONTROLLER4_VALUE                              I3C_MODE
+#endif
+
+/// @brief FCH I3C Controller I2C backward compatibility
+/// @li I3C_MODE, I2C_MODE
+#ifndef APCB_TOKEN_UID_I2CI3C_CONTROLLER5_VALUE
+  #define APCB_TOKEN_UID_I2CI3C_CONTROLLER5_VALUE                              I3C_MODE
+#endif
+
+#ifndef APCB_TOKEN_UID_XGMI_AC_DC_COUPLED_LINK_VALUE
+  #define APCB_TOKEN_UID_XGMI_AC_DC_COUPLED_LINK_VALUE                         0xFF
+#endif
+
+#ifndef APCB_TOKEN_UID_XGMI_CHANNEL_TYPE_VALUE
+  #define APCB_TOKEN_UID_XGMI_CHANNEL_TYPE_VALUE                               0x00000000
+#endif
+
+#ifndef APCB_TOKEN_UID_CPU_WDT_EN_VALUE
+  #define APCB_TOKEN_UID_CPU_WDT_EN_VALUE                                      TRUE
+#endif
+
+#ifndef APCB_TOKEN_UID_CPU_WDT_TIMEOUT_VALUE
+  #define APCB_TOKEN_UID_CPU_WDT_TIMEOUT_VALUE                                 0xFFFF
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_SPD_VERIFY_CRC_VALUE
+  #define APCB_TOKEN_UID_MEM_SPD_VERIFY_CRC_VALUE                              0
+#endif
+
+#ifndef APCB_TOKEN_UID_APIC_MODE_VALUE
+  #define APCB_TOKEN_UID_APIC_MODE_VALUE                                       APIC_MODE_AUTO
+#endif
+
+#ifndef APCB_TOKEN_UID_IOMMU_VALUE
+  #define APCB_TOKEN_UID_IOMMU_VALUE                                           TRUE
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_DISPLAY_PMU_TRAINING_RESULT_VALUE
+  #define APCB_TOKEN_UID_MEM_DISPLAY_PMU_TRAINING_RESULT_VALUE                 1
+#endif
+
+//#define BLDCFG_CONOUTCTRL_BREAKPOINT                                           FALSE
+//#define BLDCFG_CONOUTCTRL_BREAKPOINT_ALLDIE                                    FALSE
+
+#define BLDCFG_CONOUTCTRL_ABL_CONSOLE_FILTER_ENABLE                            TRUE
+#define BLDCFG_CONOUTCTRL_ABL_CONSOLE_FILTER_MEM_FLOW                          TRUE
+#define BLDCFG_CONOUTCTRL_ABL_CONSOLE_FILTER_MEM_SET_REG                       TRUE
+#define BLDCFG_CONOUTCTRL_ABL_CONSOLE_FILTER_MEM_GET_REG                       FALSE
+#define BLDCFG_CONOUTCTRL_ABL_CONSOLE_FILTER_MEM_STATUS                        TRUE
+#define BLDCFG_CONOUTCTRL_ABL_CONSOLE_FILTER_MEM_PMU                           TRUE
+#define BLDCFG_CONOUTCTRL_ABL_CONSOLE_FILTER_MEM_PMU_SRAM_READ                 FALSE
+#define BLDCFG_CONOUTCTRL_ABL_CONSOLE_FILTER_MEM_PMU_SRAM_WRITE                FALSE
+#define BLDCFG_CONOUTCTRL_ABL_CONSOLE_FILTER_MEM_TEST_VERBOSE                  FALSE
+#define BLDCFG_CONOUTCTRL_ABL_CONSOLE_FILTER_MEM_BASIC_OUTPUT                  TRUE
+
+//Alias:
+#ifndef APCB_TOKEN_UID_CCX_PPIN_OPT_IN_VALUE
+  #define APCB_TOKEN_UID_CCX_PPIN_OPT_IN_VALUE                                 FALSE
+#endif
+
+// =================================================================================================
+// BOARD MASK definition - This should be defined by ApcbCutomizedBoardDefinitions.h for each board folder
+// =================================================================================================
+#ifndef BLDCFG_APCB_DATA_BOARD_MASK
+  #error BLDCFG_APCB_DATA_BOARD_MASK is not defined. Check ApcbCutomizedBoardDefinitions.h in each board folder
+#endif
+
+
+// =================================================================================================
+// Legacy APCB Customization Definiation Support
+// =================================================================================================
+#ifdef BLDCFG_TIMING_MODE_SELECT
+  #undef APCB_TOKEN_UID_USERTIMINGMODE_VALUE
+  #define APCB_TOKEN_UID_USERTIMINGMODE_VALUE                                    BLDCFG_TIMING_MODE_SELECT
+#endif
+
+#ifdef BLDCFG_MEMORY_CLOCK_SELECT
+  #undef APCB_TOKEN_UID_MEMCLOCKVALUE_VALUE
+  #define APCB_TOKEN_UID_MEMCLOCKVALUE_VALUE                                     BLDCFG_MEMORY_CLOCK_SELECT
+#endif
+
+#ifdef BLDCFG_MEMORY_ENABLE_CHIPSELECT_INTERLEAVING
+  #undef APCB_TOKEN_UID_ENABLECHIPSELECTINTLV_VALUE
+  #define APCB_TOKEN_UID_ENABLECHIPSELECTINTLV_VALUE                             BLDCFG_MEMORY_ENABLE_CHIPSELECT_INTERLEAVING
+#endif
+
+#ifdef BLDCFG_ENABLE_ECC_FEATURE
+  #undef APCB_TOKEN_UID_ENABLEECCFEATURE_VALUE
+  #define APCB_TOKEN_UID_ENABLEECCFEATURE_VALUE                                  BLDCFG_ENABLE_ECC_FEATURE
+#endif
+
+#ifdef BLDCFG_MEMORY_POWER_DOWN
+  #undef APCB_TOKEN_UID_ENABLEPOWERDOWN_VALUE
+  #define APCB_TOKEN_UID_ENABLEPOWERDOWN_VALUE                                   BLDCFG_MEMORY_POWER_DOWN
+#endif
+
+#ifdef BLDCFG_PARITY_CONTROL
+  #undef APCB_TOKEN_UID_ENABLEPARITY_VALUE
+  #define APCB_TOKEN_UID_ENABLEPARITY_VALUE                                      BLDCFG_PARITY_CONTROL
+#endif
+
+#ifdef BLDCFG_BANK_SWIZZLE
+  #undef APCB_TOKEN_UID_ENABLEBANKSWIZZLE_VALUE
+  #define APCB_TOKEN_UID_ENABLEBANKSWIZZLE_VALUE                                 BLDCFG_BANK_SWIZZLE
+#endif
+
+#ifdef BLDCFG_MEMORY_RESTORE_CONTROL
+  #undef APCB_TOKEN_UID_MEMRESTORECTL_VALUE
+  #define APCB_TOKEN_UID_MEMRESTORECTL_VALUE                                     BLDCFG_MEMORY_RESTORE_CONTROL
+#endif
+
+#ifdef BLDCFG_PMU_TRAINING_MODE
+  #undef APCB_TOKEN_UID_PMUTRAINMODE_VALUE
+  #define APCB_TOKEN_UID_PMUTRAINMODE_VALUE                                      BLDCFG_PMU_TRAINING_MODE
+#endif
+
+#ifdef BLDCFG_ECC_SYMBOL_SIZE
+  #undef APCB_TOKEN_UID_ECCSYMBOLSIZE_VALUE
+  #define APCB_TOKEN_UID_ECCSYMBOLSIZE_VALUE                                     BLDCFG_ECC_SYMBOL_SIZE
+#endif
+
+#ifdef BLDCFG_MEMORY_ALL_CLOCKS_ON
+  #undef APCB_TOKEN_UID_MEMORYALLCLOCKSON_VALUE
+  #define APCB_TOKEN_UID_MEMORYALLCLOCKSON_VALUE                                 BLDCFG_MEMORY_ALL_CLOCKS_ON
+#endif
+
+#ifdef BLDCFG_MEMORY_BUS_FREQUENCY_LIMIT
+  #undef APCB_TOKEN_UID_MEMORYBUSFREQUENCYLIMIT_VALUE
+  #define APCB_TOKEN_UID_MEMORYBUSFREQUENCYLIMIT_VALUE                           BLDCFG_MEMORY_BUS_FREQUENCY_LIMIT
+#endif
+
+#ifdef BLDCFG_POWER_DOWN_MODE
+  #undef APCB_TOKEN_UID_POWERDOWNMODE_VALUE
+  #define APCB_TOKEN_UID_POWERDOWNMODE_VALUE                                     BLDCFG_POWER_DOWN_MODE
+#endif
+
+#ifdef BLDCFG_IGNORE_SPD_CHECKSUM
+  #undef APCB_TOKEN_UID_IGNORESPDCHECKSUM_VALUE
+  #define APCB_TOKEN_UID_IGNORESPDCHECKSUM_VALUE                                 BLDCFG_IGNORE_SPD_CHECKSUM
+#endif
+
+#ifdef BLDCFG_BANK_SWAP_GROUP_ENABLE
+  #undef APCB_TOKEN_UID_ENABLEBANKGROUPSWAP_VALUE
+  #define APCB_TOKEN_UID_ENABLEBANKGROUPSWAP_VALUE                               BLDCFG_BANK_SWAP_GROUP_ENABLE
+#endif
+
+#ifdef BLDCFG_ODT_CMD_THROT_ENABLE
+  #undef APCB_TOKEN_UID_ODTSCMDTHROTEN_VALUE
+  #define APCB_TOKEN_UID_ODTSCMDTHROTEN_VALUE                                    BLDCFG_ODT_CMD_THROT_ENABLE
+#endif
+
+#ifdef BLDCFG_SW_CMD_THROT_ENABLE
+  #undef APCB_TOKEN_UID_SWCMDTHROTEN_VALUE
+  #define APCB_TOKEN_UID_SWCMDTHROTEN_VALUE                                      BLDCFG_SW_CMD_THROT_ENABLE
+#endif
+
+#ifdef BLDCFG_ODT_CMD_THROT_CYCLE
+  #undef APCB_TOKEN_UID_ODTSCMDTHROTCYC_VALUE
+  #define APCB_TOKEN_UID_ODTSCMDTHROTCYC_VALUE                                   BLDCFG_ODT_CMD_THROT_CYCLE
+#endif
+
+#ifdef BLDCFG_SW_CMD_THROT_CYCLE
+  #undef APCB_TOKEN_UID_SWCMDTHROTCYC_VALUE
+  #define APCB_TOKEN_UID_SWCMDTHROTCYC_VALUE                                     BLDCFG_SW_CMD_THROT_CYCLE
+#endif
+
+#ifdef BLDCFG_DIMM_SENSOR_CONFIGURATION
+  #undef APCB_TOKEN_UID_DIMMSENSORCONF_VALUE
+  #define APCB_TOKEN_UID_DIMMSENSORCONF_VALUE                                    BLDCFG_DIMM_SENSOR_CONFIGURATION
+#endif
+
+#ifdef BLDCFG_DIMM_SENSOR_UPPER
+  #undef APCB_TOKEN_UID_DIMMSENSORUPPER_VALUE
+  #define APCB_TOKEN_UID_DIMMSENSORUPPER_VALUE                                   BLDCFG_DIMM_SENSOR_UPPER
+#endif
+
+#ifdef BLDCFG_3DS_DIMM_SENSOR_UPPER
+  #undef APCB_TOKEN_UID_3DSDIMMSENSORUPPER_VALUE
+  #define APCB_TOKEN_UID_3DSDIMMSENSORUPPER_VALUE                                BLDCFG_3DS_DIMM_SENSOR_UPPER
+#endif
+
+#ifdef BLDCFG_DIMM_SENSOR_LOWER
+  #undef APCB_TOKEN_UID_DIMMSENSORLOWER_VALUE
+  #define APCB_TOKEN_UID_DIMMSENSORLOWER_VALUE                                   BLDCFG_DIMM_SENSOR_LOWER
+#endif
+
+#ifdef BLDCFG_DIMM_SENSOR_CRITICAL
+  #undef APCB_TOKEN_UID_DIMMSENSORCRITICAL_VALUE
+  #define APCB_TOKEN_UID_DIMMSENSORCRITICAL_VALUE                                BLDCFG_DIMM_SENSOR_CRITICAL
+#endif
+
+#ifdef BLDCFG_3DS_DIMM_SENSOR_CRITICAL
+  #undef APCB_TOKEN_UID_3DSDIMMSENSORCRITICAL_VALUE
+  #define APCB_TOKEN_UID_3DSDIMMSENSORCRITICAL_VALUE                             BLDCFG_3DS_DIMM_SENSOR_CRITICAL
+#endif
+
+#ifdef BLDCFG_DIMM_SENSOR_RESOLUTION
+  #undef APCB_TOKEN_UID_DIMMSENSORRESOLUTION_VALUE
+  #define APCB_TOKEN_UID_DIMMSENSORRESOLUTION_VALUE                              BLDCFG_DIMM_SENSOR_RESOLUTION
+#endif
+
+#ifdef BLDCFG_AUTO_REF_FINE_GRAN_MODE
+  #undef APCB_TOKEN_UID_AUTOREFFINEGRANMODE_VALUE
+  #define APCB_TOKEN_UID_AUTOREFFINEGRANMODE_VALUE                               BLDCFG_AUTO_REF_FINE_GRAN_MODE
+#endif
+
+#ifdef BLDCFG_ENABLE_MEMPSTATE
+  #undef APCB_TOKEN_UID_ENABLEMEMPSTATE_VALUE
+  #define APCB_TOKEN_UID_ENABLEMEMPSTATE_VALUE                                   BLDCFG_ENABLE_MEMPSTATE
+#endif
+
+#ifdef BLDCFG_ENABLE_DDRROUTEBALANCEDTEE
+  #undef APCB_TOKEN_UID_DDRROUTEBALANCEDTEE_VALUE
+  #define APCB_TOKEN_UID_DDRROUTEBALANCEDTEE_VALUE                               BLDCFG_ENABLE_DDRROUTEBALANCEDTEE
+#endif
+
+#ifdef BLDCFG_MEM_DATA_POISON
+  #undef APCB_TOKEN_UID_MEM_DATA_POISON_VALUE
+  #define APCB_TOKEN_UID_MEM_DATA_POISON_VALUE                                   BLDCFG_MEM_DATA_POISON
+#endif
+
+#ifdef BLDCFG_MEM_DATA_SCRAMBLE
+  #undef APCB_TOKEN_UID_MEM_DATA_SCRAMBLE_VALUE
+  #define APCB_TOKEN_UID_MEM_DATA_SCRAMBLE_VALUE                                 BLDCFG_MEM_DATA_SCRAMBLE
+#endif
+
+#ifdef BLDCFG_MEM_MBIST_HALT_ON_ERROR
+  #undef APCB_TOKEN_UID_MEM_MBIST_HALT_ON_ERROR_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_HALT_ON_ERROR_VALUE                           BLDCFG_MEM_MBIST_HALT_ON_ERROR
+#endif
+
+#ifdef BLDCFG_MEM_MBIST_CPU_VREF_RANGE
+  #undef APCB_TOKEN_UID_MEM_CPU_VREF_RANGE_VALUE
+  #define APCB_TOKEN_UID_MEM_CPU_VREF_RANGE_VALUE                                BLDCFG_MEM_MBIST_CPU_VREF_RANGE
+#endif
+
+#ifdef BLDCFG_MEM_MBIST_DRAM_VREF_RANGE
+  #undef APCB_TOKEN_UID_MEM_DRAM_VREF_RANGE_VALUE
+  #define APCB_TOKEN_UID_MEM_DRAM_VREF_RANGE_VALUE                               BLDCFG_MEM_MBIST_DRAM_VREF_RANGE
+#endif
+
+#ifdef BLDCFG_MEM_MBIST_AGGR_STATIC_LANE_CTRL
+  #undef APCB_TOKEN_UID_MEM_MBIST_AGGR_STATIC_LANE_CTRL_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_AGGR_STATIC_LANE_CTRL_VALUE                   BLDCFG_MEM_MBIST_AGGR_STATIC_LANE_CTRL
+#endif
+
+#ifdef BLDCFG_MEM_MBIST_AGGR_STATIC_LANE_SEL_U32
+  #undef APCB_TOKEN_UID_MEM_MBIST_AGGR_STATIC_LANE_SEL_U32_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_AGGR_STATIC_LANE_SEL_U32_VALUE                BLDCFG_MEM_MBIST_AGGR_STATIC_LANE_SEL_U32
+#endif
+
+#ifdef BLDCFG_MEM_MBIST_AGGR_STATIC_LANE_SEL_L32
+  #undef APCB_TOKEN_UID_MEM_MBIST_AGGR_STATIC_LANE_SEL_L32_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_AGGR_STATIC_LANE_SEL_L32_VALUE                BLDCFG_MEM_MBIST_AGGR_STATIC_LANE_SEL_L32
+#endif
+
+#ifdef BLDCFG_MEM_MBIST_AGGR_STATIC_LANE_SEL_ECC
+  #undef APCB_TOKEN_UID_MEM_MBIST_AGGR_STATIC_LANE_SEL_ECC_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_AGGR_STATIC_LANE_SEL_ECC_VALUE                BLDCFG_MEM_MBIST_AGGR_STATIC_LANE_SEL_ECC
+#endif
+
+#ifdef BLDCFG_MEM_MBIST_AGGR_STATIC_LANE_VAL
+  #undef APCB_TOKEN_UID_MEM_MBIST_AGGR_STATIC_LANE_VAL_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_AGGR_STATIC_LANE_VAL_VALUE                    BLDCFG_MEM_MBIST_AGGR_STATIC_LANE_VAL
+#endif
+
+#ifdef BLDCFG_MEM_MBIST_TGT_STATIC_LANE_CTRL
+  #undef APCB_TOKEN_UID_MEM_MBIST_TGT_STATIC_LANE_CTRL_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_TGT_STATIC_LANE_CTRL_VALUE                    BLDCFG_MEM_MBIST_TGT_STATIC_LANE_CTRL
+#endif
+
+#ifdef BLDCFG_MEM_MBIST_TGT_STATIC_LANE_SEL_U32
+  #undef APCB_TOKEN_UID_MEM_MBIST_TGT_STATIC_LANE_SEL_U32_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_TGT_STATIC_LANE_SEL_U32_VALUE                 BLDCFG_MEM_MBIST_TGT_STATIC_LANE_SEL_U32
+#endif
+
+#ifdef BLDCFG_MEM_MBIST_TGT_STATIC_LANE_SEL_L32
+  #undef APCB_TOKEN_UID_MEM_MBIST_TGT_STATIC_LANE_SEL_L32_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_TGT_STATIC_LANE_SEL_L32_VALUE                 BLDCFG_MEM_MBIST_TGT_STATIC_LANE_SEL_L32
+#endif
+
+#ifdef BLDCFG_MEM_MBIST_TGT_STATIC_LANE_SEL_ECC
+  #undef APCB_TOKEN_UID_MEM_MBIST_TGT_STATIC_LANE_SEL_ECC_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_TGT_STATIC_LANE_SEL_ECC_VALUE                 BLDCFG_MEM_MBIST_TGT_STATIC_LANE_SEL_ECC
+#endif
+
+#ifdef BLDCFG_MEM_MBIST_TGT_STATIC_LANE_VAL
+  #undef APCB_TOKEN_UID_MEM_MBIST_TGT_STATIC_LANE_VAL_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_TGT_STATIC_LANE_VAL_VALUE                     BLDCFG_MEM_MBIST_TGT_STATIC_LANE_VAL
+#endif
+
+#ifdef BLDCFG_MEM_MBIST_DATA_EYE_TYPE
+  #undef APCB_TOKEN_UID_MEM_MBIST_DATA_EYE_TYPE_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_DATA_EYE_TYPE_VALUE                           BLDCFG_MEM_MBIST_DATA_EYE_TYPE
+#endif
+
+#ifdef BLDCFG_MEM_MBIST_WORST_CASE_GRAN
+  #undef APCB_TOKEN_UID_MEM_MBIST_WORST_CASE_GRAN_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_WORST_CASE_GRAN_VALUE                         BLDCFG_MEM_MBIST_WORST_CASE_GRAN
+#endif
+
+#ifdef BLDCFG_MEM_MBIST_READ_DATA_EYE_VOLTAGE_STEP
+  #undef APCB_TOKEN_UID_MEM_MBIST_READ_DATA_EYE_VOLTAGE_STEP_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_READ_DATA_EYE_VOLTAGE_STEP_VALUE              BLDCFG_MEM_MBIST_READ_DATA_EYE_VOLTAGE_STEP
+#endif
+
+#ifdef BLDCFG_MEM_MBIST_READ_DATA_EYE_TIMING_STEP
+  #undef APCB_TOKEN_UID_MEM_MBIST_READ_DATA_EYE_TIMING_STEP_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_READ_DATA_EYE_TIMING_STEP_VALUE               BLDCFG_MEM_MBIST_READ_DATA_EYE_TIMING_STEP
+#endif
+
+#ifdef BLDCFG_MEM_MBIST_WRITE_DATA_EYE_VOLTAGE_STEP
+  #undef APCB_TOKEN_UID_MEM_MBIST_WRITE_DATA_EYE_VOLTAGE_STEP_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_WRITE_DATA_EYE_VOLTAGE_STEP_VALUE             BLDCFG_MEM_MBIST_WRITE_DATA_EYE_VOLTAGE_STEP
+#endif
+
+#ifdef BLDCFG_MEM_MBIST_WRITE_DATA_EYE_TIMING_STEP
+  #undef APCB_TOKEN_UID_MEM_MBIST_WRITE_DATA_EYE_TIMING_STEP_VALUE
+  #define APCB_TOKEN_UID_MEM_MBIST_WRITE_DATA_EYE_TIMING_STEP_VALUE              BLDCFG_MEM_MBIST_WRITE_DATA_EYE_TIMING_STEP
+#endif
+
+#ifdef BLDCFG_POST_PACKAGE_REPAIR_ENABLE
+  #undef APCB_TOKEN_UID_POST_PACKAGE_REPAIR_ENABLE_VALUE
+  #define APCB_TOKEN_UID_POST_PACKAGE_REPAIR_ENABLE_VALUE                        BLDCFG_POST_PACKAGE_REPAIR_ENABLE
+#endif
+
+#ifdef BLDCFG_MEM_TSME_ENABLE
+  #undef APCB_TOKEN_UID_MEM_TSME_ENABLE_DDR_VALUE
+  #define APCB_TOKEN_UID_MEM_TSME_ENABLE_DDR_VALUE                                   BLDCFG_MEM_TSME_ENABLE
+#endif
+
+#ifdef BLDCFG_CCX_MIN_SEV_ASID
+  #undef APCB_TOKEN_UID_CCX_MIN_SEV_ASID_VALUE
+  #define APCB_TOKEN_UID_CCX_MIN_SEV_ASID_VALUE                                  BLDCFG_CCX_MIN_SEV_ASID
+#endif
+
+#ifdef BLDCFG_PSP_ENABLE_DEBUG_MODE
+  #undef APCB_TOKEN_UID_PSP_ENABLE_DEBUG_MODE_VALUE
+  #define APCB_TOKEN_UID_PSP_ENABLE_DEBUG_MODE_VALUE                             BLDCFG_PSP_ENABLE_DEBUG_MODE
+#endif
+
+#ifdef BLDCFG_PSP_SYSHUB_WDT_INTERVAL
+  #undef APCB_TOKEN_UID_PSP_SYSHUB_WDT_INTERVAL_VALUE
+  #define APCB_TOKEN_UID_PSP_SYSHUB_WDT_INTERVAL_VALUE                           BLDCFG_PSP_SYSHUB_WDT_INTERVAL
+#endif
+
+#ifdef BLDCFG_DF_GMI_ENCRYPT
+  #undef APCB_TOKEN_UID_DF_GMI_ENCRYPT_VALUE
+  #define APCB_TOKEN_UID_DF_GMI_ENCRYPT_VALUE                                    BLDCFG_DF_GMI_ENCRYPT
+#endif
+
+#ifdef BLDCFG_DF_XGMI_ENCRYPT
+  #undef APCB_TOKEN_UID_DF_XGMI_ENCRYPT_VALUE
+  #define APCB_TOKEN_UID_DF_XGMI_ENCRYPT_VALUE                                   BLDCFG_DF_XGMI_ENCRYPT
+#endif
+
+#ifdef BLDCFG_DF_SAVE_RESTORE_MEM_ENCRYPT
+  #undef APCB_TOKEN_UID_DF_SAVE_RESTORE_MEM_ENCRYPT_VALUE
+  #define APCB_TOKEN_UID_DF_SAVE_RESTORE_MEM_ENCRYPT_VALUE                       BLDCFG_DF_SAVE_RESTORE_MEM_ENCRYPT
+#endif
+
+#ifdef BLDCFG_DF_SYS_STORAGE_AT_TOM
+  #undef APCB_TOKEN_UID_DF_SYS_STORAGE_AT_TOP_OF_MEM_VALUE
+  #define APCB_TOKEN_UID_DF_SYS_STORAGE_AT_TOP_OF_MEM_VALUE                      BLDCFG_DF_SYS_STORAGE_AT_TOM
+#endif
+
+#ifdef BLDCFG_DF_PROBE_FILTER_ENABLE
+  #undef APCB_TOKEN_UID_DF_PROBE_FILTER_VALUE
+  #define APCB_TOKEN_UID_DF_PROBE_FILTER_VALUE                                   BLDCFG_DF_PROBE_FILTER_ENABLE
+#endif
+
+#ifdef BLDCFG_DF_BOTTOM_IO
+  #undef APCB_TOKEN_UID_DF_BOTTOMIO_VALUE
+  #define APCB_TOKEN_UID_DF_BOTTOMIO_VALUE                                       BLDCFG_DF_BOTTOM_IO
+#endif
+
+#ifdef BLDCFG_DF_MEM_INTERLEAVING
+  #undef APCB_TOKEN_UID_DF_MEM_INTERLEAVING_VALUE
+  #define APCB_TOKEN_UID_DF_MEM_INTERLEAVING_VALUE                               BLDCFG_DF_MEM_INTERLEAVING
+#endif
+
+#ifdef BLDCFG_DF_DRAM_INTLV_SIZE
+  #undef APCB_TOKEN_UID_DF_MEM_INTERLEAVING_SIZE_VALUE
+  #define APCB_TOKEN_UID_DF_MEM_INTERLEAVING_SIZE_VALUE                          BLDCFG_DF_DRAM_INTLV_SIZE
+#endif
+
+#ifdef BLDCFG_DF_CHAN_INTLV_HASH_EN
+  #undef APCB_TOKEN_UID_DF_CHAN_INTLV_HASH_VALUE
+  #define APCB_TOKEN_UID_DF_CHAN_INTLV_HASH_VALUE                                BLDCFG_DF_CHAN_INTLV_HASH_EN
+#endif
+
+#ifdef BLDCFG_DF_PCI_MMIO_SIZE
+  #undef APCB_TOKEN_UID_DF_PCI_MMIO_SIZE_VALUE
+  #define APCB_TOKEN_UID_DF_PCI_MMIO_SIZE_VALUE                                  BLDCFG_DF_PCI_MMIO_SIZE
+#endif
+
+#ifdef BLDCFG_DF_CAKE_CRC_THRESH_PERF_BOUNDS
+  #undef APCB_TOKEN_UID_DF_CAKE_CRC_THRESH_PERF_BOUNDS_VALUE
+  #define APCB_TOKEN_UID_DF_CAKE_CRC_THRESH_PERF_BOUNDS_VALUE                    BLDCFG_DF_CAKE_CRC_THRESH_PERF_BOUNDS
+#endif
+
+#ifdef BLDCFG_DF_MEM_CLEAR
+  #undef APCB_TOKEN_UID_DF_MEM_CLEAR_VALUE
+  #define APCB_TOKEN_UID_DF_MEM_CLEAR_VALUE                                      BLDCFG_DF_MEM_CLEAR
+#endif
+
+#ifdef BLDCFG_DF3_XGMI2_LINK_CFG
+  #undef APCB_TOKEN_UID_DF3_XGMI2_LINK_CFG_VALUE
+  #define APCB_TOKEN_UID_DF3_XGMI2_LINK_CFG_VALUE                                BLDCFG_DF3_XGMI2_LINK_CFG
+#endif
+
+#ifdef BLDCFG_DF_DRAM_NPS
+  #undef APCB_TOKEN_UID_DF_DRAM_NPS_VALUE
+  #define APCB_TOKEN_UID_DF_DRAM_NPS_VALUE                                       BLDCFG_DF_DRAM_NPS
+#endif
+
+#ifdef BLDCFG_DF_INVERT_DRAM_MAP
+  #undef APCB_TOKEN_UID_DF_INVERT_DRAM_MAP_VALUE
+  #define APCB_TOKEN_UID_DF_INVERT_DRAM_MAP_VALUE                                BLDCFG_DF_INVERT_DRAM_MAP
+#endif
+
+#ifdef BLDCFG_DF_4LINK_MAX_XGMI_SPEED
+  #undef APCB_TOKEN_UID_DF_4LINK_MAX_XGMI_SPEED_VALUE
+  #define APCB_TOKEN_UID_DF_4LINK_MAX_XGMI_SPEED_VALUE                           BLDCFG_DF_4LINK_MAX_XGMI_SPEED
+#endif
+
+#ifdef BLDCFG_DF_3LINK_MAX_XGMI_SPEED
+  #undef APCB_TOKEN_UID_DF_3LINK_MAX_XGMI_SPEED_VALUE
+  #define APCB_TOKEN_UID_DF_3LINK_MAX_XGMI_SPEED_VALUE                           BLDCFG_DF_3LINK_MAX_XGMI_SPEED
+#endif
+
+#ifdef BLDCFG_DF_REMAP_AT_1TB
+  #undef APCB_TOKEN_UID_DF_REMAP_AT_1TB_VALUE
+  #define APCB_TOKEN_UID_DF_REMAP_AT_1TB_VALUE                                   BLDCFG_DF_REMAP_AT_1TB
+#endif
+
+#ifdef BLDCFG_BMC_SOCKET_INFO
+  #undef APCB_TOKEN_UID_BMC_SOCKET_NUMBER_VALUE
+  #define APCB_TOKEN_UID_BMC_SOCKET_NUMBER_VALUE                                 BLDCFG_BMC_SOCKET_INFO
+#endif
+
+#ifdef BLDCFG_BMC_START_LANE
+  #undef APCB_TOKEN_UID_BMC_START_LANE_VALUE
+  #define APCB_TOKEN_UID_BMC_START_LANE_VALUE                                    BLDCFG_BMC_START_LANE
+#endif
+
+#ifdef BLDCFG_BMC_END_LANE
+  #undef APCB_TOKEN_UID_BMC_END_LANE_VALUE
+  #define APCB_TOKEN_UID_BMC_END_LANE_VALUE                                      BLDCFG_BMC_END_LANE
+#endif
+
+#ifdef BLDCFG_BMC_BMC_DEVICE
+  #undef APCB_TOKEN_UID_BMC_DEVICE_VALUE
+  #define APCB_TOKEN_UID_BMC_DEVICE_VALUE                                        BLDCFG_BMC_BMC_DEVICE
+#endif
+
+#ifdef BLDCFG_BMC_FUNCTION
+  #undef APCB_TOKEN_UID_BMC_FUNCTION_VALUE
+  #define APCB_TOKEN_UID_BMC_FUNCTION_VALUE                                      BLDCFG_BMC_FUNCTION
+#endif
+
+#ifdef BLDCFG_PCIE_RESET_CONTROL
+  #undef APCB_TOKEN_UID_PCIE_RESET_CONTROL_VALUE
+  #define APCB_TOKEN_UID_PCIE_RESET_CONTROL_VALUE                                BLDCFG_PCIE_RESET_CONTROL
+#endif
+
+#ifdef BLDCFG_PCIE_RESET_PIN_SELECT
+  #undef APCB_TOKEN_UID_PCIE_RESET_PIN_SELECT_VALUE
+  #define APCB_TOKEN_UID_PCIE_RESET_PIN_SELECT_VALUE                             BLDCFG_PCIE_RESET_PIN_SELECT
+#endif
+
+#ifdef BLDCFG_FCH_CONSOLE_OUT_ENABLE
+  #undef APCB_TOKEN_UID_FCH_CONSOLE_OUT_ENABLE_VALUE
+  #define APCB_TOKEN_UID_FCH_CONSOLE_OUT_ENABLE_VALUE                            BLDCFG_FCH_CONSOLE_OUT_ENABLE
+#endif
+
+#ifdef BLDCFG_FCH_CONSOLE_OUT_SERIAL_PORT
+  #undef APCB_TOKEN_UID_FCH_CONSOLE_OUT_SERIAL_PORT_VALUE
+  #define APCB_TOKEN_UID_FCH_CONSOLE_OUT_SERIAL_PORT_VALUE                       BLDCFG_FCH_CONSOLE_OUT_SERIAL_PORT
+#endif
+
+#ifdef BLDCFG_FCH_CONSOLE_OUT_BASIC_ENABLE
+  #undef APCB_TOKEN_UID_FCH_CONSOLE_OUT_BASIC_ENABLE_VALUE
+  #define APCB_TOKEN_UID_FCH_CONSOLE_OUT_BASIC_ENABLE_VALUE                      BLDCFG_FCH_CONSOLE_OUT_BASIC_ENABLE
+#endif
+
+#ifdef BLDCFG_FCH_I3C_TRANSFER_SPEED
+  #undef APCB_TOKEN_UID_FCH_I3C_TRANSFER_SPEED_VALUE
+  #define APCB_TOKEN_UID_FCH_I3C_TRANSFER_SPEED_VALUE                            BLDCFG_FCH_I3C_TRANSFER_SPEED
+#endif
+
+#ifndef APCB_TOKEN_UID_FCH_IC_SDA_HOLD_OVERRIDE_VALUE
+  #define APCB_TOKEN_UID_FCH_IC_SDA_HOLD_OVERRIDE_VALUE                          0x0
+#endif
+
+#ifndef APCB_TOKEN_UID_FCH_IC_SDA_TX_HOLD_VALUE
+  #define APCB_TOKEN_UID_FCH_IC_SDA_TX_HOLD_VALUE                                0x35
+#endif
+
+#ifndef APCB_TOKEN_UID_FCH_IC_SDA_RX_HOLD_VALUE
+  #define APCB_TOKEN_UID_FCH_IC_SDA_RX_HOLD_VALUE                                0x0
+#endif
+
+#ifndef APCB_TOKEN_UID_FCH_I3C_SDA_HOLD_SWITCH_DLY_TIMING_VALUE
+  #define APCB_TOKEN_UID_FCH_I3C_SDA_HOLD_SWITCH_DLY_TIMING_VALUE                0x2
+#endif
+
+#ifndef APCB_TOKEN_UID_NBIO_SATA_MODE_VALUE
+  #define APCB_TOKEN_UID_NBIO_SATA_MODE_VALUE                                    0x2
+#endif
+
+// Program SDXI Class Code
+#ifndef APCB_TOKEN_UID_PROG_SDXI_CLASS_CODE_VALUE
+  #define APCB_TOKEN_UID_PROG_SDXI_CLASS_CODE_VALUE                              0x0
+#endif
+
+#ifndef APCB_TOKEN_UID_FCH_SPD_CONTROL_OWNERSHIP_VALUE
+  #define APCB_TOKEN_UID_FCH_SPD_CONTROL_OWNERSHIP_VALUE                         0x0
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_ECSFEATURE_DDR_VALUE
+  #define APCB_TOKEN_UID_MEM_ECSFEATURE_DDR_VALUE                                0 // ABL Default: ECS_MODE_AUTO
+#endif
+
+#ifndef APCB_TOKEN_UID_MEM_DATA_POISONING_DDR_VALUE
+  #define APCB_TOKEN_UID_MEM_DATA_POISONING_DDR_VALUE                            1 // ABL Default: DATA_POISONING_ENABLED
+#endif
+
+#endif   //ifndef  _APCB_DEFAULTS_H_
+

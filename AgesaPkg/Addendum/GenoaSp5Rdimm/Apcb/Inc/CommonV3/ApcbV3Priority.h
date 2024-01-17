@@ -1,0 +1,63 @@
+/*****************************************************************************
+ *
+ * Copyright (C) 2016-2024 Advanced Micro Devices, Inc. All rights reserved.
+ *
+ *******************************************************************************
+ */
+
+#ifndef _APCB_V3_PRIORITY_H_
+#define _APCB_V3_PRIORITY_H_
+//
+// @APCB_START
+//
+
+//
+// @CONSTANT
+//
+#define APCB_BINARY_INSTANCE_DEFAULT        0
+#define APCB_BINARY_INSTANCE_HARD_FORCE     0
+#define APCB_BINARY_INSTANCE_BIOS_CONFIG    0
+#define APCB_BINARY_INSTANCE_EVENT_LOGGING  1
+
+#define APCB_TYPE_INSTANCE_DEFAULT          0
+#define APCB_TYPE_INSTANCE_HARD_FORCE       0
+#define APCB_TYPE_INSTANCE_HIGH             0
+#define APCB_TYPE_INSTANCE_MEDIUM           1
+#define APCB_TYPE_INSTANCE_LOW              2
+#define APCB_TYPE_INSTANCE_EVENT_LOGGING    0
+
+#define APCB_PRIORITY_LEVEL_TO_MASK(PriorityLevel) (1 << ((PriorityLevel) - 1))
+
+typedef enum {
+  APCB_PRIORITY_LEVEL_NONE            = 0,
+  APCB_PRIORITY_LEVEL_HARD_FORCE      = 1,
+  APCB_PRIORITY_LEVEL_HIGH            = 2,
+  APCB_PRIORITY_LEVEL_MEDIUM          = 3,
+  APCB_PRIORITY_LEVEL_EVENT_LOGGING   = 4,
+  APCB_PRIORITY_LEVEL_LOW             = 5,
+  APCB_PRIORITY_LEVEL_DEFAULT         = 6,
+  APCB_PRIORITY_LEVEL_LIMIT           = 7,
+} APCB_PRIORITY_LEVEL;
+
+// #define APCB_PRIORITY_TYPE_MASK_NONE           0                                    ///< @VALUE: 0
+#define APCB_PRIORITY_TYPE_MASK_HARD_FORCE     APCB_PRIORITY_LEVEL_TO_MASK(APCB_PRIORITY_LEVEL_HARD_FORCE)      ///< @VALUE: 0x1
+#define APCB_PRIORITY_TYPE_MASK_HIGH           APCB_PRIORITY_LEVEL_TO_MASK(APCB_PRIORITY_LEVEL_HIGH)            ///< @VALUE: 0x2
+#define APCB_PRIORITY_TYPE_MASK_MEDIUM         APCB_PRIORITY_LEVEL_TO_MASK(APCB_PRIORITY_LEVEL_MEDIUM)          ///< @VALUE: 0x4
+#define APCB_PRIORITY_TYPE_MASK_EVENT_LOGGING  APCB_PRIORITY_LEVEL_TO_MASK(APCB_PRIORITY_LEVEL_EVENT_LOGGING)   ///< @VALUE: 0x8
+#define APCB_PRIORITY_TYPE_MASK_LOW            APCB_PRIORITY_LEVEL_TO_MASK(APCB_PRIORITY_LEVEL_LOW)             ///< @VALUE: 0x10
+#define APCB_PRIORITY_TYPE_MASK_DEFAULT        APCB_PRIORITY_LEVEL_TO_MASK(APCB_PRIORITY_LEVEL_DEFAULT)         ///< @VALUE: 0x20
+
+typedef enum {
+  APCB_TYPE_PURPOSE_NONE              = 0,
+  APCB_TYPE_PURPOSE_HARD_FORCE        = 1,
+  APCB_TYPE_PURPOSE_ADMIN             = 2,
+  APCB_TYPE_PURPOSE_DEBUG             = 3,
+  APCB_TYPE_PURPOSE_EVENT_LOGGING     = 4,
+  APCB_TYPE_PURPOSE_NORMAL            = 5,
+  APCB_TYPE_PURPOSE_DEFAULT           = 6,
+  APCB_TYPE_PURPOSE_LIMIT             = 7,
+} APCB_TYPE_PURPOSE;
+
+#endif // _APCB_V3_PRIORITY_H_
+
+

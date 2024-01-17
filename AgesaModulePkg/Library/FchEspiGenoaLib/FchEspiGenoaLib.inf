@@ -1,0 +1,37 @@
+#;*****************************************************************************
+#;
+#; Copyright (C) 2008-2024 Advanced Micro Devices, Inc. All rights reserved.
+#;
+#;******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010006
+  BASE_NAME                      = FchEspiGenoaLib
+  FILE_GUID                      = 99b20177-87c2-40b4-9cee-d748368a91f3
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = FchEspiLib
+
+[Sources.common]
+  FchEspiGenoaLib.c
+
+[Packages]
+  AgesaModulePkg/AgesaModuleFchPkg.dec
+  MdePkg/MdePkg.dec
+
+[LibraryClasses]
+
+[Guids]
+
+[Protocols]
+
+[Ppis]
+
+[Pcd]
+
+[Depex]
+
+
+
+
+

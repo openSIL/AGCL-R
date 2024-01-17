@@ -1,0 +1,63 @@
+{
+    "ApcbDataDefaultRecovery": {
+        "binary": "APCB_Genoa_D4_DefaultRecovery.bin",
+        "sources": {
+            "Compliance": {
+                "common": [
+                    "ApcbDataDefaultRecovery/Compliance/ApcbData_Genoa_GID_0x1704_Type_DimmInfoSpd.c",
+                    "ApcbDataDefaultRecovery/Compliance/ApcbData_Genoa_GID_0x3000_Type_TokenBoolean.c"
+                ]
+            },
+            "GenoaCommon": {
+                "common": [
+                    "ApcbDataDefaultRecovery/GenoaCommon/ApcbData_Genoa_GID_0x1704_Type_ConsoleOutControl.c",
+                    "ApcbDataDefaultRecovery/GenoaCommon/ApcbData_Genoa_GID_0x1704_Type_ErrorOutControl.c",
+                    "ApcbDataDefaultRecovery/GenoaCommon/ApcbData_Genoa_GID_0x1704_Type_ExtVoltageControl.c",
+                    "ApcbDataDefaultRecovery/GenoaCommon/ApcbData_Genoa_GID_0x1704_Type_DimmInfoSpd.c",
+                    "ApcbDataDefaultRecovery/GenoaCommon/ApcbData_Genoa_GID_0x1704_Type_PsoOverride.c",
+                    "ApcbDataDefaultRecovery/GenoaCommon/ApcbData_Genoa_GID_0x1704_Type_PsBusCfgRDIMMDdr5.c",
+                    "ApcbDataDefaultRecovery/GenoaCommon/ApcbData_Genoa_GID_0x1704_Type_PsDramDqPinMapping.c",
+                    "ApcbDataDefaultRecovery/GenoaCommon/ApcbData_Genoa_GID_0x1704_Type_PsDramCaPinMapping.c",
+                    "ApcbDataDefaultRecovery/GenoaCommon/ApcbData_Genoa_GID_0x1704_Type_PsMaxFreq3DSRDIMMDdr5.c",
+                    "ApcbDataDefaultRecovery/GenoaCommon/ApcbData_Genoa_GID_0x1704_Type_PsMaxFreqLRDIMMDdr5.c",
+                    "ApcbDataDefaultRecovery/GenoaCommon/ApcbData_Genoa_GID_0x1704_Type_PsMaxFreqRDIMMDdr5.c",
+                    "ApcbDataDefaultRecovery/GenoaCommon/ApcbData_Genoa_GID_0x1704_Type_PlatformTuningEntry.c",
+                    "ApcbDataDefaultRecovery/GenoaCommon/ApcbData_Genoa_GID_0x1706_Type_EspiInitConfiguration.c",
+                    "ApcbDataDefaultRecovery/GenoaCommon/ApcbData_Genoa_GID_0x3000_Type_TokenBoolean.c",
+                    "ApcbDataDefaultRecovery/GenoaCommon/ApcbData_Genoa_GID_0x3000_Type_Token1Byte.c",
+                    "ApcbDataDefaultRecovery/GenoaCommon/ApcbData_Genoa_GID_0x3000_Type_Token2Bytes.c",
+                    "ApcbDataDefaultRecovery/GenoaCommon/ApcbData_Genoa_GID_0x3000_Type_Token4Bytes.c"
+                ],
+                "multiboard": [
+                    "ApcbDataDefaultRecovery/GenoaCommon/ApcbData_Genoa_GID_0x1704_Type_BoardIdGettingMethod.c"
+                ]
+            },
+            "Onyx": {
+                "common": [
+                    "ApcbDataDefaultRecovery/Onyx/ApcbData_Genoa_GID_0x1704_Type_DimmInfoSpd.c",
+                    "ApcbDataDefaultRecovery/Onyx/ApcbData_Genoa_GID_0x3000_Type_Token1Byte.c"
+                ]
+            }
+        }
+    },
+    "ApcbDataEventLog": {
+        "binary": "APCB_Genoa_D4_EventLog.bin",
+        "sources": [
+            "ApcbDataEventLog/ApcbData_Genoa_GID_0x1704_Type_DdrPostPackageRepair.c"
+        ]
+    },
+    "ApcbDataUpdatable": {
+        "binary": "APCB_Genoa_D4_Updatable.bin",
+        "sources": [
+            "ApcbDataUpdatable/ApcbData_Genoa_GID_0x3000_Type_TokenBoolean.c",
+            "ApcbDataUpdatable/ApcbData_Genoa_GID_0x3000_Type_Token1Byte.c",
+            "ApcbDataUpdatable/ApcbData_Genoa_GID_0x3000_Type_Token2Bytes.c",
+            "ApcbDataUpdatable/ApcbData_Genoa_GID_0x3000_Type_Token4Bytes.c",
+            "ApcbDataUpdatable/ApcbData_Genoa_GID_0x3000_Type_TokenBooleanDebug.c",
+            "ApcbDataUpdatable/ApcbData_Genoa_GID_0x3000_Type_Token1ByteDebug.c",
+            "ApcbDataUpdatable/ApcbData_Genoa_GID_0x3000_Type_Token2BytesDebug.c",
+            "ApcbDataUpdatable/ApcbData_Genoa_GID_0x3000_Type_Token4BytesDebug.c",
+            "ApcbDataUpdatable/ApcbData_Genoa_GID_0x1703_Type_CxlConfig.c"
+        ]
+    }
+}

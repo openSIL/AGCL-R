@@ -1,0 +1,46 @@
+@ECHO OFF
+REM -------------------------------------------------------------------
+REM BOARD NAME is set by caller
+REM -------------------------------------------------------------------
+ECHO *********************************
+ECHO BOARD NAME : %BOARD_NAME%
+ECHO *********************************
+
+SET APCB_DATA_TYPE_FILE_LIST=%APCB_DATA_TYPE_FILE_LIST% %BOARD_NAME%\ApcbData_Genoa_GID_0x1704_Type_ConsoleOutControl
+SET APCB_DATA_TYPE_FILE_LIST=%APCB_DATA_TYPE_FILE_LIST% %BOARD_NAME%\ApcbData_Genoa_GID_0x1704_Type_ErrorOutControl
+SET APCB_DATA_TYPE_FILE_LIST=%APCB_DATA_TYPE_FILE_LIST% %BOARD_NAME%\ApcbData_Genoa_GID_0x1704_Type_ExtVoltageControl
+SET APCB_DATA_TYPE_FILE_LIST=%APCB_DATA_TYPE_FILE_LIST% %BOARD_NAME%\ApcbData_Genoa_GID_0x1704_Type_DimmInfoSpd
+REM SET APCB_DATA_TYPE_FILE_LIST=%APCB_DATA_TYPE_FILE_LIST% %BOARD_NAME%\ApcbData_Genoa_GID_0x1704_Type_DimmHubInfo
+SET APCB_DATA_TYPE_FILE_LIST=%APCB_DATA_TYPE_FILE_LIST% %BOARD_NAME%\ApcbData_Genoa_GID_0x1704_Type_PsoOverride
+SET APCB_DATA_TYPE_FILE_LIST=%APCB_DATA_TYPE_FILE_LIST% %BOARD_NAME%\ApcbData_Genoa_GID_0x1704_Type_PsBusCfgRDIMMDdr5
+SET APCB_DATA_TYPE_FILE_LIST=%APCB_DATA_TYPE_FILE_LIST% %BOARD_NAME%\ApcbData_Genoa_GID_0x1704_Type_PsDramDqPinMapping
+SET APCB_DATA_TYPE_FILE_LIST=%APCB_DATA_TYPE_FILE_LIST% %BOARD_NAME%\ApcbData_Genoa_GID_0x1704_Type_PsDramCaPinMapping
+SET APCB_DATA_TYPE_FILE_LIST=%APCB_DATA_TYPE_FILE_LIST% %BOARD_NAME%\ApcbData_Genoa_GID_0x1704_Type_PsMaxFreq3DSRDIMMDdr5
+SET APCB_DATA_TYPE_FILE_LIST=%APCB_DATA_TYPE_FILE_LIST% %BOARD_NAME%\ApcbData_Genoa_GID_0x1704_Type_PsMaxFreqLRDIMMDdr5
+SET APCB_DATA_TYPE_FILE_LIST=%APCB_DATA_TYPE_FILE_LIST% %BOARD_NAME%\ApcbData_Genoa_GID_0x1704_Type_PsMaxFreqRDIMMDdr5
+REM SET APCB_DATA_TYPE_FILE_LIST=%APCB_DATA_TYPE_FILE_LIST% %BOARD_NAME%\ApcbData_Genoa_GID_0x1704_Type_SpdInfo
+SET APCB_DATA_TYPE_FILE_LIST=%APCB_DATA_TYPE_FILE_LIST% %BOARD_NAME%\ApcbData_Genoa_GID_0x1704_Type_PlatformTuningEntry
+SET APCB_DATA_TYPE_FILE_LIST=%APCB_DATA_TYPE_FILE_LIST% %BOARD_NAME%\ApcbData_Genoa_GID_0x1706_Type_EspiInitConfiguration
+
+IF NOT "!APCB_VER!" == "V3" GOTO SKIP_V3_TOKEN_FILES
+REM APCB V3 Priority Mapping Customization (To be supported)
+REM Disable this temporarily
+REM SET APCB_DATA_TYPE_FILE_LIST=%APCB_DATA_TYPE_FILE_LIST% %BOARD_NAME%\ApcbData_Genoa_GID_0x1000_Type_PriorityCustomization
+REM APCB V3 Tokens
+SET APCB_DATA_TYPE_FILE_LIST=%APCB_DATA_TYPE_FILE_LIST% %BOARD_NAME%\ApcbData_Genoa_GID_0x3000_Type_TokenBoolean
+SET APCB_DATA_TYPE_FILE_LIST=%APCB_DATA_TYPE_FILE_LIST% %BOARD_NAME%\ApcbData_Genoa_GID_0x3000_Type_Token1Byte
+SET APCB_DATA_TYPE_FILE_LIST=%APCB_DATA_TYPE_FILE_LIST% %BOARD_NAME%\ApcbData_Genoa_GID_0x3000_Type_Token2Bytes
+SET APCB_DATA_TYPE_FILE_LIST=%APCB_DATA_TYPE_FILE_LIST% %BOARD_NAME%\ApcbData_Genoa_GID_0x3000_Type_Token4Bytes
+
+:SKIP_V3_TOKEN_FILES
+REM ----------------------------------------------------------------------------
+REM BoardIdGettingMethod applies to multiple APCB only, please remove it if
+REM only 1 APCB instance is needed
+REM ----------------------------------------------------------------------------
+IF NOT "%APCB_MULTI_BOARD_SUPPORT%" == "1" GOTO SKIP_MULTI_BOARD_SUPPORT
+SET APCB_DATA_TYPE_FILE_LIST=%APCB_DATA_TYPE_FILE_LIST% %BOARD_NAME%\ApcbData_Genoa_GID_0x1704_Type_BoardIdGettingMethod
+:SKIP_MULTI_BOARD_SUPPORT
+
+
+:END
+EXIT /B 0

@@ -1,0 +1,94 @@
+#;*****************************************************************************
+#;
+#; Copyright (C) 2008-2024 Advanced Micro Devices, Inc. All rights reserved.
+#;
+#;******************************************************************************
+
+[defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = FchSmmDispatcher
+  FILE_GUID                      = 82adb73c-e005-4e07-976d-f7f75314ec4f
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  VERSION_STRING                 = 1.0
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  ENTRY_POINT                    = FchSmmDispatcherEntry
+
+[sources]
+  FchSmmData.c
+  FchSmmDispatcher.c
+  FchSmmDispatcher.h
+  FchSmmSwDispatcher/FchSmmSwDispatcher.c
+  FchSmmSwDispatcher/FchSmmSwDispatcher.h
+
+[sources.ia32]
+
+[sources.x64]
+
+[LibraryClasses]
+  FchSmmLibV9
+  Fch9004DxeLib
+  NbioHandleLib
+  NbioSmuGenoaLib
+  FabricRegisterAccLib
+  UefiDriverEntryPoint
+  BaseMemoryLib
+  BaseLib
+  DebugLib
+  UefiRuntimeServicesTableLib
+  UefiBootServicesTableLib
+  SmmServicesTableLib
+  DevicePathLib
+  MemoryAllocationLib
+  SmmMemLib
+
+[Guids]
+
+[Protocols]
+  gFchSmmSwDispatch2ProtocolGuid            #PRODUCED
+  gEfiSmmSwDispatch2ProtocolGuid            #PRODUCED
+  gFchSmmSxDispatch2ProtocolGuid            #PRODUCED
+  gEfiSmmSxDispatch2ProtocolGuid            #PRODUCED
+  gFchSmmPwrBtnDispatch2ProtocolGuid        #PRODUCED
+  gEfiSmmPowerButtonDispatch2ProtocolGuid   #PRODUCED
+  gFchSmmPeriodicalDispatch2ProtocolGuid    #PRODUCED
+  gEfiSmmPeriodicTimerDispatch2ProtocolGuid #PRODUCED
+  gFchSmmUsbDispatch2ProtocolGuid           #PRODUCED
+  gEfiSmmUsbDispatch2ProtocolGuid           #PRODUCED
+  gFchSmmGpiDispatch2ProtocolGuid           #PRODUCED
+  gEfiSmmGpiDispatch2ProtocolGuid           #PRODUCED
+  gFchSmmIoTrapDispatch2ProtocolGuid        #PRODUCED
+  gEfiSmmIoTrapDispatch2ProtocolGuid        #PRODUCED
+
+  gFchSmmMiscDispatchProtocolGuid           #PRODUCED
+  gFchSmmApuRasDispatchProtocolGuid         #PRODUCED
+
+  gEfiSmmConfigurationProtocolGuid          #CONSUMED
+  gEfiSmmBase2ProtocolGuid                  #CONSUMED
+  gEfiSmmCpuProtocolGuid                    #CONSUMED
+  gAmdCapsuleSmmHookProtocolGuid
+  gAmdFabricTopologyServices2SmmProtocolGuid
+
+[Pcd]
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdXhci0Enable
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdXhci1Enable
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdXhci2Enable
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdXhci3Enable
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdEspiSmiOutBVwEnable
+
+[Packages]
+  MdePkg/MdePkg.dec
+  AgesaPkg/AgesaPkg.dec
+  AgesaModulePkg/AgesaModuleFchPkg.dec
+  AgesaModulePkg/Fch/9004/Fch9004.dec
+  AgesaModulePkg/AgesaModuleDfPkg.dec
+
+[Depex]
+  gEfiSmmBase2ProtocolGuid
+  AND
+  gEfiSmmCpuProtocolGuid
+  AND
+  gAmdFchSNSmmDispacherDepexProtocolGuid
+  AND
+  gAmdFabricTopologyServices2SmmProtocolGuid
+
+
