@@ -18,7 +18,7 @@
  *                   D E F I N I T I O N S    A N D    M A C R O S
  *----------------------------------------------------------------------------------------
  */
-#define FILECODE LIBRARY_FCHESPILIB_FCHESPIRSLIB_FILECODE
+#define FILECODE LIBRARY_FCHESPILIB_FCHESPIGENOALIB_FILECODE
 
 
 /*----------------------------------------------------------------------------------------

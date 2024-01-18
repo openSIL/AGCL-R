@@ -876,7 +876,6 @@ typedef enum {
   ReservedDrtm,               ///< DRAM reserved for PSP use.  Access is determined by the PSP.
   ReservedCvip,               ///< DRAM reserved for CVIP use.
   ReservedSmuFeatures,        ///< DRAM reserved for SMU features
-  ReservedFwtpm,              ///< DRAM reserved for HSP
   ReservedMpioC20,            ///< DRAM reserved for C20 PHY
   ReservedNbif,               ///< DRAM reserved for NBIF
   ReservedCxl,                ///< CXL connected memory is not available until later in POST
@@ -1197,7 +1196,6 @@ typedef struct {
 
 /**
  * @brief Structure for memory events from event log
- * @details See 'Common RAS Definition' for details
  *
  */
 typedef struct {

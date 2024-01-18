@@ -42,7 +42,6 @@ typedef union {
     UINT32 SkipAllUSBControllerAccess:1;   ///< When set FW will skip all USB Control init communication from the FW
     UINT32 SkipAllUSBPhyAccess:1;          ///< When set FW will skip all USB phy communication from the FW
     UINT32 SkipDxioInitializaion:1;        ///<When set FW will skip DXIO Initialization from the FW>
-    UINT32 HspDisabled:1;                  ///< HSP disabled in FW
     UINT32 ForceMpmMeventPath:1;           ///< Set to 1 to force MPM M-event path (X86 not released)
     UINT32 :18;                            ///< Reserved
   } Field;

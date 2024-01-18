@@ -3232,7 +3232,6 @@ typedef enum {
 typedef enum {
   SYSTEM_TPM_CONFIG_DTPM     = 0x00, ///< dTPM
   SYSTEM_TPM_CONFIG_PSP_FTPM = 0x01, ///< PSP FTPM
-  SYSTEM_TPM_CONFIG_HSP_FTPM = 0x02, ///< HSP FTPM
   SYSTEM_TPM_CONFIG_NONE     = 0xFF, ///< None of TPM
 } SYSTEM_TPM_CONFIG_VAL;
 

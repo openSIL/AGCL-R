@@ -12,7 +12,7 @@
  * Contains code that create Memory Hob.
  *
  * @xrefitem bom "File Content Label" "Release Content"
- * @e project:      AGESAt:      AGESA
+ * @e project:      AGCL-R
  * @e sub-project:  UEFI
  * @e \$Revision: 320059 $   @e \$Date: 2015-06-04 00:21:59 -0500 (Thu, 04 Jun 2015) $
  *
@@ -32,7 +32,7 @@ Abstract:
 #include <Include/xPrfServicesPpi.h>
 
 #include "Filecode.h"
-#define FILECODE MEM_AMDMEMORYHOBINFOPEIMRS_AMDMEMORYHOBINFOPEIMRS_FILECODE
+#define FILECODE MEM_AMDMEMORYHOBINFOPEIMGENOA_AMDMEMORYHOBINFOPEIMGENOA_FILECODE
 
 extern EFI_GUID gAmdMemoryInitCompletePpiGuid;
 extern EFI_GUID gAmdNvdimmInfoHobGuid;
