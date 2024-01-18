@@ -38,11 +38,16 @@ FchSmmSwDispatchHandler (
 /// Soft SMI Node
 ///
 typedef struct _FCH_SMM_SW_NODE {
+  EFI_HANDLE                         DispatchHandle;         ///< Dispatch Hangle
+  FCH_SMM_SW_REGISTER_CONTEXT        Context;                ///< Register context
+  FCH_SMM_SW_HANDLER_ENTRY_POINT2    CallBack2Function;      ///< SMM handler entry point 2
   struct _FCH_SMM_SW_NODE            *FchSwNodePtr;          ///< pointer to next node
 } FCH_SMM_SW_NODE;
 
 #define MAX_SW_SMI_VALUE              0xFF
 extern  FCH_SMM_SW_NODE               *HeadFchSmmSwNodePtr;
+extern  FCH_SMM_SW_CONTEXT            *EfiSmmSwContext;
+extern  EFI_SMM_CPU_PROTOCOL          *mSmmCpuProtocol;
 #endif
 
 

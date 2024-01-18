@@ -17,8 +17,22 @@
   FchSmmData.c
   FchSmmDispatcher.c
   FchSmmDispatcher.h
+  FchSmmGpiDispatcher/FchSmmGpiDispatcher.c
+  FchSmmGpiDispatcher/FchSmmGpiDispatcher.h
+  FchSmmIoTrapDispatcher/FchSmmIoTrapDispatcher.c
+  FchSmmIoTrapDispatcher/FchSmmIoTrapDispatcher.h
+  FchSmmMiscDispatcher/FchSmmMiscDispatcher.c
+  FchSmmMiscDispatcher/FchSmmMiscDispatcher.h
+  FchSmmPeriodicalDispatcher/FchSmmPeriodicalDispatcher.c
+  FchSmmPeriodicalDispatcher/FchSmmPeriodicalDispatcher.h
+  FchSmmPwrBtnDispatcher/FchSmmPwrBtnDispatcher.c
+  FchSmmPwrBtnDispatcher/FchSmmPwrBtnDispatcher.h
   FchSmmSwDispatcher/FchSmmSwDispatcher.c
   FchSmmSwDispatcher/FchSmmSwDispatcher.h
+  FchSmmSxDispatcher/FchSmmSxDispatcher.c
+  FchSmmSxDispatcher/FchSmmSxDispatcher.h
+  FchSmmUsbDispatcher/FchSmmUsbDispatcher.c
+  FchSmmUsbDispatcher/FchSmmUsbDispatcher.h
 
 [sources.ia32]
 
@@ -60,7 +74,6 @@
   gEfiSmmIoTrapDispatch2ProtocolGuid        #PRODUCED
 
   gFchSmmMiscDispatchProtocolGuid           #PRODUCED
-  gFchSmmApuRasDispatchProtocolGuid         #PRODUCED
 
   gEfiSmmConfigurationProtocolGuid          #CONSUMED
   gEfiSmmBase2ProtocolGuid                  #CONSUMED

@@ -6,7 +6,14 @@
 **/
 
 #include "FchSmmDispatcher.h"
+#include "FchSmmSxDispatcher.h"
 #include "FchSmmSwDispatcher.h"
+#include "FchSmmPwrBtnDispatcher.h"
+#include "FchSmmIoTrapDispatcher.h"
+#include "FchSmmPeriodicalDispatcher.h"
+#include "FchSmmGpiDispatcher.h"
+#include "FchSmmUsbDispatcher.h"
+#include "FchSmmMiscDispatcher.h"
 
 FCH_SMM_DISPATCHER_TABLE   FchSmmDispatcherTable[] = {
   {

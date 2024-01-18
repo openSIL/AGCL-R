@@ -28,6 +28,7 @@
 
 #include <Protocol/SmmCpu.h>
 
+#include "FchPlatform.h"
 #pragma pack (8)
 
 #define Slp_Type    BIT1
@@ -49,7 +50,6 @@
 #define FchGppSerr2 BIT23
 #define FchGppSerr3 BIT24
 #define FchFakeSts0 BIT1
-#define ApuRasSmi   BIT21
 
 typedef EFI_STATUS (EFIAPI *AMD_SM_SMM_CHILD_DISPATCHER_HANDLER) (
   IN      EFI_HANDLE     SmmImageHandle,

@@ -8,7 +8,17 @@
 #include "FchSmmDispatcher.h"
 #define FILECODE UEFI_SMM_FCHSMMDISPATCHER_FCHSMMDISPATCHER_FILECODE
 
+#include <Protocol/SmmCpuIo2.h>
+#include "FchSmmSxDispatcher.h"
 #include "FchSmmSwDispatcher.h"
+#include "FchSmmPwrBtnDispatcher.h"
+#include "FchSmmIoTrapDispatcher.h"
+#include "FchSmmPeriodicalDispatcher.h"
+#include "FchSmmGpiDispatcher.h"
+#include "FchSmmUsbDispatcher.h"
+#include "FchSmmMiscDispatcher.h"
+#include <Library/SmmMemLib.h>
+#include "FchPlatform.h"
 
 extern FCH_SMM_DISPATCHER_TABLE FchSmmDispatcherTable[];
 extern UINT8 NumOfDispatcherTableEntry;
@@ -20,8 +30,19 @@ extern FCH_USB_SMI_SYSINFO  Fch9004UsbSmiSysInfo;
 
 UINT8  mEspiSmiOutB = 0;
 
+EFI_SMM_CPU_PROTOCOL         *mSmmCpuProtocol;
+
 FCH_SMM_SW_NODE              *HeadFchSmmSwNodePtr;
+FCH_SMM_SX_NODE              *HeadFchSmmSxNodePtr;
+FCH_SMM_PWRBTN_NODE          *HeadFchSmmPwrBtnNodePtr;
+FCH_SMM_PERIODICAL_NODE      *HeadFchSmmPeriodicalNodePtr;
+FCH_SMM_GPI_NODE             *HeadFchSmmGpiNodePtr;
+FCH_SMM_USB_NODE             *HeadFchSmmUsbNodePtr;
+FCH_SMM_MISC_NODE            *HeadFchSmmMiscNodePtr;
 FCH_SMM_COMMUNICATION_BUFFER *CommunicationBufferPtr;
+FCH_SMM_SW_CONTEXT           *EfiSmmSwContext;
+
+EFI_SMM_PERIODIC_TIMER_CONTEXT EfiSmmPeriodicTimerContext;
 
 extern
 UINT8
@@ -51,10 +72,6 @@ FCH_PROTOCOL_LIST FchProtocolList[] = {
                     {&gFchSmmIoTrapDispatch2ProtocolGuid,        &gFchSmmIoTrapDispatch2Protocol},
                     {&gEfiSmmIoTrapDispatch2ProtocolGuid,        &gEfiSmmIoTrapDispatch2Protocol},
                     {&gFchSmmMiscDispatchProtocolGuid,           &gFchSmmMiscDispatchProtocol},
-                    };
-
-FCH_PROTOCOL_LIST FchProtocolListRas[] = {
-                    {&gFchSmmApuRasDispatchProtocolGuid,         &gFchSmmApuRasDispatchProtocol},
                     };
 
 EFI_STATUS
@@ -207,26 +224,6 @@ FchSmmDispatcherEntry (
                FchProtocolList[i].Interface);
     if (EFI_ERROR (Status)) {
       return Status;
-    }
-  }
-
-    ZeroMem (HeadFchSmmApuRasNodePtr, sizeof (FCH_SMM_APURAS_NODE));
-
-    FchSmmDispatcherHandle =  NULL;
-    Status = gSmst->SmmInstallProtocolInterface (
-               &FchSmmDispatcherHandle,
-               FchProtocolListRas[0].Guid,
-               EFI_NATIVE_INTERFACE,
-               FchProtocolListRas[0].Interface);
-    if (EFI_ERROR (Status)) {
-      return Status;
-    }
-
-    // Find handler for APU Hw Assertion bit
-    for (i = 0; i < NumOfDispatcherTableEntry; i++ ) {
-      if ((FchSmmDispatcherTable[i].StatusReg == FCH_SMI_REG84) && (FchSmmDispatcherTable[i].SmiStatusBit == ApuRasSmi)) {
-        FchSmmDispatcherTable[i].SmiDispatcher = FchSmmApuRasDispatchHandler;
-      }
     }
   }
 
