@@ -1,0 +1,49 @@
+#;*****************************************************************************
+#;
+#; Copyright (C) 2008-2022 Advanced Micro Devices, Inc. All rights reserved.
+#;
+#;******************************************************************************
+#For EDKII use Only
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = FabricResourceInit3Lib
+  FILE_GUID                      = 6B1B8C6F-357C-4ADB-8E0F-DD2C9835E36F
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = FabricResourceInitLib
+
+[Sources]
+  FabricResourceInit3.c
+
+[Packages]
+MdePkg/MdePkg.dec
+  AmdOpenSilPkg/opensil-uefi-interface/AmdOpenSilPkg.dec
+  AgesaModulePkg/AgesaCommonModulePkg.dec
+  AgesaModulePkg/AgesaPublicModulePkg.dec
+  AgesaPkg/AgesaPublicPkg.dec
+
+[LibraryClasses]
+  BaseLib
+  PciLib
+
+[Guids]
+
+[Protocols]
+
+[Ppis]
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdBottomMmioReservedForPrimaryRb
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdMmioAbove4GLimit
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdMmioSizePerRbForNonPciDevice
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdAbove4GMmioSizePerRbForNonPciDevice
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFabricResourceDefaultMap
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdMCTPEnable
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFabricResourceDefaultSizePtr
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdEarlyBmcLinkSocket
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdEarlyBmcLinkLaneNum
+
+[Depex]
+
+

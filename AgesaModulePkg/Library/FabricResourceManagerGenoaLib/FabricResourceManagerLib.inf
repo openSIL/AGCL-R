@@ -1,0 +1,37 @@
+#;*****************************************************************************
+#;
+#; Copyright (C) 2008-2022 Advanced Micro Devices, Inc. All rights reserved.
+#;
+#;******************************************************************************
+#For EDKII use Only
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = FabricResourceManagerLib
+  FILE_GUID                      = EE5AE757-3311-4CEE-86B4-386274E838D6
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = FabricResourceManagerLib
+  CONSTRUCTOR                    = FabricResourceManagerLibConstructor
+
+[Sources]
+  FabricResourceManager.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  AmdOpenSilPkg/opensil-uefi-interface/AmdOpenSilPkg.dec
+  AgesaModulePkg/AgesaCommonModulePkg.dec
+  AgesaModulePkg/AgesaPublicModulePkg.dec
+  AgesaPkg/AgesaPublicPkg.dec
+
+[LibraryClasses]
+  BaseLib
+  PciLib
+  libAMDxUSL
+  libAMDxSIM
+  HobLib
+
+[Guids]
+  gPeiOpenSilDataHobGuid
+
+
+

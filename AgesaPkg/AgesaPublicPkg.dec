@@ -1,0 +1,238 @@
+#;*****************************************************************************
+#;
+#; Copyright (C) 2016-2022 Advanced Micro Devices, Inc. All rights reserved.
+#;******************************************************************************
+
+[Defines]
+  DEC_SPECIFICATION     = 0x00010005
+  PACKAGE_NAME          = AgesaPublicPkg
+  PACKAGE_GUID          = 1DB6EDBF-9646-4476-81B7-14FB9B872E88
+  PACKAGE_VERSION       = 0.1
+
+[Includes]
+  Include
+
+[LibraryClasses]
+  FabricResourceManagerLib
+
+[Guids]
+  gEfiAmdAgesaPkgTokenSpaceGuid          = { 0xd4d8435f, 0xfffb, 0x4acb, { 0xa0, 0x4d, 0xff,  0xf, 0xad, 0x67, 0x7f, 0xe9 } }
+  gAmdMemoryInfoHobGuid                  = { 0x1bce3d14, 0xa5fe, 0x4a0b, { 0x9a, 0x8d, 0x69, 0xca, 0x5d, 0x98, 0x38, 0xd3 } }
+
+[Protocols]
+  gAmdPciResourceProtocolGuid            = { 0x663d4897, 0xed94, 0x4f0f, { 0x86, 0x64, 0xfe, 0xdc, 0x70, 0x30, 0x7f, 0x19 } }
+
+[Ppis]
+  gAmdMemoryInfoHobPpiGuid               = { 0xba16e587, 0x1d66, 0x41b7, { 0x9b, 0x52, 0xca, 0x4f, 0x2c, 0xad, 0xd, 0xc8 } }
+
+[PcdsFixedAtBuild]
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdAcpiTableHeaderOemId|"AMD"|VOID*|0x000AC004
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdFchUart0Irq|0x03|UINT8|0x0002F01A
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdFchUart1Irq|0x04|UINT8|0x0002F01B
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdFchUart2Irq|0x03|UINT8|0x0002F01C
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdFchUart3Irq|0x04|UINT8|0x0002F01D
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdFchUart4Irq|0x0F|UINT8|0x0002F01E
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdAcpiCpuSsdtProcessorScopeName0|0x43|UINT8|0x000AC001
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdAcpiCpuSsdtProcessorScopeName1|0x30|UINT8|0x000AC002
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdAcpiCpuSsdtProcessorScopeInSb|FALSE|BOOLEAN|0x000AC003
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdBottomMmioReservedForPrimaryRb|0xFE000000|UINT32|0x000CC100
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdMmioSizePerRbForNonPciDevice|0x1000000|UINT32|0x000CC104
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdAbove4GMmioSizePerRbForNonPciDevice|0x20200000|UINT32|0x000CC105
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdFchFullHardReset|FALSE|BOOLEAN|0x0002F02A
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdSmbiosSerialNumberSocket0|"Unknown"|VOID*|0x00001002
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdSmbiosAssetTagSocket0|"Unknown"|VOID*|0x00001003
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdSmbiosPartNumberSocket0|"Unknown"|VOID*|0x00001004
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdSmbiosT16MaximumCapacity|0x04000000|UINT32|0x00001009
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdSmbiosSocketDesignationSocket0|"Unknown"|VOID*|0x00001001
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdFchOemEnableAcpiSwSmi|0xA0|UINT8|0x0002F012
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdFchOemDisableAcpiSwSmi|0xA1|UINT8|0x0002F013
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCompliantEdkIIAcpiSdtProtocol|TRUE|BOOLEAN|0x00020006
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFchCfgAcpiPm1EvtBlkAddr|0x400|UINT16|0x0002F004
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFchCfgAcpiPm1CntBlkAddr|0x404|UINT16|0x0002F005
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFchCfgAcpiPmTmrBlkAddr|0x408|UINT16|0x0002F006
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFchCfgCpuControlBlkAddr|0x410|UINT16|0x0002F007
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFchCfgAcpiGpe0BlkAddr|0x420|UINT16|0x0002F008
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdFchOemBeforePciRestoreSwSmi|0|UINT8|0x0002F010
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdFchOemAfterPciRestoreSwSmi|0|UINT8|0x0002F011
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdFchOemSpiUnlockSwSmi|0xAA|UINT8|0x0002F014
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdFchOemSpiLockSwSmi|0xAB|UINT8|0x0002F015
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdNumberOfPhysicalSocket|1|UINT8|0x000CC103
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFixedMtrr250|0xFFFFFFFFFFFFFFFF|UINT64|0x000CC110
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFixedMtrr258|0xFFFFFFFFFFFFFFFF|UINT64|0x000CC111
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFixedMtrr259|0xFFFFFFFFFFFFFFFF|UINT64|0x000CC112
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFixedMtrr268|0xFFFFFFFFFFFFFFFF|UINT64|0x000CC113
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFixedMtrr269|0xFFFFFFFFFFFFFFFF|UINT64|0x000CC114
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFixedMtrr26A|0xFFFFFFFFFFFFFFFF|UINT64|0x000CC115
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFixedMtrr26B|0xFFFFFFFFFFFFFFFF|UINT64|0x000CC116
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFixedMtrr26C|0x1818181818181818|UINT64|0x000CC117
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFixedMtrr26D|0x1818181818181818|UINT64|0x000CC118
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFixedMtrr26E|0x1818181818181818|UINT64|0x000CC119
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFixedMtrr26F|0x1818181818181818|UINT64|0x000CC11A
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdPspDirUsing16MAddress|TRUE|BOOLEAN|0x9594000B
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFchCfgSmbus0BaseAddress|0x0B00|UINT16|0x0002F001
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFchCfgSioPmeBaseAddress|0xE00|UINT16|0x0002F003
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdAcpiCpuSsdt|TRUE|BOOLEAN|0x000CC00B
+
+[PcdsDynamic]
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgIommuSupport|TRUE|BOOLEAN|0x0004F027
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgHdAudioEnable|TRUE|BOOLEAN|0x0004F008
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgEarlyTrainTwoPcieLinks|FALSE|BOOLEAN|0x0004F01C
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdEarlyBmcLinkTraining|FALSE|BOOLEAN|0x0004F004
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdEarlyBmcLinkSocket|0xFF|UINT8|0x0004F005
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdEarlyBmcLinkDie|0xFF|UINT8|0x0004F006
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdEarlyBmcLinkLaneNum|0|UINT8|0x0004F03E
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdPcieAerReportMechanism|1|UINT8|0x0004F21D
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgSevSnpSupport|FALSE|BOOLEAN|0x0004F0F3
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdDownCoreMode|0|UINT8|0x000CC008
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdCcdMode|0|UINT8|0x000CC00A
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdSmtMode|0x1|UINT8|0x000CC009
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdSnpMemCover|0|UINT8|0x000CC602
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdSnpMemSize|0|UINT32|0x000CC603
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdMmioAbove4GLimit|0xFFFFFFFFFFFFFFFF|UINT64|0x0003FFC2
+  gEfiAmdAgesaPkgTokenSpaceGuid.FchUart0LegacyEnable|0x00|UINT8|0x000FC010
+  gEfiAmdAgesaPkgTokenSpaceGuid.FchUart1LegacyEnable|0x00|UINT8|0x000FC011
+  gEfiAmdAgesaPkgTokenSpaceGuid.FchUart2LegacyEnable|0x00|UINT8|0x000FC012
+  gEfiAmdAgesaPkgTokenSpaceGuid.FchUart3LegacyEnable|0x00|UINT8|0x000FC013
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdL1StreamPrefetcher|TRUE|BOOLEAN|0x000CC202
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdL2StreamPrefetcher|TRUE|BOOLEAN|0x000CC203
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdL1StridePrefetcher|TRUE|BOOLEAN|0x000CC605
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdL1RegionPrefetcher|TRUE|BOOLEAN|0x000CC606
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdL2UpDownPrefetcher|TRUE|BOOLEAN|0x000CC607
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdCStateMode|1|UINT8|0x000CC001
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdCc6Ctrl|1|UINT8|0x000CC600
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdCStateIoBaseAddress|0x413|UINT16|0x000CC002
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFchI2c0SdaHold|0x00000035|UINT32|0x000FC000
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFchI2c1SdaHold|0x00000035|UINT32|0x000FC001
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFchI2c2SdaHold|0x00000035|UINT32|0x000FC002
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFchI2c3SdaHold|0x00000035|UINT32|0x000FC003
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFchI2c4SdaHold|0x00000035|UINT32|0x000FC004
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFchI2c5SdaHold|0x00000035|UINT32|0x000FC005
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdCpbMode|0x1|UINT8|0x000CC004
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdHardwarePrefetchMode|0|UINT8|0x000CC005
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdSoftwarePrefetchMode|0|UINT8|0x000CC006
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdSmee|FALSE|BOOLEAN|0x000CC604
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdMonMwaitDis|0xFF|UINT8|0x000CC802
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdEdpcEnable|0|UINT8|0x0004F21E
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdBootTimerEnable|TRUE|BOOLEAN|0x000A6022
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdBootTimerResetType|0|UINT8|0x000A6023
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdPwrFailShadow|0x00|UINT8|0x000FC018
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFchSpdHostCtrlRelease|FALSE|BOOLEAN|0x000FC066
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFchDimmTelemetry|TRUE|BOOLEAN|0x000FC068
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdPeiTempPageTableBaseAddress|0|UINT32|0x0004F238
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdXhci0Enable|TRUE|BOOLEAN|0x000FC020
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdXhci1Enable|TRUE|BOOLEAN|0x000FC021
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdXhci2Enable|TRUE|BOOLEAN|0x000FC022
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdXhci3Enable|TRUE|BOOLEAN|0x000FC023
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdXhciECCDedErrRptEn|FALSE|BOOLEAN|0x000FC024
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdSataEnable|FALSE|BOOLEAN|0x000FC030
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdSataStaggeredSpinup|FALSE|BOOLEAN|0x000FC039
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdSataMultiDiePortESP|0x00|UINT64|0x000FC03A
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgPlatformPPT|0|UINT32|0x0004F111
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdMemPostPackageRepair|TRUE|BOOLEAN|0x00030004
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdCxlComponentErrorReporting|0|UINT8|0x0004F363
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdCxlProtocolErrorReporting|0|UINT8|0x0004F362
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdEgressPoisonSeverityLo|0x4|UINT32|0x0004F210
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdEgressPoisonSeverityHi|0x30011|UINT32|0x0004F211
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdPspAntiRollbackLateSplFuse|FALSE|BOOLEAN|0x95940018
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdIvInfoDmaReMap|FALSE|BOOLEAN|0x0004F028
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdSerialIrqEnable|TRUE|BOOLEAN|0x000A6001
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdAgesaPstatePolicy|0|UINT8|0x000CC007
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdAcpiS3Support|FALSE|BOOLEAN|0x000CC01A
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdPciePresetMask8GtAllPort|0xFFFFFFFF|UINT32|0x0004F069
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdPciePresetMask16GtAllPort|0xFFFFFFFF|UINT32|0x0004F06A
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdPciePresetMask32GtAllPort|0xFFFFFFFF|UINT32|0x0004F06B
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdSplitRmpTable|0|UINT8|0x000CC609
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdCpuSpeculativeStoreMode|0|UINT8|0x000CC803
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdCpuPauseDelay|0xFF|UINT8|0x000CC804
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFabricCcxAsNumaDomain|FALSE|BOOLEAN|0x000DF00B
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdResetCpuOnSyncFlood|TRUE|BOOLEAN|0x000FC007
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdSataEnable2|0xFF|UINT8|0x000FC031
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdSataClass|0x02|UINT8|0x000FC032
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdSataRasSupport|FALSE|BOOLEAN|0x000FC033
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdSataAhciDisPrefetchFunction|TRUE|BOOLEAN|0x000FC034
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdSataDevSlpPort0|FALSE|BOOLEAN|0x000FC035
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdSataDevSlpPort1|FALSE|BOOLEAN|0x000FC036
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdSataDevSlpPort0Num|0x00|UINT8|0x000FC037
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdSataDevSlpPort1Num|0x00|UINT8|0x000FC038
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCppcSciBitMap|0|UINT32|0x000A6020
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdPcieSubsystemDeviceID|0x1453|UINT16|0x00041500
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdPcieSubsystemVendorID|0x1022|UINT16|0x00041501
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgNbioSsid|0|UINT32|0x00041505
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgIommuSsid|0|UINT32|0x00041506
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgPspccpSsid|0|UINT32|0x00041507
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgNtbccpSsid|0|UINT32|0x00041508
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgNbifF0Ssid|0|UINT32|0x0004150A
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgNtbSsid|0|UINT32|0x0004150C
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgMcCapEnable|FALSE|BOOLEAN|0x0004E001
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgRcvErrEnable|FALSE|BOOLEAN|0x0004E002
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdCfgExposeUnusedPciePorts|0xFF|UINT8|0x0004E003
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgAEREnable|TRUE|BOOLEAN|0x0004F000
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgACSEnable|TRUE|BOOLEAN|0x0004F002
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgPcieAriSupport|TRUE|BOOLEAN|0x0004F007
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgForcePcieGenSpeed|0|UINT8|0x0004F00D
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdDlfCapEn|TRUE|BOOLEAN|0x0004F015
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdDlfExEn|TRUE|BOOLEAN|0x0004F017
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdRxMarginEnabled|TRUE|BOOLEAN|0x0004F016
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdPcieLinkComplianceModeAllPorts|FALSE|BOOLEAN|0x0004F018
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdPcieLinkAspmAllPort|0xFF|UINT8|0x0004F01B
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdNbioReportEdbErrors|FALSE|BOOLEAN|0x0004F02C
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgSriovEnDev0F1|FALSE|BOOLEAN|0x00051010
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgAriEnDev0F1|FALSE|BOOLEAN|0x00051011
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgAerEnDev0F1|FALSE|BOOLEAN|0x00051012
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgAcsEnDev0F1|FALSE|BOOLEAN|0x00051013
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgAtsEnDev0F1|FALSE|BOOLEAN|0x00051014
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgPasidEnDev0F1|FALSE|BOOLEAN|0x00051015
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgPwrEnDev0F1|FALSE|BOOLEAN|0x00051016
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgRtrEnDev0F1|FALSE|BOOLEAN|0x00051017
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgPriEnDev0F1|FALSE|BOOLEAN|0x00051018
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAtcEnable|FALSE|BOOLEAN|0x00051019
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAcsEnRccDev0|FALSE|BOOLEAN|0x00051020
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAerEnRccDev0|FALSE|BOOLEAN|0x00051021
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdDlfEnStrap1|TRUE|BOOLEAN|0x00051022
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdPhy16gtStrap1|TRUE|BOOLEAN|0x00051023
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdMarginEnStrap1|TRUE|BOOLEAN|0x00051024
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAcsSourceValStrap5|TRUE|BOOLEAN|0x00051025
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAcsTranslationalBlockingStrap5|TRUE|BOOLEAN|0x00051026
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAcsP2pReqStrap5|TRUE|BOOLEAN|0x00051027
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAcsP2pCompStrap5|TRUE|BOOLEAN|0x00051028
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAcsUpstreamFwdStrap5|TRUE|BOOLEAN|0x00051029
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAcsP2PEgressStrap5|FALSE|BOOLEAN|0x00051030
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAcsDirectTranslatedStrap5|TRUE|BOOLEAN|0x00051031
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAcsSsidEnStrap5|TRUE|BOOLEAN|0x00051032
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdPriEnPageReq|TRUE|BOOLEAN|0x00051033
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdPriResetPageReq|FALSE|BOOLEAN|0x00051034
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAcsSourceVal|TRUE|BOOLEAN|0x00051035
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAcsTranslationalBlocking|FALSE|BOOLEAN|0x00051036
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAcsP2pReq|TRUE|BOOLEAN|0x00051037
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAcsP2pComp|TRUE|BOOLEAN|0x00051038
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAcsUpstreamFwd|TRUE|BOOLEAN|0x00051039
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAcsP2PEgress|FALSE|BOOLEAN|0x00051040
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdRccDev0E2EPrefix|FALSE|BOOLEAN|0x00051041
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdRccDev0ExtendedFmtSupported|FALSE|BOOLEAN|0x00051042
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdAdvertiseEqToHighRateSupport|FALSE|BOOLEAN|0x000A650C
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdPcieEcrcEnablement|TRUE|BOOLEAN|0x0004F20A
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdSyncFloodToApml|FALSE|BOOLEAN|0x0004F213
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgRxMarginPersistenceMode|0|UINT8|0x0004F22D
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAfterResetDelay|0|UINT16|0x0004F221
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdEsmTargetSpeed|16|UINT8|0x0004F226
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdEsmEnableAllRootPorts|FALSE|BOOLEAN|0x0004F227
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdSrisEnableMode|0xFF|UINT8|0x000A6508
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdSrisSkipInterval|0|UINT8|0x000A6509
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdSrisLowerSkpOsGenSup|0|UINT8|0x000A650A
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdSrisLowerSkpOsRcvSup|0|UINT8|0x000A650B
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdMaskDpcCapability|FALSE|BOOLEAN|0x000500A0
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdHotPlugHandlingMode|0xFF|UINT8|0x000500A1
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdAcpiCpuSsdtProcessorContainerName|"PLTF"|VOID*|0x000CC50C
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdAcpiCpuSsdtProcessorContainerInSb|FALSE|BOOLEAN|0x000CC50B
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFabricResourceDefaultMap|FALSE|BOOLEAN|0x0003FFC3
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFabricResourceDefaultSizePtr|0|UINT64|0x00DF0000
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFchAlinkRasSupport|FALSE|BOOLEAN|0x000FC006
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFabricSdci|FALSE|BOOLEAN|0x0004F364
+
+[PcdsDynamicEx]
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdMCTPEnable|FALSE|BOOLEAN|0x000500A4D4
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdAllowCompliance|0x0F|UINT16|0x000500AB
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdCxlOnAllPorts|TRUE|BOOLEAN|0x000500AC
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdMCTPMasterID|0|UINT16|0x000500A5
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdMCTPMasterSeg|0|UINT8|0x000500B6
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdPcieSpeedControl|0xF|UINT8|0x000500B2

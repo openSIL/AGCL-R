@@ -1,0 +1,25 @@
+#;*****************************************************************************
+#;
+#; Copyright (C) 2024 Advanced Micro Devices, Inc. All rights reserved.
+#;
+#;******************************************************************************
+
+[Defines]
+  INF_VERSION           = 0x00010005
+  BASE_NAME             = AmdOemInitOnyxLib
+  FILE_GUID             = 12E13488-5778-4dAE-A408-A46D395295A1
+  MODULE_TYPE           = BASE
+  VERSION_STRING        = 1.0
+  LIBRARY_CLASS         = AmdOemInitOnyxEntryPoint
+
+[Sources]
+  MpioDataInitOnyx.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  AgesaPkg/AgesaPublicPkg.dec
+  AmdOpenSilPkg/opensil-uefi-interface/AmdOpenSilPkg.dec
+
+[Depex]
+  TRUE

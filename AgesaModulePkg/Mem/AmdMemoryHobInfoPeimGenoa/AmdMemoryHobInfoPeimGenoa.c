@@ -1,562 +1,355 @@
 /*****************************************************************************
  *
- * Copyright (C) 2016-2024 Advanced Micro Devices, Inc. All rights reserved.
+ * Copyright (C) 2020-2024 Advanced Micro Devices, Inc. All rights reserved.
  *
- *******************************************************************************
- */
-/**
- * @file
- *
- * AmdMemoryInfoHobPeimGenoa.
- *
- * Contains code that create Memory Hob.
- *
- * @xrefitem bom "File Content Label" "Release Content"
- * @e project:      AGCL-R
- * @e sub-project:  UEFI
- * @e \$Revision: 320059 $   @e \$Date: 2015-06-04 00:21:59 -0500 (Thu, 04 Jun 2015) $
- *
- */
-/*++
-Module Name:
+ *****************************************************************************/
 
-  AmdMemoryInfoHobPeimGenoa.c
-
-Abstract:
---*/
-
-#include <Library/HobLib.h>
-#include <Guid/AmdMemoryInfoHobGenoa.h>
-#include <Ppi/AmdMemoryInfoHobPpi.h>
-#include <Ppi/AmdMemPpiGenoa.h>
+#include <PiPei.h>
+#include <xPRF-api.h>
+#include <ApobCmn.h>
 #include <Include/xPrfServicesPpi.h>
+#include <Library/HobLib.h>
+#include <Library/DebugLib.h>
+#include <Guid/AmdMemoryInfoHob.h>
+#include <Ppi/AmdMemoryInfoHobPpi.h>
 
-#include "Filecode.h"
-#define FILECODE MEM_AMDMEMORYHOBINFOPEIMGENOA_AMDMEMORYHOBINFOPEIMGENOA_FILECODE
+#define MAX_NUMBER_OF_EXTENDED_MEMORY_DESCRIPTOR 30
+#define MAX_SIZEOF_AMD_MEMORY_INFO_HOB_BUFFER (sizeof(AMD_MEMORY_INFO_HOB) + \
+                              (MAX_NUMBER_OF_EXTENDED_MEMORY_DESCRIPTOR * sizeof(AMD_MEMORY_RANGE_DESCRIPTOR)))
 
-extern EFI_GUID gAmdMemoryInitCompletePpiGuid;
-extern EFI_GUID gAmdNvdimmInfoHobGuid;
-typedef struct _MEMORY_INFO_BLOCK_STRUCT {
-  IN BOOLEAN           MemFrequencyValid;   ///< Memory Frequency Valid
-  IN UINT32            MemFrequency;        ///< Memory Frequency
-  IN BOOLEAN           VddioValid;          ///< This field determines if Vddio is valid
-  IN UINT16            Vddio;               ///< Vddio Voltage
-  IN BOOLEAN           VddpVddrValid;       ///< This field determines if VddpVddr is valid
-  IN UINT8             VddpVddr;            ///< VddpVddr voltage
-  IN UINT32            DdrMaxRate;          ///< UMC DdrMaxRateVddpVddr
-} MEMORY_INFO_BLOCK_STRUCT;
-
-#ifndef FOURGB
-#define FOURGB      0x100000000ull
-#endif
-
-#define MAX_NUMBER_OF_EXTENDED_MEMORY_DESCRIPTOR    30
-#define MAX_SIZEOF_AMD_MEMORY_INFO_HOB_BUFFER       (sizeof (AMD_MEMORY_INFO_HOB) +  \
-          (MAX_NUMBER_OF_EXTENDED_MEMORY_DESCRIPTOR * sizeof (AMD_MEMORY_RANGE_DESCRIPTOR)))
-
+#define AMD_MEM_PPI_MAX_SOCKETS_SUPPORTED FixedPcdGet8(PcdAmdMemMaxSocketSupportedV2)
+#define AMD_MEM_PPI_MAX_DIES_PER_SOCKET FixedPcdGet8(PcdAmdMemMaxDiePerSocketV2)
+#define AMD_MEM_PPI_MAX_CHANNELS_PER_DIE ABL_APOB_MAX_CHANNELS_PER_SOCKET
+#define AMD_MEM_PPI_MAX_DIMMS_PER_CHANNEL FixedPcdGet8(PcdAmdMemMaxDimmPerChannelV2)
 
 //
 // PPI Initialization
 //
 STATIC AMD_MEMORY_INFO_HOB_PPI mAmdMemoryHobInfoAvailblePpi = {
-  AMD_MEMORY_INFO_HOB_PPI_REV_0400
-};
-
+    AMD_MEMORY_INFO_HOB_PPI_REV_0400};
 
 STATIC EFI_PEI_PPI_DESCRIPTOR mAmdMemoryHobInfoAvailblePpiList =
-{
-  (EFI_PEI_PPI_DESCRIPTOR_PPI | EFI_PEI_PPI_DESCRIPTOR_TERMINATE_LIST),
-  &gAmdMemoryInfoHobPpiGuid,
-  &mAmdMemoryHobInfoAvailblePpi
-};
+    {
+        (EFI_PEI_PPI_DESCRIPTOR_PPI | EFI_PEI_PPI_DESCRIPTOR_TERMINATE_LIST),
+        &gAmdMemoryInfoHobPpiGuid,
+        &mAmdMemoryHobInfoAvailblePpi};
 
-#define ALLOC_PER_SOCKET  BIT0
-#define ALLOC_PER_DIE     BIT1
-#define ALLOC_PER_CHANNEL BIT2
-#define ALLOC_PER_DIMM    BIT3
-
-#define AMD_MEM_CFG_INFO_HOB_OFFSET(Field) OFFSET_OF (AMD_MEM_CFG_INFO_HOB_GENOA, Field)
-
-typedef struct {
-   UINT16 Offset;
-   UINT8  MultiplySize;
-   UINT8  MultiplyFlag;
-} MEM_CFG_INFO_HOB_LOOKUP_ENTRY;
-
-CONST MEM_CFG_INFO_HOB_LOOKUP_ENTRY mScalableDataLookupTbl[] = {
-  { AMD_MEM_CFG_INFO_HOB_OFFSET (DimmPresentMapOffset)                       , sizeof(UINT32)           , (ALLOC_PER_SOCKET | ALLOC_PER_DIE)                     }, //DimmPresentMap
-  { AMD_MEM_CFG_INFO_HOB_OFFSET (ChipselIntlvOffset)                         , sizeof(MEM_CFG_INFO_HOB) , (ALLOC_PER_SOCKET | ALLOC_PER_DIE | ALLOC_PER_CHANNEL) }, //ChipselIntlv
-  { AMD_MEM_CFG_INFO_HOB_OFFSET (DramEccOffset)                              , sizeof(MEM_CFG_INFO_HOB) , (ALLOC_PER_SOCKET | ALLOC_PER_DIE)                     }, //DramEcc
-  { AMD_MEM_CFG_INFO_HOB_OFFSET (DramParityOffset)                           , sizeof(MEM_CFG_INFO_HOB) , (ALLOC_PER_SOCKET | ALLOC_PER_DIE)                     }, //DramParity
-  { AMD_MEM_CFG_INFO_HOB_OFFSET (AutoRefFineGranModeOffset)                  , sizeof(MEM_CFG_INFO_HOB) , (ALLOC_PER_SOCKET | ALLOC_PER_DIE)                     }, //AutoRefFineGranMode
-};
-
+EFI_STATUS
+BuildMemoryHobInfo(
+    IN AMD_OPENSIL_XPRF_SERVICES_PPI *OpenSilXprfServicePpi)
 /*++
+
 Routine Description:
 
-  This function expands the offset for dynamic data.
+  This function build HOB info from SIL interface parameters
 
 Arguments:
 
-  MemCfgInfo - GuidHob pointer
+  OpenSilXprfServicePpi -     Pointer SIL PPI services
 
 Returns:
   EFI_STATUS - Status code
 --*/
-STATIC
-EFI_STATUS
-InternalScalableDataAddrMapping (
-  IN OUT AMD_MEM_CFG_INFO_HOB_GENOA  *MemCfgInfo
-  )
-{
-  UINT16  Index;
-  UINT16  Offset;
-  UINT16  MultipliedResult;
-  UINT8   *HobStart;
-
-  HobStart = (UINT8 *)(UINTN) MemCfgInfo;
-
-  Index = 0;
-  Offset = sizeof(AMD_MEM_CFG_INFO_HOB_GENOA);
-  do {
-    *(UINT16 *)(HobStart + mScalableDataLookupTbl[Index].Offset) = Offset;
-    MultipliedResult = mScalableDataLookupTbl[Index].MultiplySize;
-    if ((mScalableDataLookupTbl[Index].MultiplyFlag & ALLOC_PER_SOCKET) != 0) {
-      MultipliedResult *= MemCfgInfo->MaxSocketSupported;
-    }
-    if ((mScalableDataLookupTbl[Index].MultiplyFlag & ALLOC_PER_DIE) != 0) {
-      MultipliedResult *= MemCfgInfo->MaxDiePerSocket;
-    }
-    if ((mScalableDataLookupTbl[Index].MultiplyFlag & ALLOC_PER_CHANNEL) != 0) {
-      MultipliedResult *= MemCfgInfo->MaxChannelPerDie;
-    }
-    if ((mScalableDataLookupTbl[Index].MultiplyFlag & ALLOC_PER_DIMM) != 0) {
-      MultipliedResult *= MemCfgInfo->MaxDimmPerChannel;
-    }
-    // Size
-    Offset += MultipliedResult;
-    Index++;
-  } while (Index < sizeof (mScalableDataLookupTbl) / sizeof (MEM_CFG_INFO_HOB_LOOKUP_ENTRY));
-
-  return EFI_SUCCESS;
-}
-
-EFI_STATUS
-BuildHobMemoryConfigInfoData (
-  IN AMD_MEMORY_INIT_COMPLETE_PPI   *MemInitCompleteData
- )
 {
   EFI_STATUS Status;
-  AMD_MEM_CFG_INFO_HOB_GENOA *MemCfgInfo;
-  UINTN SizeToAlloc;
-  UINT8 NumOfAllocInfoHob;
-  UINT32 *DimmPresentMap;
-  MEM_CFG_INFO_HOB *ChipselIntlv, *DramEcc, *DramParity, *AutoRefFineGranMode;
-  UINT16 Socket, Die, Channel, Index;
-  UINTN MultipliedResult;
+  UINT8 MemInfoHobBuffer[MAX_SIZEOF_AMD_MEMORY_INFO_HOB_BUFFER];
+  AMD_MEMORY_INFO_HOB *MemInfoHob;
+  AMD_MEMORY_RANGE_DESCRIPTOR *MemRangeDesc;
+  AMD_MEMORY_SUMMARY MemInitTable;
+  UINT64 TopOfMemAddress;
+  UINT32 NumOfHoles;
+  MEMORY_HOLE_DESCRIPTOR *MemoryHoleDescPtr = NULL;
+  UINT64 CurrentBase;
+  UINT32 MemRangeIndex;
+  UINT32 Index;
+  UINTN SizeOfMemInfoHob;
 
-  //
-  // Caculate total size in byte, including Fixed and Dynamic data.
-  //
-  NumOfAllocInfoHob = sizeof (mScalableDataLookupTbl) / sizeof (mScalableDataLookupTbl[0]);
+  MemInitTable.MaxSocketSupported = AMD_MEM_PPI_MAX_SOCKETS_SUPPORTED;
+  MemInitTable.MaxDiePerSocket = AMD_MEM_PPI_MAX_DIES_PER_SOCKET;
+  MemInitTable.MaxChannelPerDie = AMD_MEM_PPI_MAX_CHANNELS_PER_DIE;
+  MemInitTable.MaxDimmPerChannel = AMD_MEM_PPI_MAX_DIMMS_PER_CHANNEL;
 
-  Index = 0;
-  SizeToAlloc = sizeof(AMD_MEM_CFG_INFO_HOB_GENOA);
-  do {
-    MultipliedResult = mScalableDataLookupTbl[Index].MultiplySize;
-    if ((mScalableDataLookupTbl[Index].MultiplyFlag & ALLOC_PER_SOCKET) != 0) {
-      MultipliedResult *= MemInitCompleteData->MaxSocketSupported;
-    }
-    if ((mScalableDataLookupTbl[Index].MultiplyFlag & ALLOC_PER_DIE) != 0) {
-      MultipliedResult *= MemInitCompleteData->MaxDiePerSocket;
-    }
-    if ((mScalableDataLookupTbl[Index].MultiplyFlag & ALLOC_PER_CHANNEL) != 0) {
-      MultipliedResult *= MemInitCompleteData->MaxChannelPerDie;
-    }
-    if ((mScalableDataLookupTbl[Index].MultiplyFlag & ALLOC_PER_DIMM) != 0) {
-      MultipliedResult *= MemInitCompleteData->MaxDimmPerChannel;
-    }
-    // Size
-    SizeToAlloc += MultipliedResult;
-    Index++;
-  } while (Index < NumOfAllocInfoHob);
+  Status = OpenSilXprfServicePpi->SilGetMemInitInfo(&MemInitTable);
 
-  //
-  // Fill in HOB data from PPI data structure
-  // Note: HOB data structure is packed, DO NOT use CopyMem.
-  //
-  Status = EFI_NOT_FOUND;
-  MemCfgInfo = (AMD_MEM_CFG_INFO_HOB_GENOA *) BuildGuidHob (&gAmdMemCfgInfoHobGuid, SizeToAlloc);
-  if (MemCfgInfo != NULL) {
-    // Fill in version
-    MemCfgInfo->Version = AMD_MEM_CFG_INFO_HOB_VER_0400;
-
-    // Fill in max. number of Socket/Die/Channel/Dimm
-    MemCfgInfo->MaxSocketSupported = MemInitCompleteData->MaxSocketSupported;
-    MemCfgInfo->MaxDiePerSocket    = MemInitCompleteData->MaxDiePerSocket;
-    MemCfgInfo->MaxChannelPerDie   = MemInitCompleteData->MaxChannelPerDie;
-    MemCfgInfo->MaxDimmPerChannel  = MemInitCompleteData->MaxDimmPerChannel;
-
-    /// Fixed data
-    // MbistTestEnable
-    MemCfgInfo->MbistTestEnable.Status.Enabled =  MemInitCompleteData->MbistTestEnable.Status.Enabled;
-    MemCfgInfo->MbistTestEnable.StatusCode =  MemInitCompleteData->MbistTestEnable.StatusCode;
-    // MbistAggressorEnable
-    MemCfgInfo->MbistAggressorEnable.Status.Enabled =  MemInitCompleteData->MbistAggressorEnable.Status.Enabled;
-    MemCfgInfo->MbistAggressorEnable.StatusCode =  MemInitCompleteData->MbistAggressorEnable.StatusCode;
-    // MbistPerBitSecondaryDieReport
-    MemCfgInfo->MbistPerBitSecondaryDieReport.Status.Value =  MemInitCompleteData->MbistPerBitSecondaryDieReport.Status.Value;
-    MemCfgInfo->MbistPerBitSecondaryDieReport.StatusCode =  MemInitCompleteData->MbistPerBitSecondaryDieReport.StatusCode;
-    // DramTempControlledRefreshEn
-    MemCfgInfo->DramTempControlledRefreshEn.Status.Enabled =  MemInitCompleteData->DramTempControlledRefreshEn.Status.Enabled;
-    MemCfgInfo->DramTempControlledRefreshEn.StatusCode =  MemInitCompleteData->DramTempControlledRefreshEn.StatusCode;
-    // UserTimingMode
-    MemCfgInfo->UserTimingMode.Status.Enabled =  MemInitCompleteData->UserTimingMode.Status.Enabled;
-    MemCfgInfo->UserTimingMode.StatusCode =  MemInitCompleteData->UserTimingMode.StatusCode;
-    // UserTimingValue
-    MemCfgInfo->UserTimingValue.Status.Enabled =  MemInitCompleteData->UserTimingValue.Status.Enabled;
-    MemCfgInfo->UserTimingValue.StatusCode =  MemInitCompleteData->UserTimingValue.StatusCode;
-    // MemBusFreqLimit
-    MemCfgInfo->MemBusFreqLimit.Status.Enabled =  MemInitCompleteData->MemBusFreqLimit.Status.Enabled;
-    MemCfgInfo->MemBusFreqLimit.StatusCode =  MemInitCompleteData->MemBusFreqLimit.StatusCode;
-    // EnablePowerDown
-    MemCfgInfo->EnablePowerDown.Status.Enabled =  MemInitCompleteData->EnablePowerDown.Status.Enabled;
-    MemCfgInfo->EnablePowerDown.StatusCode =  MemInitCompleteData->EnablePowerDown.StatusCode;
-    // DramDoubleRefreshRate
-    MemCfgInfo->DramDoubleRefreshRate.Status.Enabled =  MemInitCompleteData->DramDoubleRefreshRate.Status.Enabled;
-    MemCfgInfo->DramDoubleRefreshRate.StatusCode =  MemInitCompleteData->DramDoubleRefreshRate.StatusCode;
-    // PmuTrainMode
-    MemCfgInfo->PmuTrainMode.Status.Value =  MemInitCompleteData->PmuTrainMode.Status.Value;
-    MemCfgInfo->PmuTrainMode.StatusCode =  MemInitCompleteData->PmuTrainMode.StatusCode;
-    // EccSymbolSize
-    MemCfgInfo->EccSymbolSize.Status.Value =  MemInitCompleteData->EccSymbolSize.Status.Value;
-    MemCfgInfo->EccSymbolSize.StatusCode =  MemInitCompleteData->EccSymbolSize.StatusCode;
-    // UEccRetry
-    MemCfgInfo->UEccRetry.Status.Enabled =  MemInitCompleteData->UEccRetry.Status.Enabled;
-    MemCfgInfo->UEccRetry.StatusCode =  MemInitCompleteData->UEccRetry.StatusCode;
-    // IgnoreSpdChecksum
-    MemCfgInfo->IgnoreSpdChecksum.Status.Enabled =  MemInitCompleteData->IgnoreSpdChecksum.Status.Enabled;
-    MemCfgInfo->IgnoreSpdChecksum.StatusCode =  MemInitCompleteData->IgnoreSpdChecksum.StatusCode;
-    // EnableBankGroupSwapAlt
-    MemCfgInfo->EnableBankGroupSwapAlt.Status.Enabled =  MemInitCompleteData->EnableBankGroupSwapAlt.Status.Enabled;
-    MemCfgInfo->EnableBankGroupSwapAlt.StatusCode =  MemInitCompleteData->EnableBankGroupSwapAlt.StatusCode;
-    // EnableBankGroupSwap
-    MemCfgInfo->EnableBankGroupSwap.Status.Enabled =  MemInitCompleteData->EnableBankGroupSwap.Status.Enabled;
-    MemCfgInfo->EnableBankGroupSwap.StatusCode =  MemInitCompleteData->EnableBankGroupSwap.StatusCode;
-    // DdrRouteBalancedTee
-    MemCfgInfo->DdrRouteBalancedTee.Status.Enabled =  MemInitCompleteData->DdrRouteBalancedTee.Status.Enabled;
-    MemCfgInfo->DdrRouteBalancedTee.StatusCode =  MemInitCompleteData->DdrRouteBalancedTee.StatusCode;
-    // NvdimmPowerSource
-    MemCfgInfo->NvdimmPowerSource.Status.Value =  MemInitCompleteData->NvdimmPowerSource.Status.Value;
-    MemCfgInfo->NvdimmPowerSource.StatusCode =  MemInitCompleteData->NvdimmPowerSource.StatusCode;
-    // OdtsCmdThrotEn
-    MemCfgInfo->OdtsCmdThrotEn.Status.Enabled =  MemInitCompleteData->OdtsCmdThrotEn.Status.Enabled;
-    MemCfgInfo->OdtsCmdThrotEn.StatusCode =  MemInitCompleteData->OdtsCmdThrotEn.StatusCode;
-    // OdtsCmdThrotCyc
-    MemCfgInfo->OdtsCmdThrotCyc.Status.Enabled =  MemInitCompleteData->OdtsCmdThrotCyc.Status.Enabled;
-    MemCfgInfo->OdtsCmdThrotCyc.StatusCode =  MemInitCompleteData->OdtsCmdThrotCyc.StatusCode;
-
-    ///
-    /// Dynamic data
-    ///
-    Status = InternalScalableDataAddrMapping (MemCfgInfo);
-    if (EFI_ERROR (Status)) {
-      return Status;
-    }
-
-    //
-    // Get address
-    //
-    DimmPresentMap        = (UINT32 *) GET_MEM_CFG_INFO_HOB_ADDR (MemCfgInfo, DimmPresentMapOffset);
-    ChipselIntlv          = (MEM_CFG_INFO_HOB *) GET_MEM_CFG_INFO_HOB_ADDR (MemCfgInfo, ChipselIntlvOffset);
-    DramEcc               = (MEM_CFG_INFO_HOB *) GET_MEM_CFG_INFO_HOB_ADDR (MemCfgInfo, DramEccOffset);
-    DramParity            = (MEM_CFG_INFO_HOB *) GET_MEM_CFG_INFO_HOB_ADDR (MemCfgInfo, DramParityOffset);
-    AutoRefFineGranMode   = (MEM_CFG_INFO_HOB *) GET_MEM_CFG_INFO_HOB_ADDR (MemCfgInfo, AutoRefFineGranModeOffset);
-
-    //
-    // Fill in data
-    //
-    for (Socket = 0; Socket < MemInitCompleteData->MaxSocketSupported; Socket++) {
-
-      for (Die = 0; Die < MemInitCompleteData->MaxDiePerSocket; Die++) {
-        Index = Socket * MemInitCompleteData->MaxDiePerSocket + Die;
-        // DimmPresentMap
-        DimmPresentMap[Index] = MemInitCompleteData->DimmPresentMap[Index];
-        // DramEcc
-        DramEcc[Index].Status.Enabled = MemInitCompleteData->DramEcc[Index].Status.Enabled;
-        DramEcc[Index].StatusCode = MemInitCompleteData->DramEcc[Index].StatusCode;
-        // DramParity
-        DramParity[Index].Status.Enabled = MemInitCompleteData->DramParity[Index].Status.Enabled;
-        DramParity[Index].StatusCode = MemInitCompleteData->DramParity[Index].StatusCode;
-        // AutoRefFineGranMode
-        AutoRefFineGranMode[Index].Status.Value = MemInitCompleteData->AutoRefFineGranMode[Index].Status.Value;
-        AutoRefFineGranMode[Index].StatusCode = MemInitCompleteData->AutoRefFineGranMode[Index].StatusCode;
-
-        for (Channel = 0; Channel < MemInitCompleteData->MaxChannelPerDie; Channel++) {
-          Index = Socket * MemInitCompleteData->MaxDiePerSocket * MemInitCompleteData->MaxChannelPerDie +
-                  Die * MemInitCompleteData->MaxChannelPerDie + Channel;
-          // ChipselIntlv
-          ChipselIntlv[Index].Status.Enabled = MemInitCompleteData->ChipselIntlv[Index].Status.Enabled;
-          ChipselIntlv[Index].StatusCode = MemInitCompleteData->ChipselIntlv[Index].StatusCode;
-        }
-      }
-    }
-    Status = EFI_SUCCESS;
-  }
-
-  return Status;
-}
-
-EFI_STATUS
-BuildHobInfo (
-  IN CONST  EFI_PEI_SERVICES    **PeiServices,
-  IN MEMORY_INFO_BLOCK_STRUCT   *MemInfoBlockPtr
-  )
-/*++
-
-Routine Description:
-
-  This function build HOB info from post interface parameters
-
-Arguments:
-
-  PeiServices     -     PeiServices
-  MemInfoBlockPtr -     MemInfoBlock pointer
-
-Returns:
-  EFI_STATUS - Status code
---*/
-{
-  EFI_STATUS                          Status;
-  UINT32                              Index;
-  UINT64                              TopOfMemAddress;
-  UINT64                              CurrentBase;
-  UINT32                              NumOfHoles;
-  UINT8                               MemInfoHobBuffer[MAX_SIZEOF_AMD_MEMORY_INFO_HOB_BUFFER];
-  AMD_MEMORY_INFO_HOB                 *MemInfoHob;
-  AMD_MEMORY_RANGE_DESCRIPTOR         *MemRangeDesc;
-  UINTN                               SizeOfMemInfoHob;
-  UINT32                              MemRangeIndex;
-  AMD_MEMORY_INIT_COMPLETE_PPI        *mMemoryInitCompletePpiPtr;
-  MEMORY_HOLE_DESCRIPTOR              *HoleMapPtr;
-  AMD_OPENSIL_XPRF_SERVICES_PPI       *mOpenSilXprfServicePpi;
-
-  HoleMapPtr = NULL;
-  Status = (*PeiServices)->LocatePpi (PeiServices,
-                                      &gAmdMemoryInitCompletePpiGuid,
-                                      0,
-                                      NULL,
-                                      (VOID **)&mMemoryInitCompletePpiPtr);
-  if (EFI_SUCCESS != Status) {
+  if (EFI_ERROR(Status))
+  {
+    DEBUG((DEBUG_ERROR, "OpenSilXprfServicePpi->SilGetMemInitInfo : %r\n", Status));
     return Status;
   }
 
-  Status = (*PeiServices)->LocatePpi (
-                             PeiServices,
-                             &gOpenSilxPrfServicePpiGuid,
-                             0,
-                             NULL,
-                             (VOID **)&mOpenSilXprfServicePpi
-                             );
-  if (EFI_SUCCESS != Status) {
-    return Status;
-  }
-  Status = mOpenSilXprfServicePpi->SilGetSystemMemoryMap(
-                                     &NumOfHoles,
-                                     &TopOfMemAddress,
-                                     (VOID **)&HoleMapPtr
-                                     );
+  Status = OpenSilXprfServicePpi->SilGetSystemMemoryMap(
+      &NumOfHoles,
+      &TopOfMemAddress,
+      (VOID **)&MemoryHoleDescPtr);
+  DEBUG((DEBUG_INFO,
+    "OpenSilXprfServicePpi->SilGetSystemMemoryMap : %r TopOfMemAddress : %x, NumOfHoles : %x MemoryHoleDescPtr : %x\n",
+     Status, TopOfMemAddress, NumOfHoles, MemoryHoleDescPtr));
 
-  if (EFI_SUCCESS != Status) {
-    return Status;
-  }
-  if (HoleMapPtr == NULL) {
+  if (EFI_ERROR(Status) || (MemoryHoleDescPtr == NULL))
+  {
     return EFI_NOT_FOUND;
   }
 
-  MemInfoHob = (AMD_MEMORY_INFO_HOB *) &MemInfoHobBuffer[0];
+  MemInfoHob = (AMD_MEMORY_INFO_HOB *)MemInfoHobBuffer;
   MemRangeDesc = &MemInfoHob->Ranges[0];
+
   MemInfoHob->Version = AMD_MEMORY_INFO_HOB_VERISION;
   MemRangeIndex = 0;
   CurrentBase = 0;
-  for (Index = 0; Index < NumOfHoles; Index++) {
-    switch (HoleMapPtr->Type) {
+
+  for (Index = 0; Index < NumOfHoles; Index++)
+  {
+    switch (MemoryHoleDescPtr->Type)
+    {
     case MMIO:
-      MemRangeDesc[MemRangeIndex].Size =  (HoleMapPtr->Base - CurrentBase);
-      if ( 0 != MemRangeDesc[MemRangeIndex].Size) {
+      MemRangeDesc[MemRangeIndex].Size = (MemoryHoleDescPtr->Base - CurrentBase);
+      if (0 != MemRangeDesc[MemRangeIndex].Size)
+      {
         MemRangeDesc[MemRangeIndex].Attribute = AMD_MEMORY_ATTRIBUTE_AVAILABLE;
         MemRangeDesc[MemRangeIndex].Base = CurrentBase;
         CurrentBase += MemRangeDesc[MemRangeIndex].Size;
+
+        DEBUG((DEBUG_INFO, "    MemRangeIndex: 0x%x\n", MemRangeIndex));
+        DEBUG((DEBUG_INFO, "    Base Hi: 0x%08x\n", RShiftU64(MemRangeDesc[MemRangeIndex].Base, 32)));
+        DEBUG((DEBUG_INFO, "    Base Lo: 0x%08x\n", ((MemRangeDesc[MemRangeIndex].Base) & 0xFFFFFFFF)));
+        DEBUG((DEBUG_INFO, "    Size Hi: 0x%08x\n", RShiftU64(MemRangeDesc[MemRangeIndex].Size, 32)));
+        DEBUG((DEBUG_INFO, "    Size Lo: 0x%08x\n", ((MemRangeDesc[MemRangeIndex].Size) & 0xFFFFFFFF)));
+        DEBUG((DEBUG_INFO, "    Attribute: 0x%08x\n", MemRangeDesc[MemRangeIndex].Attribute));
+        DEBUG((DEBUG_INFO, "    CurrentBase Hi: 0x%08x\n", RShiftU64(CurrentBase, 32)));
+        DEBUG((DEBUG_INFO, "    CurrentBase Lo: 0x%08x\n", (CurrentBase & 0xFFFFFFFF)));
+        DEBUG((DEBUG_INFO, "\n"));
+
         MemRangeIndex += 1;
       }
 
-      MemRangeDesc[MemRangeIndex].Size =  HoleMapPtr->Size;
-      ASSERT (0 != MemRangeDesc[MemRangeIndex].Size);
+      MemRangeDesc[MemRangeIndex].Size = MemoryHoleDescPtr->Size;
+      ASSERT(0 != MemRangeDesc[MemRangeIndex].Size);
       MemRangeDesc[MemRangeIndex].Attribute = AMD_MEMORY_ATTRIBUTE_MMIO;
-      MemRangeDesc[MemRangeIndex].Base = HoleMapPtr->Base;
-      CurrentBase += HoleMapPtr->Size;
+      MemRangeDesc[MemRangeIndex].Base = MemoryHoleDescPtr->Base;
+      CurrentBase += MemoryHoleDescPtr->Size;
+      DEBUG((DEBUG_INFO, "    MemRangeIndex: 0x%x\n", MemRangeIndex));
+      DEBUG((DEBUG_INFO, "    Base Hi: 0x%08x\n", RShiftU64(MemRangeDesc[MemRangeIndex].Base, 32)));
+      DEBUG((DEBUG_INFO, "    Base Lo: 0x%08x\n", ((MemRangeDesc[MemRangeIndex].Base) & 0xFFFFFFFF)));
+      DEBUG((DEBUG_INFO, "    Size Hi: 0x%08x\n", RShiftU64(MemRangeDesc[MemRangeIndex].Size, 32)));
+      DEBUG((DEBUG_INFO, "    Size Lo: 0x%08x\n", ((MemRangeDesc[MemRangeIndex].Size) & 0xFFFFFFFF)));
+      DEBUG((DEBUG_INFO, "    Attribute: 0x%08x\n", MemRangeDesc[MemRangeIndex].Attribute));
+      DEBUG((DEBUG_INFO, "    CurrentBase Hi: 0x%08x\n", RShiftU64(CurrentBase, 32)));
+      DEBUG((DEBUG_INFO, "    CurrentBase Lo: 0x%08x\n", (CurrentBase & 0xFFFFFFFF)));
+      DEBUG((DEBUG_INFO, "\n"));
       break;
 
     case Reserved1TbRemap:
-      MemRangeDesc[MemRangeIndex].Size = (HoleMapPtr->Base - CurrentBase);
-      if (0 != MemRangeDesc[MemRangeIndex].Size) {
+      MemRangeDesc[MemRangeIndex].Size = (MemoryHoleDescPtr->Base - CurrentBase);
+      if (0 != MemRangeDesc[MemRangeIndex].Size)
+      {
         MemRangeDesc[MemRangeIndex].Attribute = AMD_MEMORY_ATTRIBUTE_AVAILABLE;
         MemRangeDesc[MemRangeIndex].Base = CurrentBase;
         CurrentBase += MemRangeDesc[MemRangeIndex].Size;
+
+        DEBUG((DEBUG_INFO, "    MemRangeIndex: 0x%x\n", MemRangeIndex));
+        DEBUG((DEBUG_INFO, "    Base Hi: 0x%08x\n", RShiftU64(MemRangeDesc[MemRangeIndex].Base, 32)));
+        DEBUG((DEBUG_INFO, "    Base Lo: 0x%08x\n", ((MemRangeDesc[MemRangeIndex].Base) & 0xFFFFFFFF)));
+        DEBUG((DEBUG_INFO, "    Size Hi: 0x%08x\n", RShiftU64(MemRangeDesc[MemRangeIndex].Size, 32)));
+        DEBUG((DEBUG_INFO, "    Size Lo: 0x%08x\n", ((MemRangeDesc[MemRangeIndex].Size) & 0xFFFFFFFF)));
+        DEBUG((DEBUG_INFO, "    Attribute: 0x%08x\n", MemRangeDesc[MemRangeIndex].Attribute));
+        DEBUG((DEBUG_INFO, "    CurrentBase Hi: 0x%08x\n", RShiftU64(CurrentBase, 32)));
+        DEBUG((DEBUG_INFO, "    CurrentBase Lo: 0x%08x\n", (CurrentBase & 0xFFFFFFFF)));
+        DEBUG((DEBUG_INFO, "\n"));
+
         MemRangeIndex += 1;
       }
 
-      MemRangeDesc[MemRangeIndex].Size =  HoleMapPtr->Size;
-      ASSERT (0 != MemRangeDesc[MemRangeIndex].Size);
+      MemRangeDesc[MemRangeIndex].Size = MemoryHoleDescPtr->Size;
+      ASSERT(0 != MemRangeDesc[MemRangeIndex].Size);
       MemRangeDesc[MemRangeIndex].Attribute = AMD_MEMORY_ATTRIBUTE_MMIO_RESERVED;
-      MemRangeDesc[MemRangeIndex].Base = HoleMapPtr->Base;
-      CurrentBase += HoleMapPtr->Size;
+      MemRangeDesc[MemRangeIndex].Base = MemoryHoleDescPtr->Base;
+      CurrentBase += MemoryHoleDescPtr->Size;
+      DEBUG((DEBUG_INFO, "    MemRangeIndex: 0x%x\n", MemRangeIndex));
+      DEBUG((DEBUG_INFO, "    Base Hi: 0x%08x\n", RShiftU64(MemRangeDesc[MemRangeIndex].Base, 32)));
+      DEBUG((DEBUG_INFO, "    Base Lo: 0x%08x\n", ((MemRangeDesc[MemRangeIndex].Base) & 0xFFFFFFFF)));
+      DEBUG((DEBUG_INFO, "    Size Hi: 0x%08x\n", RShiftU64(MemRangeDesc[MemRangeIndex].Size, 32)));
+      DEBUG((DEBUG_INFO, "    Size Lo: 0x%08x\n", ((MemRangeDesc[MemRangeIndex].Size) & 0xFFFFFFFF)));
+      DEBUG((DEBUG_INFO, "    Attribute: 0x%08x\n", MemRangeDesc[MemRangeIndex].Attribute));
+      DEBUG((DEBUG_INFO, "    CurrentBase Hi: 0x%08x\n", RShiftU64(CurrentBase, 32)));
+      DEBUG((DEBUG_INFO, "    CurrentBase Lo: 0x%08x\n", (CurrentBase & 0xFFFFFFFF)));
+      DEBUG((DEBUG_INFO, "\n"));
       break;
 
     case UMA:
-      MemRangeDesc[MemRangeIndex].Size =  (HoleMapPtr->Base - CurrentBase);
-      if (0 != MemRangeDesc[MemRangeIndex].Size) {
+      MemRangeDesc[MemRangeIndex].Size = (MemoryHoleDescPtr->Base - CurrentBase);
+      if (0 != MemRangeDesc[MemRangeIndex].Size)
+      {
         MemRangeDesc[MemRangeIndex].Attribute = AMD_MEMORY_ATTRIBUTE_AVAILABLE;
         MemRangeDesc[MemRangeIndex].Base = CurrentBase;
         CurrentBase += MemRangeDesc[MemRangeIndex].Size;
+
+        DEBUG((DEBUG_INFO, "    MemRangeIndex: 0x%x\n", MemRangeIndex));
+        DEBUG((DEBUG_INFO, "    Base Hi: 0x%08x\n", RShiftU64(MemRangeDesc[MemRangeIndex].Base, 32)));
+        DEBUG((DEBUG_INFO, "    Base Lo: 0x%08x\n", ((MemRangeDesc[MemRangeIndex].Base) & 0xFFFFFFFF)));
+        DEBUG((DEBUG_INFO, "    Size Hi: 0x%08x\n", RShiftU64(MemRangeDesc[MemRangeIndex].Size, 32)));
+        DEBUG((DEBUG_INFO, "    Size Lo: 0x%08x\n", ((MemRangeDesc[MemRangeIndex].Size) & 0xFFFFFFFF)));
+        DEBUG((DEBUG_INFO, "    Attribute: 0x%08x\n", MemRangeDesc[MemRangeIndex].Attribute));
+        DEBUG((DEBUG_INFO, "    CurrentBase Hi: 0x%08x\n", RShiftU64(CurrentBase, 32)));
+        DEBUG((DEBUG_INFO, "    CurrentBase Lo: 0x%08x\n", (CurrentBase & 0xFFFFFFFF)));
+        DEBUG((DEBUG_INFO, "\n"));
+
         MemRangeIndex += 1;
       }
 
-      MemRangeDesc[MemRangeIndex].Size =  HoleMapPtr->Size;
-      ASSERT (0 != MemRangeDesc[MemRangeIndex].Size);
+      MemRangeDesc[MemRangeIndex].Size = MemoryHoleDescPtr->Size;
+      ASSERT(0 != MemRangeDesc[MemRangeIndex].Size);
       MemRangeDesc[MemRangeIndex].Attribute = AMD_MEMORY_ATTRIBUTE_UMA;
-      MemRangeDesc[MemRangeIndex].Base = HoleMapPtr->Base;
-      CurrentBase += HoleMapPtr->Size;
+      MemRangeDesc[MemRangeIndex].Base = MemoryHoleDescPtr->Base;
+      CurrentBase += MemoryHoleDescPtr->Size;
+      DEBUG((DEBUG_INFO, "    MemRangeIndex: 0x%x\n", MemRangeIndex));
+      DEBUG((DEBUG_INFO, "    Base Hi: 0x%08x\n", RShiftU64(MemRangeDesc[MemRangeIndex].Base, 32)));
+      DEBUG((DEBUG_INFO, "    Base Lo: 0x%08x\n", ((MemRangeDesc[MemRangeIndex].Base) & 0xFFFFFFFF)));
+      DEBUG((DEBUG_INFO, "    Size Hi: 0x%08x\n", RShiftU64(MemRangeDesc[MemRangeIndex].Size, 32)));
+      DEBUG((DEBUG_INFO, "    Size Lo: 0x%08x\n", ((MemRangeDesc[MemRangeIndex].Size) & 0xFFFFFFFF)));
+      DEBUG((DEBUG_INFO, "    Attribute: 0x%08x\n", MemRangeDesc[MemRangeIndex].Attribute));
+      DEBUG((DEBUG_INFO, "    CurrentBase Hi: 0x%08x\n", RShiftU64(CurrentBase, 32)));
+      DEBUG((DEBUG_INFO, "    CurrentBase Lo: 0x%08x\n", (CurrentBase & 0xFFFFFFFF)));
+      DEBUG((DEBUG_INFO, "\n"));
       break;
 
     default:
-      if (PcdGetBool (PcdCfgIommuSupport) && (CurrentBase <= 0xFD00000000) && (HoleMapPtr->Base >= 0x10000000000)) {
+      if (PcdGetBool(PcdCfgIommuSupport) && (CurrentBase <= 0xFD00000000) && (MemoryHoleDescPtr->Base >= 0x10000000000))
+      {
         MemRangeDesc[MemRangeIndex].Size = (0xFD00000000 - CurrentBase);
-        if ( 0 != MemRangeDesc[MemRangeIndex].Size) {
+        if (0 != MemRangeDesc[MemRangeIndex].Size)
+        {
           MemRangeDesc[MemRangeIndex].Attribute = AMD_MEMORY_ATTRIBUTE_AVAILABLE;
           MemRangeDesc[MemRangeIndex].Base = CurrentBase;
           CurrentBase += MemRangeDesc[MemRangeIndex].Size;
+
+          DEBUG((DEBUG_INFO, "    MemRangeIndex: 0x%x\n", MemRangeIndex));
+          DEBUG((DEBUG_INFO, "    Base Hi: 0x%08x\n", RShiftU64(MemRangeDesc[MemRangeIndex].Base, 32)));
+          DEBUG((DEBUG_INFO, "    Base Lo: 0x%08x\n", ((MemRangeDesc[MemRangeIndex].Base) & 0xFFFFFFFF)));
+          DEBUG((DEBUG_INFO, "    Size Hi: 0x%08x\n", RShiftU64(MemRangeDesc[MemRangeIndex].Size, 32)));
+          DEBUG((DEBUG_INFO, "    Size Lo: 0x%08x\n", ((MemRangeDesc[MemRangeIndex].Size) & 0xFFFFFFFF)));
+          DEBUG((DEBUG_INFO, "    Attribute: 0x%08x\n", MemRangeDesc[MemRangeIndex].Attribute));
+          DEBUG((DEBUG_INFO, "    CurrentBase Hi: 0x%08x\n", RShiftU64(CurrentBase, 32)));
+          DEBUG((DEBUG_INFO, "    CurrentBase Lo: 0x%08x\n", (CurrentBase & 0xFFFFFFFF)));
+          DEBUG((DEBUG_INFO, "\n"));
+
           MemRangeIndex += 1;
         }
 
         MemRangeDesc[MemRangeIndex].Size = (0x10000000000 - CurrentBase);
-        if ( 0 != MemRangeDesc[MemRangeIndex].Size) {
+        if (0 != MemRangeDesc[MemRangeIndex].Size)
+        {
           MemRangeDesc[MemRangeIndex].Attribute = AMD_MEMORY_ATTRIBUTE_RESERVED;
           MemRangeDesc[MemRangeIndex].Base = CurrentBase;
           CurrentBase += MemRangeDesc[MemRangeIndex].Size;
+
+          DEBUG((DEBUG_INFO, "    MemRangeIndex: 0x%x\n", MemRangeIndex));
+          DEBUG((DEBUG_INFO, "    Base Hi: 0x%08x\n", RShiftU64(MemRangeDesc[MemRangeIndex].Base, 32)));
+          DEBUG((DEBUG_INFO, "    Base Lo: 0x%08x\n", ((MemRangeDesc[MemRangeIndex].Base) & 0xFFFFFFFF)));
+          DEBUG((DEBUG_INFO, "    Size Hi: 0x%08x\n", RShiftU64(MemRangeDesc[MemRangeIndex].Size, 32)));
+          DEBUG((DEBUG_INFO, "    Size Lo: 0x%08x\n", ((MemRangeDesc[MemRangeIndex].Size) & 0xFFFFFFFF)));
+          DEBUG((DEBUG_INFO, "    Attribute: 0x%08x\n", MemRangeDesc[MemRangeIndex].Attribute));
+          DEBUG((DEBUG_INFO, "    CurrentBase Hi: 0x%08x\n", RShiftU64(CurrentBase, 32)));
+          DEBUG((DEBUG_INFO, "    CurrentBase Lo: 0x%08x\n", (CurrentBase & 0xFFFFFFFF)));
+          DEBUG((DEBUG_INFO, "\n"));
+
           MemRangeIndex += 1;
         }
       }
 
-      MemRangeDesc[MemRangeIndex].Size =  (HoleMapPtr->Base - CurrentBase);
-      if ( 0 != MemRangeDesc[MemRangeIndex].Size) {
+      MemRangeDesc[MemRangeIndex].Size = (MemoryHoleDescPtr->Base - CurrentBase);
+      if (0 != MemRangeDesc[MemRangeIndex].Size)
+      {
         MemRangeDesc[MemRangeIndex].Attribute = AMD_MEMORY_ATTRIBUTE_AVAILABLE;
         MemRangeDesc[MemRangeIndex].Base = CurrentBase;
         CurrentBase += MemRangeDesc[MemRangeIndex].Size;
+
+        DEBUG((DEBUG_INFO, "    MemRangeIndex: 0x%x\n", MemRangeIndex));
+        DEBUG((DEBUG_INFO, "    Base Hi: 0x%08x\n", RShiftU64(MemRangeDesc[MemRangeIndex].Base, 32)));
+        DEBUG((DEBUG_INFO, "    Base Lo: 0x%08x\n", ((MemRangeDesc[MemRangeIndex].Base) & 0xFFFFFFFF)));
+        DEBUG((DEBUG_INFO, "    Size Hi: 0x%08x\n", RShiftU64(MemRangeDesc[MemRangeIndex].Size, 32)));
+        DEBUG((DEBUG_INFO, "    Size Lo: 0x%08x\n", ((MemRangeDesc[MemRangeIndex].Size) & 0xFFFFFFFF)));
+        DEBUG((DEBUG_INFO, "    Attribute: 0x%08x\n", MemRangeDesc[MemRangeIndex].Attribute));
+        DEBUG((DEBUG_INFO, "    CurrentBase Hi: 0x%08x\n", RShiftU64(CurrentBase, 32)));
+        DEBUG((DEBUG_INFO, "    CurrentBase Lo: 0x%08x\n", (CurrentBase & 0xFFFFFFFF)));
+        DEBUG((DEBUG_INFO, "\n"));
+
         MemRangeIndex += 1;
       }
 
-      MemRangeDesc[MemRangeIndex].Size =  HoleMapPtr->Size;
-      ASSERT (0 != MemRangeDesc[MemRangeIndex].Size);
+      MemRangeDesc[MemRangeIndex].Size = MemoryHoleDescPtr->Size;
+      ASSERT(0 != MemRangeDesc[MemRangeIndex].Size);
       MemRangeDesc[MemRangeIndex].Attribute = AMD_MEMORY_ATTRIBUTE_RESERVED;
-      MemRangeDesc[MemRangeIndex].Base = HoleMapPtr->Base;
-      CurrentBase += HoleMapPtr->Size;
+      MemRangeDesc[MemRangeIndex].Base = MemoryHoleDescPtr->Base;
+      CurrentBase += MemoryHoleDescPtr->Size;
+      DEBUG((DEBUG_INFO, "    MemRangeIndex: 0x%x\n", MemRangeIndex));
+      DEBUG((DEBUG_INFO, "    Base Hi: 0x%08x\n", RShiftU64(MemRangeDesc[MemRangeIndex].Base, 32)));
+      DEBUG((DEBUG_INFO, "    Base Lo: 0x%08x\n", ((MemRangeDesc[MemRangeIndex].Base) & 0xFFFFFFFF)));
+      DEBUG((DEBUG_INFO, "    Size Hi: 0x%08x\n", RShiftU64(MemRangeDesc[MemRangeIndex].Size, 32)));
+      DEBUG((DEBUG_INFO, "    Size Lo: 0x%08x\n", ((MemRangeDesc[MemRangeIndex].Size) & 0xFFFFFFFF)));
+      DEBUG((DEBUG_INFO, "    Attribute: 0x%08x\n", MemRangeDesc[MemRangeIndex].Attribute));
+      DEBUG((DEBUG_INFO, "    CurrentBase Hi: 0x%08x\n", RShiftU64(CurrentBase, 32)));
+      DEBUG((DEBUG_INFO, "    CurrentBase Lo: 0x%08x\n", (CurrentBase & 0xFFFFFFFF)));
+      DEBUG((DEBUG_INFO, "\n"));
       break;
     }
     MemRangeIndex++;
-    HoleMapPtr++;
+    MemoryHoleDescPtr++;
   }
 
-  if (CurrentBase < TopOfMemAddress) {
+  if (CurrentBase < TopOfMemAddress)
+  {
     //
     // MemRangeIndex will be incremented in the previous loop hence dont need to increment here
     //
     MemRangeDesc[MemRangeIndex].Attribute = AMD_MEMORY_ATTRIBUTE_AVAILABLE;
     MemRangeDesc[MemRangeIndex].Base = CurrentBase;
-    MemRangeDesc[MemRangeIndex].Size =  TopOfMemAddress - CurrentBase;
-  } else {
+    MemRangeDesc[MemRangeIndex].Size = TopOfMemAddress - CurrentBase;
+
+    DEBUG((DEBUG_INFO, "    MemRangeIndex: 0x%x\n", MemRangeIndex));
+    DEBUG((DEBUG_INFO, "    Base Hi: 0x%08x\n", RShiftU64(MemRangeDesc[MemRangeIndex].Base, 32)));
+    DEBUG((DEBUG_INFO, "    Base Lo: 0x%08x\n", ((MemRangeDesc[MemRangeIndex].Base) & 0xFFFFFFFF)));
+    DEBUG((DEBUG_INFO, "    Size Hi: 0x%08x\n", RShiftU64(MemRangeDesc[MemRangeIndex].Size, 32)));
+    DEBUG((DEBUG_INFO, "    Size Lo: 0x%08x\n", ((MemRangeDesc[MemRangeIndex].Size) & 0xFFFFFFFF)));
+    DEBUG((DEBUG_INFO, "    Attribute: 0x%04x\n", MemRangeDesc[MemRangeIndex].Attribute));
+    DEBUG((DEBUG_INFO, "\n"));
+  }
+  else
+  {
     // Since no additional descriptor required to be updated, decrease the
     // incremented number by 1 to ensure we report correct number of descriptor
     MemRangeIndex--;
   }
 
   MemInfoHob->NumberOfDescriptor = MemRangeIndex + 1;
-  SizeOfMemInfoHob = sizeof (AMD_MEMORY_INFO_HOB) + (MemInfoHob->NumberOfDescriptor - 1) * sizeof (AMD_MEMORY_RANGE_DESCRIPTOR);
+  SizeOfMemInfoHob = sizeof(AMD_MEMORY_INFO_HOB) + (MemInfoHob->NumberOfDescriptor - 1) * sizeof(AMD_MEMORY_RANGE_DESCRIPTOR);
+  DEBUG((DEBUG_INFO, "    NumberOfDescriptor: 0x%x\n", MemInfoHob->NumberOfDescriptor));
+  DEBUG((DEBUG_INFO, "    SizeOfMemInfoHob: 0x%x\n", SizeOfMemInfoHob));
+
   //
   // Update Voltage Information.
   //
-  MemInfoHob->AmdMemoryVddioValid = MemInfoBlockPtr->VddioValid;
-  MemInfoHob->AmdMemoryVddio = MemInfoBlockPtr->Vddio;
-  MemInfoHob->AmdMemoryVddpVddrValid = MemInfoBlockPtr->VddpVddrValid;
-  MemInfoHob->AmdMemoryVddpVddr = MemInfoBlockPtr->VddpVddr;
-  MemInfoHob->AmdMemoryFrequencyValid = MemInfoBlockPtr->MemFrequencyValid;
-  MemInfoHob->AmdMemoryFrequency = MemInfoBlockPtr->MemFrequency;
-  MemInfoHob->AmdMemoryDdrMaxRate = MemInfoBlockPtr->DdrMaxRate;
+  MemInfoHob->AmdMemoryVddioValid = TRUE;
+  MemInfoHob->AmdMemoryVddio = MemInitTable.AmdMemoryVddIo;
+  MemInfoHob->AmdMemoryVddpVddrValid = MemInitTable.AmdMemoryVddpVddr.IsValid;
+  MemInfoHob->AmdMemoryVddpVddr = MemInitTable.AmdMemoryVddpVddr.Voltage;
+  MemInfoHob->AmdMemoryFrequencyValid = TRUE;
+  MemInfoHob->AmdMemoryFrequency = MemInitTable.AmdMemoryFrequency;
+  MemInfoHob->AmdMemoryDdrMaxRate = MemInitTable.DdrMaxRate;
 
-  Status =  EFI_SUCCESS;
-  if (BuildGuidDataHob (&gAmdMemoryInfoHobGuid, &MemInfoHobBuffer, SizeOfMemInfoHob) == NULL) {
+  if (BuildGuidDataHob(&gAmdMemoryInfoHobGuid, &MemInfoHobBuffer, SizeOfMemInfoHob) == NULL)
+  {
+    DEBUG((DEBUG_ERROR, "BuildHobInfo: Failed to build gAmdMemoryInfoHobGuid Hob!\n"));
     Status = EFI_NOT_FOUND;
-    return Status;
   }
-
-  ///
-  /// Build Memory Config. Info. HOB
-  ///
-  Status = BuildHobMemoryConfigInfoData (mMemoryInitCompletePpiPtr);
 
   return Status;
 }
 
 EFI_STATUS
-GetMemInfoBlockData (
-  IN       CONST EFI_PEI_SERVICES         **PeiServices,
-  IN OUT         MEMORY_INFO_BLOCK_STRUCT *MemInfoBlockPtr
-  )
-/*++ -----------------------------------------------------------------------------
-  Routine Description:
-    This function will get the APOB Data from APOB HOB
-
-  Arguments:
-    MemInfoBlockPtr   - Pointer to the AGESA_PSP_OUTPUT_BLOCK_STRUCT
-
-  Returns:
-    EFI_STATUS  - Status code
-                  EFI_SUCCESS
- */
-{
-  EFI_STATUS                     Status;
-  AMD_MEMORY_INIT_COMPLETE_PPI   *mMemoryInitCompletePpiPtr;
-
-  Status = (*PeiServices)->LocatePpi (PeiServices,
-                                      &gAmdMemoryInitCompletePpiGuid,
-                                      0,
-                                      NULL,
-                                      (VOID **)&mMemoryInitCompletePpiPtr);
-  if (EFI_SUCCESS != Status) {
-    return Status;
-  }
-
-
-  MemInfoBlockPtr->MemFrequencyValid = TRUE;
-  MemInfoBlockPtr->MemFrequency = mMemoryInitCompletePpiPtr->AmdMemoryFrequency;
-
-  MemInfoBlockPtr->VddioValid = TRUE;
-  MemInfoBlockPtr->Vddio = (UINT16) mMemoryInitCompletePpiPtr->AmdMemoryVddIo;
-
-  MemInfoBlockPtr->VddpVddrValid = mMemoryInitCompletePpiPtr->AmdMemoryVddpVddr.IsValid;
-  MemInfoBlockPtr->VddpVddr = mMemoryInitCompletePpiPtr->AmdMemoryVddpVddr.Voltage;
-  MemInfoBlockPtr->DdrMaxRate = mMemoryInitCompletePpiPtr->DdrMaxRate;
-
-  return EFI_SUCCESS;
-}
-
-
-EFI_STATUS
 EFIAPI
-InitializeAmdMemoryInfoHobPeimGenoa (
-  IN       EFI_PEI_FILE_HANDLE  FileHandle,
-  IN CONST EFI_PEI_SERVICES     **PeiServices
-  )
+InitializeAmdMemoryInfoHobPeimGenoa(
+    IN EFI_PEI_FILE_HANDLE FileHandle,
+    IN CONST EFI_PEI_SERVICES **PeiServices)
 /*++
 
 Routine Description:
@@ -573,28 +366,26 @@ Returns:
 
 --*/
 {
-  EFI_STATUS                 Status;
-  MEMORY_INFO_BLOCK_STRUCT   MemInfoBlock;
+  EFI_STATUS Status;
+  AMD_OPENSIL_XPRF_SERVICES_PPI *OpenSilXprfServicePpi;
 
-  //
-  // Get Memory Info Block Data
-  //
-  Status = GetMemInfoBlockData (PeiServices, &MemInfoBlock);
-  if (Status != EFI_SUCCESS) {
+  Status = (*PeiServices)->LocatePpi(PeiServices, &gOpenSilxPrfServicePpiGuid, 0, NULL, (VOID **)&OpenSilXprfServicePpi);
+  if (EFI_ERROR(Status))
+  {
+    DEBUG((DEBUG_ERROR, "OpenSilXprfServicePpi Not Found!!!\n"));
     return Status;
   }
 
   //
   // Build Memory Info Hob
   //
-  Status = BuildHobInfo (PeiServices, &MemInfoBlock);
+  Status = BuildMemoryHobInfo(OpenSilXprfServicePpi);
 
-  if (Status == EFI_SUCCESS) {
-    Status = (**PeiServices).InstallPpi (PeiServices, &mAmdMemoryHobInfoAvailblePpiList);
+  if (!EFI_ERROR(Status))
+  {
+    Status = (**PeiServices).InstallPpi(PeiServices, &mAmdMemoryHobInfoAvailblePpiList);
+    DEBUG((DEBUG_INFO, "AMD MemoryHobInfo PPI installed : %r\n", Status));
   }
+
   return Status;
 }
-
-
-
-

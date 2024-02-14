@@ -1,8 +1,7 @@
 #;*****************************************************************************
-#;
-#; Copyright (C) 2008-2024 Advanced Micro Devices, Inc. All rights reserved.
-#;
-#;******************************************************************************
+#; * Copyright (C) 2008-2024 Advanced Micro Devices, Inc. All rights reserved.
+#; *
+#;*****************************************************************************
 
 [defines]
   INF_VERSION                    = 0x00010005
@@ -14,94 +13,33 @@
   ENTRY_POINT                    = FchSmmDispatcherEntry
 
 [sources]
-  FchSmmData.c
   FchSmmDispatcher.c
   FchSmmDispatcher.h
-  FchSmmGpiDispatcher/FchSmmGpiDispatcher.c
-  FchSmmGpiDispatcher/FchSmmGpiDispatcher.h
-  FchSmmIoTrapDispatcher/FchSmmIoTrapDispatcher.c
-  FchSmmIoTrapDispatcher/FchSmmIoTrapDispatcher.h
-  FchSmmMiscDispatcher/FchSmmMiscDispatcher.c
-  FchSmmMiscDispatcher/FchSmmMiscDispatcher.h
-  FchSmmPeriodicalDispatcher/FchSmmPeriodicalDispatcher.c
-  FchSmmPeriodicalDispatcher/FchSmmPeriodicalDispatcher.h
-  FchSmmPwrBtnDispatcher/FchSmmPwrBtnDispatcher.c
-  FchSmmPwrBtnDispatcher/FchSmmPwrBtnDispatcher.h
-  FchSmmSwDispatcher/FchSmmSwDispatcher.c
-  FchSmmSwDispatcher/FchSmmSwDispatcher.h
-  FchSmmSxDispatcher/FchSmmSxDispatcher.c
-  FchSmmSxDispatcher/FchSmmSxDispatcher.h
-  FchSmmUsbDispatcher/FchSmmUsbDispatcher.c
-  FchSmmUsbDispatcher/FchSmmUsbDispatcher.h
-
-[sources.ia32]
-
-[sources.x64]
+  FchSmmSwDispatcher.c
+  FchSmmSwDispatcher.h
 
 [LibraryClasses]
-  FchSmmLibV9
-  Fch9004DxeLib
-  NbioHandleLib
-  NbioSmuGenoaLib
-  FabricRegisterAccLib
-  UefiDriverEntryPoint
-  BaseMemoryLib
-  BaseLib
-  DebugLib
   UefiRuntimeServicesTableLib
   UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  BaseMemoryLib
+  DebugLib
   SmmServicesTableLib
-  DevicePathLib
   MemoryAllocationLib
   SmmMemLib
+  IoLib
 
 [Guids]
 
 [Protocols]
-  gFchSmmSwDispatch2ProtocolGuid            #PRODUCED
   gEfiSmmSwDispatch2ProtocolGuid            #PRODUCED
-  gFchSmmSxDispatch2ProtocolGuid            #PRODUCED
-  gEfiSmmSxDispatch2ProtocolGuid            #PRODUCED
-  gFchSmmPwrBtnDispatch2ProtocolGuid        #PRODUCED
-  gEfiSmmPowerButtonDispatch2ProtocolGuid   #PRODUCED
-  gFchSmmPeriodicalDispatch2ProtocolGuid    #PRODUCED
-  gEfiSmmPeriodicTimerDispatch2ProtocolGuid #PRODUCED
-  gFchSmmUsbDispatch2ProtocolGuid           #PRODUCED
-  gEfiSmmUsbDispatch2ProtocolGuid           #PRODUCED
-  gFchSmmGpiDispatch2ProtocolGuid           #PRODUCED
-  gEfiSmmGpiDispatch2ProtocolGuid           #PRODUCED
-  gFchSmmIoTrapDispatch2ProtocolGuid        #PRODUCED
-  gEfiSmmIoTrapDispatch2ProtocolGuid        #PRODUCED
-
-  gFchSmmMiscDispatchProtocolGuid           #PRODUCED
-
-  gEfiSmmConfigurationProtocolGuid          #CONSUMED
   gEfiSmmBase2ProtocolGuid                  #CONSUMED
   gEfiSmmCpuProtocolGuid                    #CONSUMED
-  gAmdCapsuleSmmHookProtocolGuid
-  gAmdFabricTopologyServices2SmmProtocolGuid
-
-[Pcd]
-  gEfiAmdAgesaPkgTokenSpaceGuid.PcdXhci0Enable
-  gEfiAmdAgesaPkgTokenSpaceGuid.PcdXhci1Enable
-  gEfiAmdAgesaPkgTokenSpaceGuid.PcdXhci2Enable
-  gEfiAmdAgesaPkgTokenSpaceGuid.PcdXhci3Enable
-  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdEspiSmiOutBVwEnable
 
 [Packages]
   MdePkg/MdePkg.dec
-  AgesaPkg/AgesaPkg.dec
-  AgesaModulePkg/AgesaModuleFchPkg.dec
-  AgesaModulePkg/Fch/9004/Fch9004.dec
-  AgesaModulePkg/AgesaModuleDfPkg.dec
+  AmdOpenSilPkg/opensil-uefi-interface/AmdOpenSilPkg.dec
 
 [Depex]
-  gEfiSmmBase2ProtocolGuid
-  AND
+  gEfiSmmBase2ProtocolGuid AND
   gEfiSmmCpuProtocolGuid
-  AND
-  gAmdFchSNSmmDispacherDepexProtocolGuid
-  AND
-  gAmdFabricTopologyServices2SmmProtocolGuid
-
-

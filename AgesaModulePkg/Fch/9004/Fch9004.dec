@@ -1,9 +1,13 @@
 #;*****************************************************************************
 #;
-#; Copyright (C) 2008-2024 Advanced Micro Devices, Inc. All rights reserved.
+#; Copyright (C) 2008-2022 Advanced Micro Devices, Inc. All rights reserved.
 #;
 #;******************************************************************************
 
+#
+# This DEC file is for things that are only used internally to FchKernModulePkg
+# and will not be exposed publicly.  Use FchPkg.dec to produce public definitions
+#
 [Defines]
   DEC_SPECIFICATION     = 0x00010005
   PACKAGE_NAME          = Fch9004
@@ -11,18 +15,22 @@
   PACKAGE_VERSION       = 0.1
 
 [Includes]
-  Fch9004Core/
-  Fch9004Core/Common/
-  Fch9004Core/9004/
+  ../../../AgesaModulePkg/Include/
+  Fch9004Dxe/
 
 [LibraryClasses]
 
 [Guids]
   gFchResetDataHobGuid                   = { 0x26ab8e31, 0x6c47, 0x480a, { 0xa0, 0x39, 0x1e, 0x4, 0x3f, 0xa7, 0x93, 0xcd } }
   gEfiAmdAgesaPkgTokenSpaceGuid          = { 0xd4d8435f, 0xfffb, 0x4acb, { 0xa0, 0x4d, 0xff, 0xf, 0xad, 0x67, 0x7f, 0xe9 } }
-  gEfiAmdAgesaModulePkgTokenSpaceGuid    = { 0x7788adf0, 0x9788, 0x4a3f, { 0x83, 0xfa, 0xcb, 0x51, 0x2e, 0x7c, 0xf8, 0xdd } }
+
 
 [Protocols]
+  gFchInitProtocolGuid                   = { 0xdb4a79ac, 0x5bbb, 0x4625, {0xa6, 0x9e, 0xfe, 0xbf, 0x9d, 0x6d, 0x95, 0xeb } }
+  gFchInitDonePolicyProtocolGuid         = { 0xc63c0c73, 0xf612, 0x4c02, {0x84, 0xa3, 0xc6, 0x40, 0xad, 0xb, 0xa6, 0x22 } }
+  gFchSmmInitProtocolGuid                = { 0xad63ce68, 0x792a, 0x4fec, {0xac, 0xa6, 0x81, 0x6a, 0xd9, 0x7c, 0x01, 0x76 } }
+  gFchMultiFchInitProtocolGuid           = { 0xbb6afbf4, 0x1b0d, 0x483d, {0x96, 0x87, 0xee, 0x02, 0x3c, 0x1b, 0x54, 0x55 } }
+  gFchSsdtInstalledProtocolGuid          = { 0x16560ed9, 0x3636, 0x4ee7, {0xa6, 0xad, 0x8b, 0xde, 0x4f, 0x35, 0x37, 0x7c } }
   gFchSmmGpiDispatch2ProtocolGuid        = { 0x7051ab6d, 0x9ec2, 0x42eb, { 0xa2, 0x13, 0xde, 0x48, 0x81, 0xf1, 0xf7, 0x87 } }
   gFchSmmIoTrapDispatch2ProtocolGuid     = { 0x91288fc4, 0xe64b, 0x4ef9, { 0xa4, 0x63, 0x66, 0x88, 0x0, 0x71, 0x7f, 0xca } }
   gFchSmmPeriodicalDispatch2ProtocolGuid = { 0x736102f1, 0x9584, 0x44e7, { 0x82, 0x8a, 0x43, 0x4b, 0x1e, 0x67, 0x5c, 0xc4 } }
@@ -31,59 +39,94 @@
   gFchSmmSxDispatch2ProtocolGuid         = { 0x87e2a6cf, 0x91fb, 0x4581, { 0x90, 0xa9, 0x6f, 0x50, 0x5d, 0xdc, 0x1c, 0xb2 } }
   gFchSmmUsbDispatch2ProtocolGuid        = { 0xfbbb2ea9, 0xce0e, 0x4689, { 0xb3, 0xf0, 0xc6, 0xb8, 0xf0, 0x76, 0xbd, 0x20 } }
   gFchSmmMiscDispatchProtocolGuid        = { 0x13bd659b, 0xb4c6, 0x47da, {0x9b, 0x22, 0x11, 0x50, 0xd4, 0xf3, 0xb, 0xda } }
+  gFchSmmUsbDispatchProtocolGuid         = { 0x59053b0d, 0xeeb8, 0x4379, {0xb1, 0xc8, 0x14, 0x5f, 0x1b, 0xb, 0xe4, 0xb9 } }
+  gAmdFch9004DepexProtocolGuid           = { 0xa6e0c601, 0x46eb, 0x4a83, {0xac, 0xe3, 0x14, 0xda, 0x30, 0x1f, 0x5a, 0x85 } }
+  gAmdFchHSSmbusDepexProtocolGuid        = { 0xe527790e, 0x3caa, 0x4b92, {0xbb, 0x78, 0x6d, 0x62, 0x97, 0x07, 0x84, 0x96 } }
+  gAmdFchHSSmmDispacherDepexProtocolGuid = { 0xd7bf10f3, 0xf98c, 0x4c81, {0xa4, 0xad, 0x08, 0xad, 0xea, 0xc4, 0xd9, 0x71 } }
+  gAmdFchHSMultiFchDepexProtocolGuid     = { 0xf867cb76, 0xe12d, 0x48c4, {0x98, 0xeb, 0xc2, 0x3c, 0xdb, 0x98, 0x74, 0x40 } }
 
 [Ppis]
   gAmdFchInitPpiGuid                     = { 0x3fb7a27a, 0x33f3, 0x483d, {0xbc, 0x6f, 0x7a, 0x51, 0xbe, 0xf5, 0x3d, 0xa } }
+  gAmdFchMultiFchInitPpiGuid             = { 0xa5640daf, 0xfb8b, 0x4265, {0xbf, 0xab, 0x9c, 0x77, 0xf4, 0xe9, 0xd6, 0x20 } }
+
+  gAmdFch9004DepexPpiGuid                = {0x6931fd65, 0x4705, 0x4363, {0x80, 0xfb, 0x4c, 0xd0, 0x8f, 0x6a, 0xeb, 0xe8 } }
+  gAmdFchHSSmbusDepexPpiGuid             = {0xe0ae49a4, 0xeb70, 0x46d4, {0xa4, 0x5e, 0xb7, 0xae, 0xda, 0xd5, 0xcb, 0x90 } }
+  gAmdFchHSMultiFchDepexPpiGuid          = {0xb06950c5, 0xf655, 0x4ac6, {0xae, 0x99, 0x07, 0x57, 0xd4, 0x33, 0x8c, 0x55 } }
 
 [PcdsFixedAtBuild]
 
 
 [PcdsDynamic]
-
-  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXhci0DevRemovable|0x00|UINT32|0x0003F308              #[23:16] SS PORT 0-7 Device Removable
-                                                                                               #[7:0]   USB2 PORT 0-7 Device Removable
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdLegacyFree|FALSE|BOOLEAN|0x0003F001
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdHpetEnable|TRUE|BOOLEAN|0x0003F002
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdHpetMsiDis|TRUE|BOOLEAN|0x0003F003
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSpreadSpectrum|TRUE|BOOLEAN|0x0003F005
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdFchOscout1ClkContinous|FALSE|BOOLEAN|0x0003F006
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdStressResetMode|0x00|UINT8|0x0003F008
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdOemProgrammingTablePtr|{0x0}|VOID*|0x0003F009
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdResetWriteSpeed|0x00|UINT8|0x0003F00C
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdResetMode|0x00|UINT8|0x0003F00D
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdResetSpiSpeed|0x02|UINT8|0x0003F011
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdNoClearThermalTripSts|FALSE|BOOLEAN|0x0003F015
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdFchWdtEnable|TRUE|BOOLEAN|0x0003F01A
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdNativePcieSupport|TRUE|BOOLEAN|0x0003F020
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdNoneSioKbcSupport|FALSE|BOOLEAN|0x0003F021
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdTimerTickTrack|0x00|UINT8|0x0003F022
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdClockInterruptTag|0x00|UINT8|0x0003F023
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataSetMaxGen2|FALSE|BOOLEAN|0x0003F102
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataClkMode|0x01|UINT8|0x0003F103
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataAggrLinkPmCap|0x01|UINT8|0x0003F108
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataPortMultCap|0x01|UINT8|0x0003F109
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataClkAutoOff|0x00|UINT8|0x0003F10A
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataPscCap|0x01|UINT8|0x0003F10B
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataSscCap|0x01|UINT8|0x0003F10
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataFisBasedSwitching|0x01|UINT8|0x0003F10E
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataCccSupport|0x00|UINT8|0x0003F10F
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataTargetSupport8Device|0x00|UINT8|0x0003F111
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataAhciEnclosureManagement|0x00|UINT8|0x0003F112
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataDisableGenericMode|0x00|UINT8|0x0003F113
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataMsiEnable|TRUE|BOOLEAN|0x0003F122
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataSgpio0|0x00|UINT8|0x0003F123
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataControllerAutoShutdown|TRUE|BOOLEAN|0x0003F124
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataIoDie0PortMode|0x00|UINT64|0x0003F161
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataMultiDiePortShutDown|0x00|UINT64|0x0003F1E1
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataSgpioMultiDieEnable|0x00|UINT8|0x0003F1E4
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdALinkClkGateOff|0x01|UINT8|0x0003F201
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdBLinkClkGateOff|0x01|UINT8|0x0003F202
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAbClockGating|0x01|UINT8|0x0003F203
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSbgMemoryPowerSaving|TRUE|BOOLEAN|0x0003F207
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSbgClockGating|TRUE|BOOLEAN|0x0003F208
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXdmaDmaWrite16ByteMode|FALSE|BOOLEAN|0x0003F209
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXdmaMemoryPowerSaving|FALSE|BOOLEAN|0x0003F20A
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXdmaPendingNprThreshold|0x00|UINT8|0x0003F20B
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXdmaDncplOrderDis|FALSE|BOOLEAN|0x0003F20C
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSdphostBypassDataPack|FALSE|BOOLEAN|0x0003F214
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSdphostDisNpmwrProtect|FALSE|BOOLEAN|0x0003F215
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXhci0DevRemovable|0x00|UINT32|0x0003F308
   gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXhciOcPolarityCfgLow|FALSE|BOOLEAN|0x0003F309
   gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXhciUsb3PortDisable|0x00|UINT32|0x0003F30A
-                                                                                               #Die 0
-                                                                                               #[1:0] 2 USB 3.1 ports on XHCI controller 0
-                                                                                               #[3:2] 2 USB 3.1 ports on XHCI controller 1
-                                                                                               #[3:0] 4 USB 3.1 ports on XHCI controller 0
-                                                                                               #Die 1
-                                                                                               #[5:4] 2 USB 3.1 ports on XHCI controller 0
-                                                                                               #[7:6] 2 USB 3.1 ports on XHCI controller 1
   gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXhciUsb2PortDisable|0x00|UINT32|0x0003F30B
-                                                                                               #Die 0
-                                                                                               #[1:0] 2 USB 2.0 ports on XHCI controller 0
-                                                                                               #[3:2] 2 USB 2.0 ports on XHCI controller 1
-                                                                                               #[5:0] 6 USB 2.0 ports on XHCI controller 0
-                                                                                               #Die 1
-                                                                                               #[5:4] 2 USB 2.0 ports on XHCI controller 0
-                                                                                               #[7:6] 2 USB 2.0 ports on XHCI controller 1
-  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXhciOcPinSelect|0xFFFFFFFF|UINT32|0x0003F30C
-  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXhciForceGen1|0x00|UINT8|0x0003F30D                   #PCD to force USB 3.1 Gen 1
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXhciForceGen1|0x00|UINT8|0x0003F30D
   gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXhciUsb20OcPinSelect|0xFFFFFFFFFFFFFFFF|UINT64|0x0003F340
-                                                                                               #Die 0
-                                                                                               #[7:0]  2 USB 2.0 ports on XHCI controller 0
-                                                                                               #[15:8] 2 USB 2.0 ports on XHCI controller 1
-                                                                                               #[23:0] 6 USB 2.0 ports on XHCI controller 0
-                                                                                               #Die 1
-                                                                                               #[39:32] 2 USB 2.0 ports on XHCI controller 0
-                                                                                               #[47:40] 2 USB 2.0 ports on XHCI controller 1
   gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXhciUsb31OcPinSelect|0xFFFFFFFF|UINT32|0x0003F341
-                                                                                               #Die 0
-                                                                                               #[7:0]  2 USB 3.1 ports on XHCI controller 0
-                                                                                               #[15:8] 2 USB 3.1 ports on XHCI controller 1
-                                                                                               #[15:0] 4 USB 3.1 ports on XHCI controller 0
-                                                                                               #Die 1
-                                                                                               #[23:16] 2 USB 3.1 ports on XHCI controller 0
-                                                                                               #[31:24] 2 USB 3.1 ports on XHCI controller 1
-
-
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdLpcEnable|TRUE|BOOLEAN|0x0003F400
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdLpcClockDriveStrength|0x00|UINT8|0x0003F401
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdLpcClk0|TRUE|BOOLEAN|0x0003F402
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdLpcClk1|TRUE|BOOLEAN|0x0003F403
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdLpcClockDriveStrengthRiseTime|0x08|UINT8|0x0003F406
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdLpcClockDriveStrengthFallTime|0x08|UINT8|0x0003F407
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdEmmcEnable|0x00|UINT8|0x0003F601
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdEmmcType|0x09|UINT8|0x0003F60A
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSmbusSsid|0x00000000|UINT32|0x0003FF01
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataAhciSsid|0x00000000|UINT32|0x0003FF02
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataRaidSsid|0x00000000|UINT32|0x0003FF03
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataRaid5Ssid|0x00000000|UINT32|0x0003FF04
   gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXhciSsid|0x00000000|UINT32|0x0003FF07
-
-
- #
- # Promontory
- #
-  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdPTXhciGen1|0x01|UINT8|0x0003EF00
-  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdPTXhciGen2|0x01|UINT8|0x0003EF01
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdLpcSsid|0x00000000|UINT32|0x0003FF08
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCfgFchIoapicId|0|UINT8|0x0004101E
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.FchRTDeviceEnableMap|0x00000000|UINT32|0x0003FF81
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.FchRTSataDevSlpPort0S5Pin|0x00|UINT8|0x0003FF82
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.FchRTSataDevSlpPort1S5Pin|0x00|UINT8|0x0003FF83
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.FchAl2AhbLegacyUartIoEnable|0xE400|UINT16|0x0003FF84
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdNvdimmEnable|FALSE|BOOLEAN|0x0003FF8E
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFchCfgSmiCmdPortAddr|0xB0|UINT16|0x0003FFC0
