@@ -1,0 +1,186 @@
+#;*****************************************************************************
+#;
+#; Copyright (C) 2016-2024 Advanced Micro Devices, Inc. All rights reserved.
+#;******************************************************************************
+
+[Defines]
+  DEC_SPECIFICATION     = 0x00010005
+  PACKAGE_NAME          = AgesaPublicModulePkg
+  PACKAGE_GUID          = CE1f08EA-c738-4f77-A5DE-3124C0619BED
+  PACKAGE_VERSION       = 0.1
+
+[Includes]
+
+[LibraryClasses]
+  FabricResourceInit3Lib
+
+[Guids]
+  gEfiAmdAgesaModulePkgTokenSpaceGuid    = { 0x7788adf0, 0x9788, 0x4a3f, { 0x83, 0xfa, 0xcb, 0x51, 0x2e, 0x7c, 0xf8, 0xdd } }
+  gAmdMemoryInfoHobGuid                  = { 0x1bce3d14, 0xa5fe, 0x4a0b, { 0x9a, 0x8d, 0x69, 0xca, 0x5d, 0x98, 0x38, 0xd3 } }
+  gEfiAmdAgesaSpecificWarmResetGuid      = { 0x49883fe2, 0x915d, 0x42bc, { 0xa6, 0xfe, 0x71, 0xfd, 0x76, 0x0f, 0x39, 0x75 } }
+  gFchMultiFchResetDataHobGuid           = { 0xf1167c37, 0xca4c, 0x4c58, { 0x87, 0x19, 0x19, 0x32, 0x02, 0x6e, 0x70, 0x8f } }
+  gAmdPspDirHobGuid                      = { 0x4f5fbf2, 0xfc08, 0x47d7, { 0xb0, 0xe, 0x3d, 0x9, 0x17, 0xc2, 0xac, 0xaa } }
+
+
+[PcdsFixedAtBuild]
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCfgIommuMMIOAddressReservedEnable|FALSE|BOOLEAN|0x00021100
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdPspRecoveryFlagDetectEnable|TRUE|BOOLEAN|0x00040009
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCfgIohcNonPCIBarInitDbg|FALSE|BOOLEAN|0x00021201
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCfgIohcNonPCIBarInitFastReg|FALSE|BOOLEAN|0x00021202
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCfgIohcNonPCIBarInitFastRegCtl|FALSE|BOOLEAN|0x00021203
+
+[PcdsDynamic]
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdApicMode|0x02|UINT8|0x000CC006
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdUsbSspOemConfigurationTable|{0x0}|VOID*|0x0003F382
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCfgSkipPspMessage|0x1|UINT8|0x0004120D
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdOpnSpare|0x0|UINT32|0x000412A3
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdIbrsEn|FALSE|BOOLEAN|0x000CC022
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdVmplEnable|TRUE|BOOLEAN|0x000CC027
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdGameMode|FALSE|BOOLEAN|0x000CC020
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdRedirectForReturnDis|0xFF|UINT8|0x000CC007
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdOpcacheCtrl|0xFF|UINT8|0x000CC008
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdStreamingStoresCtrl|0xFF|UINT8|0x000CC009
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdEnSpecStFill|TRUE|BOOLEAN|0x000CC029
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdEnableFSRM|TRUE|BOOLEAN|0x000CC02A
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdEnableERMS|TRUE|BOOLEAN|0x000CC02B
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdEnableSvmAVIC|TRUE|BOOLEAN|0x000CC02C
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdIbsHardwareEn|FALSE|BOOLEAN|0x000CC02D
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdCcxEnableAvx512|0xFF|UINT8|0x000CC032
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdEnableSvmX2AVIC|TRUE|BOOLEAN|0x000CC031
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCfgDxioFrequencyVetting|FALSE|BOOLEAN|0x00041525
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdDisableWcSpecConfig|1|UINT8|0x000CC033
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSpreadSpectrum|TRUE|BOOLEAN|0x0003F005
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdNoClearThermalTripSts|FALSE|BOOLEAN|0x0003F015
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdStressResetMode|0x00|UINT8|0x0003F008
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdOemProgrammingTablePtr|{0x0}|VOID*|0x0003F009
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdEnableRMSS|TRUE|BOOLEAN|0x000CC02E
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdToggleAllPwrGoodOnCf9|TRUE|BOOLEAN|0x0003F405
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdLpcClockDriveStrengthRiseTime|0x08|UINT8|0x0003F406
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdLpcClockDriveStrengthFallTime|0x08|UINT8|0x0003F407
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdResetSpiTpmSpeed|0x00|UINT8|0x0003F032
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataBISTLComplianceMode|0x00|UINT8|0x0003F163
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataMultiDiePortRxPolarity|0x00|UINT64|0x0003F1E5
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdDisableXhciPortLate|FALSE|BOOLEAN|0x0003F33E
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdUsbSparseModeEnable|TRUE|BOOLEAN|0x0003F352
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdUsbGenoaOemConfigurationTable|{0x0}|VOID*|0x0003F40A
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdIommuL1ClockGatingEnable|TRUE|BOOLEAN|0x00041021
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdIommuL2ClockGatingEnable|TRUE|BOOLEAN|0x00041022
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdIOHCClkGatingSupport|TRUE|BOOLEAN|0x00041025
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCfgSstunlClkGating|TRUE|BOOLEAN|0x00041026
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCfgSataPhyTuning|0|UINT8|0x00041027
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCfgPCIeLTREnable|TRUE|BOOLEAN|0x0004102D
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdIOHCPgEnable|TRUE|BOOLEAN|0x0004102E
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCfgNbioCTOtoSC|FALSE|BOOLEAN|0x00041031
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCfgNbifMgcgClkGating|TRUE|BOOLEAN|0x00041033
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCfgSyshubMgcgClkGating|TRUE|BOOLEAN|0x00041034
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCfgAutoSpeedChangeEnable|0|UINT8|0x00041036
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdTPHCompleterEnable|1|UINT8|0x00041037
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdPTDMAEnable|FALSE|BOOLEAN|0x00041044
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCfgIommuAvicSupport|FALSE|BOOLEAN|0x0004104d
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSmuFeatureControlDefines|0x0|UINT32|0x00041201
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSmuFeatureControlDefines64|0x0|UINT32|0x00041211
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdPCIeExactMatchEnable|FALSE|BOOLEAN|0x00041249
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdDxioPhyValid|0x01|UINT8|0x0004124B
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdDxioPhyProgramming|0x01|UINT8|0x0004124C
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdPcieDxioTimingControlEnable|FALSE|BOOLEAN|0x0004124D
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdPCIELinkResetToTrainingTime|0|UINT32|0x0004124E
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdPCIELinkReceiverDetectionPolling|0|UINT32|0x0004124F
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdPCIELinkL0Polling|0|UINT32|0x00041250
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdGppAtomicOps|0x01|UINT8|0x00041268
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdGfxAtomicOps|0x01|UINT8|0x00041269
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCfgEarlyLink|FALSE|BOOLEAN|0x0004129A
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdNbifMgcgHysteresis|0|UINT8|0x0004130F
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSyshubMgcgHysteresis|0|UINT8|0x00041310
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdNbioGlobalCgOverride|1|UINT8|0x00041311
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSrisAutoDetectMode|0xFF|UINT8|0x00041315
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSrisAutodetectFactor|0x0|UINT8|0x0004131B
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSrisSkpIntervalSel|0x1|UINT8|0x00041320
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSrisCfgType|0x0|UINT8|0x00041321
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCfgNbioCTOIgnoreError|TRUE|BOOLEAN|0x0004140C
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdReportErrorsToRcec|TRUE|BOOLEAN|0x00041429
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSyncHeaderByPass|TRUE|BOOLEAN|0x0004142A
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCxlIoArbWeights|0|UINT8|0x0004142B
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCxlCaMemArbWeights|0|UINT8|0x0004142C
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCnliTokenAdvertisement|0|UINT8|0x0004142D
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCxlCorrectableErrorLogging|TRUE|BOOLEAN|0x0004142E
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCxlUnCorrectableErrorLogging|TRUE|BOOLEAN|0x0004142F
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCxlTempGen5AdvertAltPtcl|FALSE|BOOLEAN|0x00041433
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCxlCamemRxOptimization|FALSE|BOOLEAN|0x00041434
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCxlTxOptimizeDirectOutEn|FALSE|BOOLEAN|0x00041435
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCfgDxioClockGating|TRUE|BOOLEAN|0x0004150B
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCfgPcieCVTestWA|0|UINT8|0x0004150E
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdDxioSaveRestoreModes|0xFF|UINT8|0x00041512
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSurpriseDownFeature|TRUE|BOOLEAN|0x00041514
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdLcMultAutoSpdChgOnLastRateEnable|FALSE|BOOLEAN|0x0004151A
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSbrBrokenLaneAvoidanceSup|TRUE|BOOLEAN|0x0004152A
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAutoFullMarginSup|TRUE|BOOLEAN|0x0004152B
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdMPIOAncDataSupport|TRUE|BOOLEAN|0x00041600
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCfgPrecodeRequestEnable|FALSE|BOOLEAN|0x0004103E
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdBranchSampling|FALSE|BOOLEAN|0x000CC026
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdLegacyFree|FALSE|BOOLEAN|0x0003F001
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdHpetEnable|TRUE|BOOLEAN|0x0003F002
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdHpetMsiDis|TRUE|BOOLEAN|0x0003F003
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdFchOscout1ClkContinous|FALSE|BOOLEAN|0x0003F006
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdResetWriteSpeed|0x00|UINT8|0x0003F00C
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdResetMode|0x00|UINT8|0x0003F00D
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdResetSpiSpeed|0x02|UINT8|0x0003F011
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdFchWdtEnable|TRUE|BOOLEAN|0x0003F01A
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdNativePcieSupport|TRUE|BOOLEAN|0x0003F020
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdNoneSioKbcSupport|FALSE|BOOLEAN|0x0003F021
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdTimerTickTrack|0x00|UINT8|0x0003F022
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdClockInterruptTag|0x00|UINT8|0x0003F023
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataSetMaxGen2|FALSE|BOOLEAN|0x0003F102
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataClkMode|0x01|UINT8|0x0003F103
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataAggrLinkPmCap|0x01|UINT8|0x0003F108
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataPortMultCap|0x01|UINT8|0x0003F109
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataClkAutoOff|0x00|UINT8|0x0003F10A
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataPscCap|0x01|UINT8|0x0003F10B
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataSscCap|0x01|UINT8|0x0003F10C
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataFisBasedSwitching|0x01|UINT8|0x0003F10E
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataCccSupport|0x00|UINT8|0x0003F10F
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataTargetSupport8Device|0x00|UINT8|0x0003F111
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataAhciEnclosureManagement|0x00|UINT8|0x0003F112
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataDisableGenericMode|0x00|UINT8|0x0003F113
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataMsiEnable|TRUE|BOOLEAN|0x0003F122
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataSgpio0|0x00|UINT8|0x0003F123
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataControllerAutoShutdown|TRUE|BOOLEAN|0x0003F124
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataIoDie0PortMode|0x00|UINT64|0x0003F161
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataMultiDiePortShutDown|0x00|UINT64|0x0003F1E1
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataSgpioMultiDieEnable|0x00|UINT8|0x0003F1E4
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdALinkClkGateOff|0x01|UINT8|0x0003F201
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdBLinkClkGateOff|0x01|UINT8|0x0003F202
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAbClockGating|0x01|UINT8|0x0003F203
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSbgMemoryPowerSaving|TRUE|BOOLEAN|0x0003F207
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSbgClockGating|TRUE|BOOLEAN|0x0003F208
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXdmaDmaWrite16ByteMode|FALSE|BOOLEAN|0x0003F209
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXdmaMemoryPowerSaving|FALSE|BOOLEAN|0x0003F20A
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXdmaPendingNprThreshold|0x00|UINT8|0x0003F20B
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXdmaDncplOrderDis|FALSE|BOOLEAN|0x0003F20C
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSdphostBypassDataPack|FALSE|BOOLEAN|0x0003F214
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSdphostDisNpmwrProtect|FALSE|BOOLEAN|0x0003F215
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXhci0DevRemovable|0x00|UINT32|0x0003F308
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXhciOcPolarityCfgLow|FALSE|BOOLEAN|0x0003F309
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXhciUsb3PortDisable|0x00|UINT32|0x0003F30A
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXhciUsb2PortDisable|0x00|UINT32|0x0003F30B
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXhciForceGen1|0x00|UINT8|0x0003F30D
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXhciUsb20OcPinSelect|0xFFFFFFFFFFFFFFFF|UINT64|0x0003F340
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXhciUsb31OcPinSelect|0xFFFFFFFF|UINT32|0x0003F341
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdLpcEnable|TRUE|BOOLEAN|0x0003F400
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdLpcClockDriveStrength|0x00|UINT8|0x0003F401
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdLpcClk0|TRUE|BOOLEAN|0x0003F402
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdLpcClk1|TRUE|BOOLEAN|0x0003F403
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdEmmcEnable|0x00|UINT8|0x0003F601
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdEmmcType|0x09|UINT8|0x0003F60A
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSmbusSsid|0x00000000|UINT32|0x0003FF01
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataAhciSsid|0x00000000|UINT32|0x0003FF02
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataRaidSsid|0x00000000|UINT32|0x0003FF03
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdSataRaid5Ssid|0x00000000|UINT32|0x0003FF04
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdXhciSsid|0x00000000|UINT32|0x0003FF07
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdLpcSsid|0x00000000|UINT32|0x0003FF08
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdCfgFchIoapicId|0|UINT8|0x0004101E
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.FchRTDeviceEnableMap|0x00000000|UINT32|0x0003FF81
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.FchRTSataDevSlpPort0S5Pin|0x00|UINT8|0x0003FF82
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.FchRTSataDevSlpPort1S5Pin|0x00|UINT8|0x0003FF83
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.FchAl2AhbLegacyUartIoEnable|0xE400|UINT16|0x0003FF84
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdNvdimmEnable|FALSE|BOOLEAN|0x0003FF8E
+  gEfiAmdAgesaPkgTokenSpaceGuid.PcdAmdFchCfgSmiCmdPortAddr|0xB0|UINT16|0x0003FFC0

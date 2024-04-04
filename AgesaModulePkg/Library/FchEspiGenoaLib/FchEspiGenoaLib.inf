@@ -16,7 +16,7 @@
   FchEspiGenoaLib.c
 
 [Packages]
-  AgesaModulePkg/AgesaModuleFchPkg.dec
+  AgesaModulePkg/AgesaPublicModulePkg.dec
   MdePkg/MdePkg.dec
 
 [LibraryClasses]
@@ -30,8 +30,4 @@
 [Pcd]
 
 [Depex]
-
-
-
-
 

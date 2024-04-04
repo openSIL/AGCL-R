@@ -15,40 +15,34 @@
 [sources.common]
   AmdMemoryHobInfoPeimGenoa.c
 
-[sources.IA32]
-
-[sources.X64]
-
 [LibraryClasses]
   PeimEntryPoint
   BaseLib
-  IdsLib
   PeiServicesLib
   HobLib
 
 [Guids]
   gAmdMemoryInfoHobGuid
-  gAmdMemCfgInfoHobGuid #CONSUMED
 
 [Pcd]
   gEfiAmdAgesaPkgTokenSpaceGuid.PcdCfgIommuSupport
-
-[Protocols]
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdMemMaxSocketSupportedV2
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdMemMaxDiePerSocketV2
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdMemMaxChannelPerDieV2
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdMemMaxDimmPerChannelV2
 
 [Ppis]
-  gAmdMemoryInitCompletePpiGuid  #CONSUMED
   gAmdMemoryInfoHobPpiGuid       #PRODUCED
   gOpenSilxPrfServicePpiGuid     #CONSUMED
 
 [Packages]
   MdePkg/MdePkg.dec
-  AgesaPkg/AgesaPkg.dec
-  AgesaModulePkg/AgesaModuleMemPkg.dec
+  AgesaPkg/AgesaPublicPkg.dec
   AgesaModulePkg/AgesaCommonModulePkg.dec
-  AgesaModulePkg/AgesaFamily19ModulePkg.dec
+  AgesaModulePkg/Fch/9004/Fch9004.dec
   AmdOpenSilPkg/opensil-uefi-interface/AmdOpenSilPkg.dec
 
+
 [Depex]
-  gAmdMemoryInitCompletePpiGuid  AND
-  gAmdMemoryPeiHobGenoaDepexPpiGuid
+  gOpenSilxPrfServicePpiGuid
 
