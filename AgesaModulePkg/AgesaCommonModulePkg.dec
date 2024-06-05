@@ -57,7 +57,7 @@
 [PcdsFeatureFlag]
 
 [PcdsFixedAtBuild]
-  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdMemMaxSocketSupportedV2|2|UINT8|0x00002002
+  gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdMemMaxSocketSupportedV2|1|UINT8|0x00002002
   gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdMemMaxDiePerSocketV2|1|UINT8|0x00002003
   gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdMemMaxChannelPerDieV2|12|UINT8|0x00002004
   gEfiAmdAgesaModulePkgTokenSpaceGuid.PcdAmdMemMaxDimmPerChannelV2|2|UINT8|0x00002005

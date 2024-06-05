@@ -140,15 +140,15 @@ FabricGetAvailableResource (
           ResourceForEachRb->PrefetchableMmioSizeAbove4G[SocIndex][HbIndex].Size = MmioRegion->SizePrefetch - MmioRegion->UsedSizePrefetch;
           ResourceForEachRb->NonPrefetchableMmioSizeAbove4G[SocIndex][HbIndex].Base = MmioRegion->BaseNonPrefetch + MmioRegion->UsedSizeNonPrefetch;
           ResourceForEachRb->PrefetchableMmioSizeAbove4G[SocIndex][HbIndex].Base = MmioRegion->BasePrefetch + MmioRegion->UsedSizePrefetch;
-          DEBUG ((DEBUG_INFO, "  MMIO above 4G\n    non-prefetchable 0x%lX ~ 0x%lX size 0x%lX align %x\n", 
-                ResourceForEachRb->NonPrefetchableMmioSizeAbove4G[SocIndex][HbIndex].Base, 
-                (ResourceForEachRb->NonPrefetchableMmioSizeAbove4G[SocIndex][HbIndex].Base + ResourceForEachRb->NonPrefetchableMmioSizeAbove4G[SocIndex][HbIndex].Size), 
-                ResourceForEachRb->NonPrefetchableMmioSizeAbove4G[SocIndex][HbIndex].Size, 
+          DEBUG ((DEBUG_INFO, "  MMIO above 4G\n    non-prefetchable 0x%lX ~ 0x%lX size 0x%lX align %x\n",
+                ResourceForEachRb->NonPrefetchableMmioSizeAbove4G[SocIndex][HbIndex].Base,
+                (ResourceForEachRb->NonPrefetchableMmioSizeAbove4G[SocIndex][HbIndex].Base + ResourceForEachRb->NonPrefetchableMmioSizeAbove4G[SocIndex][HbIndex].Size),
+                ResourceForEachRb->NonPrefetchableMmioSizeAbove4G[SocIndex][HbIndex].Size,
                 ResourceForEachRb->NonPrefetchableMmioSizeAbove4G[SocIndex][HbIndex].Alignment));
-          DEBUG ((DEBUG_INFO, "        prefetchable 0x%lX ~ 0x%lX size 0x%lX align %x\n", 
-                ResourceForEachRb->PrefetchableMmioSizeAbove4G[SocIndex][HbIndex].Base, 
-                (ResourceForEachRb->PrefetchableMmioSizeAbove4G[SocIndex][HbIndex].Base + ResourceForEachRb->PrefetchableMmioSizeAbove4G[SocIndex][HbIndex].Size), 
-                ResourceForEachRb->PrefetchableMmioSizeAbove4G[SocIndex][HbIndex].Size, 
+          DEBUG ((DEBUG_INFO, "        prefetchable 0x%lX ~ 0x%lX size 0x%lX align %x\n",
+                ResourceForEachRb->PrefetchableMmioSizeAbove4G[SocIndex][HbIndex].Base,
+                (ResourceForEachRb->PrefetchableMmioSizeAbove4G[SocIndex][HbIndex].Base + ResourceForEachRb->PrefetchableMmioSizeAbove4G[SocIndex][HbIndex].Size),
+                ResourceForEachRb->PrefetchableMmioSizeAbove4G[SocIndex][HbIndex].Size,
                 ResourceForEachRb->PrefetchableMmioSizeAbove4G[SocIndex][HbIndex].Alignment));
         }
 
@@ -165,27 +165,29 @@ FabricGetAvailableResource (
           ResourceForEachRb->PrefetchableMmioSizeBelow4G[SocIndex][HbIndex].Size =  MmioRegion->SizePrefetch - MmioRegion->UsedSizePrefetch;
           ResourceForEachRb->NonPrefetchableMmioSizeBelow4G[SocIndex][HbIndex].Base = MmioRegion->BaseNonPrefetch + MmioRegion->UsedSizeNonPrefetch;
           ResourceForEachRb->PrefetchableMmioSizeBelow4G[SocIndex][HbIndex].Base =  MmioRegion->BasePrefetch + MmioRegion->UsedSizePrefetch;
-          DEBUG ((DEBUG_INFO, "  MMIO below 4G\n    non-prefetchable 0x%lX ~ 0x%lX size 0x%lX align %x\n", 
-                ResourceForEachRb->NonPrefetchableMmioSizeBelow4G[SocIndex][HbIndex].Base, (ResourceForEachRb->NonPrefetchableMmioSizeBelow4G[SocIndex][HbIndex].Base + ResourceForEachRb->NonPrefetchableMmioSizeBelow4G[SocIndex][HbIndex].Size), 
-                ResourceForEachRb->NonPrefetchableMmioSizeBelow4G[SocIndex][HbIndex].Size, 
+          DEBUG ((DEBUG_INFO, "  MMIO below 4G\n    non-prefetchable 0x%lX ~ 0x%lX size 0x%lX align %x\n",
+                ResourceForEachRb->NonPrefetchableMmioSizeBelow4G[SocIndex][HbIndex].Base, (ResourceForEachRb->NonPrefetchableMmioSizeBelow4G[SocIndex][HbIndex].Base + ResourceForEachRb->NonPrefetchableMmioSizeBelow4G[SocIndex][HbIndex].Size),
+                ResourceForEachRb->NonPrefetchableMmioSizeBelow4G[SocIndex][HbIndex].Size,
                 ResourceForEachRb->NonPrefetchableMmioSizeBelow4G[SocIndex][HbIndex].Alignment));
-          DEBUG ((DEBUG_INFO, "        prefetchable 0x%lX ~ 0x%lX size 0x%lX align %x\n", 
-                ResourceForEachRb->PrefetchableMmioSizeBelow4G[SocIndex][HbIndex].Base, (ResourceForEachRb->PrefetchableMmioSizeBelow4G[SocIndex][HbIndex].Base + ResourceForEachRb->PrefetchableMmioSizeBelow4G[SocIndex][HbIndex].Size), 
-                ResourceForEachRb->PrefetchableMmioSizeBelow4G[SocIndex][HbIndex].Size, 
+          DEBUG ((DEBUG_INFO, "        prefetchable 0x%lX ~ 0x%lX size 0x%lX align %x\n",
+                ResourceForEachRb->PrefetchableMmioSizeBelow4G[SocIndex][HbIndex].Base, (ResourceForEachRb->PrefetchableMmioSizeBelow4G[SocIndex][HbIndex].Base + ResourceForEachRb->PrefetchableMmioSizeBelow4G[SocIndex][HbIndex].Size),
+                ResourceForEachRb->PrefetchableMmioSizeBelow4G[SocIndex][HbIndex].Size,
                 ResourceForEachRb->PrefetchableMmioSizeBelow4G[SocIndex][HbIndex].Alignment));
         }
 
         IoRegion = &FabricIoManager->IoRegion[SocIndex][HbIndex];
         ResourceForEachRb->IO[SocIndex][HbIndex].Base = IoRegion->IoBase;
         ResourceForEachRb->IO[SocIndex][HbIndex].Size = IoRegion->IoSize - IoRegion->IoUsed;
-        DEBUG ((DEBUG_INFO, "  IO 0x%lX ~ 0x%lX size 0x%X\n", ResourceForEachRb->IO[SocIndex][HbIndex].Base, 
-              (ResourceForEachRb->IO[SocIndex][HbIndex].Base + ResourceForEachRb->IO[SocIndex][HbIndex].Size), 
+        DEBUG ((DEBUG_INFO, "  IO 0x%lX ~ 0x%lX size 0x%X\n", ResourceForEachRb->IO[SocIndex][HbIndex].Base,
+              (ResourceForEachRb->IO[SocIndex][HbIndex].Base + ResourceForEachRb->IO[SocIndex][HbIndex].Size),
               ResourceForEachRb->IO[SocIndex][HbIndex].Size));
 
         PciBase = DfXGetHostBridgeBusBase (SocIndex, (HbIndex % RbPerDie));
+  DEBUG ((DEBUG_ERROR, " PBG Agesa 1\n"));
         PciLimit = DfXGetHostBridgeBusLimit (SocIndex, (HbIndex % RbPerDie));
         ResourceForEachRb->PciBusNumber[SocIndex][HbIndex] = (UINT16) (PciLimit - PciBase + 1);
-        DEBUG ((DEBUG_INFO, "  PCI bus 0x%lX ~ 0x%lX size 0x%X\n", 
+  DEBUG ((DEBUG_ERROR, " PBG Agesa 2\n"));
+        DEBUG ((DEBUG_INFO, "  PCI bus 0x%lX ~ 0x%lX size 0x%X\n",
               PciBase, PciLimit, ResourceForEachRb->PciBusNumber[SocIndex][HbIndex]));
       }
     }
@@ -202,14 +204,14 @@ FabricGetAvailableResource (
     ResourceForEachRb->PrimaryRbSecondNonPrefetchableMmioSizeBelow4G.Base = MmioRegion->BaseNonPrefetch + MmioRegion->UsedSizeNonPrefetch;
     ResourceForEachRb->PrimaryRbSecondPrefetchableMmioSizeBelow4G.Base = MmioRegion->BasePrefetch + MmioRegion->UsedSizePrefetch;
     DEBUG ((DEBUG_INFO, "  RootBridge0's 2nd MMIO\n    non-prefetch 0x%lX ~ 0x%lX size 0x%lX align %x MMIO\n",
-           ResourceForEachRb->PrimaryRbSecondNonPrefetchableMmioSizeBelow4G.Base, 
-           (ResourceForEachRb->PrimaryRbSecondNonPrefetchableMmioSizeBelow4G.Base + ResourceForEachRb->PrimaryRbSecondNonPrefetchableMmioSizeBelow4G.Size), 
-           ResourceForEachRb->PrimaryRbSecondNonPrefetchableMmioSizeBelow4G.Size, 
+           ResourceForEachRb->PrimaryRbSecondNonPrefetchableMmioSizeBelow4G.Base,
+           (ResourceForEachRb->PrimaryRbSecondNonPrefetchableMmioSizeBelow4G.Base + ResourceForEachRb->PrimaryRbSecondNonPrefetchableMmioSizeBelow4G.Size),
+           ResourceForEachRb->PrimaryRbSecondNonPrefetchableMmioSizeBelow4G.Size,
            ResourceForEachRb->PrimaryRbSecondNonPrefetchableMmioSizeBelow4G.Alignment));
-    DEBUG ((DEBUG_INFO, "      prefetchable 0x%lX ~ 0x%lX size 0x%lX align %x MMIO\n", 
-          ResourceForEachRb->PrimaryRbSecondPrefetchableMmioSizeBelow4G.Base, 
-          (ResourceForEachRb->PrimaryRbSecondPrefetchableMmioSizeBelow4G.Base + ResourceForEachRb->PrimaryRbSecondPrefetchableMmioSizeBelow4G.Size), 
-          ResourceForEachRb->PrimaryRbSecondPrefetchableMmioSizeBelow4G.Size, 
+    DEBUG ((DEBUG_INFO, "      prefetchable 0x%lX ~ 0x%lX size 0x%lX align %x MMIO\n",
+          ResourceForEachRb->PrimaryRbSecondPrefetchableMmioSizeBelow4G.Base,
+          (ResourceForEachRb->PrimaryRbSecondPrefetchableMmioSizeBelow4G.Base + ResourceForEachRb->PrimaryRbSecondPrefetchableMmioSizeBelow4G.Size),
+          ResourceForEachRb->PrimaryRbSecondPrefetchableMmioSizeBelow4G.Size,
           ResourceForEachRb->PrimaryRbSecondPrefetchableMmioSizeBelow4G.Alignment));
   } else {
     ResourceForEachRb->PrimaryRbSecondNonPrefetchableMmioSizeBelow4G.Size = 0;
