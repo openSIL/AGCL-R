@@ -38,6 +38,7 @@
 
 [Packages]
   MdePkg/MdePkg.dec
+  AgesaPkg/AgesaPublicPkg.dec
   AmdOpenSilPkg/opensil-uefi-interface/AmdOpenSilPkg.dec
 
 [Depex]

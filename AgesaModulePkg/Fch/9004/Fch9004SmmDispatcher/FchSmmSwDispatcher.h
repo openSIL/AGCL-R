@@ -23,7 +23,7 @@
 #include "FchSmmDispatcher.h"
 #include <PiSmm.h>
 #include <Protocol/SmmSwDispatch2.h>
-#include "D:/Develop/AMD-OpenSIL/OCP-Genoa-Demo/AGESA/AgesaPkg/Include/Protocol/FchSmmSwDispatch2.h"
+#include "Protocol/FchSmmSwDispatch2.h"
 #include <Protocol/SmmCpu.h>
 
 extern  FCH_SMM_SW_DISPATCH2_PROTOCOL gFchSmmSwDispatch2Protocol;
