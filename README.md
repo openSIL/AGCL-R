@@ -10,7 +10,7 @@ Please note that the content available in [this](https://github.com/openSIL/AGCL
 
 ### License
 
-By using this beta firmware, you agree to the terms and conditions of the [Beta Firmare license agreement](https://github.com/openSIL/EDKII-Platform/blob/main/2023.10.9%20Beta%20Firmware%20License%20(source%20code)%20v.2.pdf).
+By using this beta firmware, you agree to the terms and conditions of the [Beta Firmware license agreement](https://github.com/openSIL/EDKII-Platform/blob/main/2023.10.9%20Beta%20Firmware%20License%20(source%20code)%20v.2.pdf).
 
 
 ### Intended usage
