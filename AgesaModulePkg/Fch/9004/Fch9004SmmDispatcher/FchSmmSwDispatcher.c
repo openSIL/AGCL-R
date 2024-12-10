@@ -21,7 +21,6 @@
 
 extern UINT16 mSwSmiCmdAddress;
 
-EFI_SMM_CPU_PROTOCOL         *mSmmCpuProtocol;
 FCH_SMM_SW_NODE              *HeadFchSmmSwNodePtr;
 
 EFI_STATUS
